@@ -1,0 +1,25 @@
+.form-wrapper {
+  background: #f0f0f0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  max-width: 500px;
+  width: 100%;
+  height: fit-content;
+  padding: 20px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form-container {
+  width: 100%;
+}
+
+.form-page--container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  height: 600px;
+}
