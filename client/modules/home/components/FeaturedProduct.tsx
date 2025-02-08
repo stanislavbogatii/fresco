@@ -23,31 +23,32 @@ const FeaturedProduct = () => {
   };
 
   return (
-    <Container className="featured-product-container">
-      <div className="title">Featured products</div>
-      <Row xs={5} xxl={6}>
-        {products.length > 0 &&
-          products.map((product) => (
-            <Col key={product.id}>
-              <ProductCard product={product} />
-            </Col>
-          ))}
-      </Row>
-      {totalPage > 1 && (
-        <ReactPaginate
-          forcePage={pageNo}
-          previousLabel={'Previous'}
-          nextLabel={'Next'}
-          pageCount={totalPage}
-          onPageChange={changePage}
-          containerClassName={'pagination-container'}
-          previousClassName={'previous-btn'}
-          nextClassName={'next-btn'}
-          disabledClassName={'pagination-disabled'}
-          activeClassName={'pagination-active'}
-        />
-      )}
-    </Container>
+    // <Container className="featured-product-container">
+    //   <div className="title">Featured products</div>
+    //   <Row xs={5} xxl={6}>
+    //     {products.length > 0 &&
+    //       products.map((product) => (
+    //         <Col key={product.id}>
+    //           <ProductCard product={product} />
+    //         </Col>
+    //       ))}
+    //   </Row>
+    //   {totalPage > 1 && (
+    //     <ReactPaginate
+    //       forcePage={pageNo}
+    //       previousLabel={'Previous'}
+    //       nextLabel={'Next'}
+    //       pageCount={totalPage}
+    //       onPageChange={changePage}
+    //       containerClassName={'pagination-container'}
+    //       previousClassName={'previous-btn'}
+    //       nextClassName={'next-btn'}
+    //       disabledClassName={'pagination-disabled'}
+    //       activeClassName={'pagination-active'}
+    //     />
+    //   )}
+    // </Container>
+    <></>
   );
 };
 

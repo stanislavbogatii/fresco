@@ -1,0 +1,17 @@
+.promo {
+  height: 100%;
+}
+
+.promo__link {
+  height: 100%;
+}
+
+.promo__link:hover .promo__img {
+  transform: scale(1.01);
+}
+
+.promo__img {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}

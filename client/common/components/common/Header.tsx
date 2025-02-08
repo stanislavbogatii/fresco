@@ -1,222 +1,96 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
-import { data_menu_top_no_login } from '@/asset/data/data_header_client';
-import { SEARCH_URL } from '@/common/constants/Common';
-import { useCartContext } from '@/context/CartContext';
-import { SearchSuggestion } from '@/modules/search/models/SearchSuggestion';
-import { getSuggestions } from '@/modules/search/services/SearchService';
-import { getCategoriesSuggestions } from '@/modules/catalog/services/CategoryService';
-import { useDebounce } from '@/utils/useDebounce';
+import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 
-type Props = {
-  children: React.ReactNode;
-};
+import Logo from '../Logo';
+import SearchForm from '../SearchForm';
+import LoginForm from '../LoginForm';
 
-const SUGGESTION_MIN = 3;
-const SUGGESTION_MAX = 10;
+import addUserIcon from '../../../asset/icons/add-user.svg';
+import userIcon from '../../../asset/icons/user.png';
+import arrowDown from '../../../asset/icons/arrow-down.svg';
+import newsIcon from '../../../asset/icons/news-icon.svg';
+import offersIcon from '../../../asset/icons/offers-icon.svg';
 
-const Header = ({ children }: Props) => {
-  const router = useRouter();
-  const { keyword: keywordParams } = router.query;
-  const formRef = useRef<HTMLFormElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [isExpand, setIsExpand] = useState(false);
-  const { numberCartItems } = useCartContext();
+const Header = () => {
+  const [isLoginFormOpen, setIsLoginFormOpen] = useState<boolean>(false);
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [lastScrollTop, setLastScrollTop] = useState<number>(0);
+  const [hasScrolled, setHasScrolled] = useState<boolean>(false);
+  const scrollThreshold = 148;
 
-  const [searchSuggestions, setSearchSuggestions] = useState<SearchSuggestion[]>([]);
-  const [categorySuggestions, setCategorySuggestions] = useState<string[]>([]);
-  const [searchInput, setSearchInput] = useState<string>('');
-
-  const keyword = useDebounce(searchInput, 300);
+  const openLoginForm = () => setIsLoginFormOpen(true);
+  const closeLoginForm = () => setIsLoginFormOpen(false);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (formRef.current && !formRef.current.contains(event.target as Node)) {
-        setShowDropdown(false);
+    if (!hasScrolled) {
+      setIsActive(true);
+    }
+
+    const handleScroll = () => {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (!hasScrolled) {
+        setHasScrolled(true);
       }
+
+      if (currentScroll > scrollThreshold) {
+        if (currentScroll > lastScrollTop) {
+          setIsActive(false);
+        } else {
+          setIsActive(true);
+        }
+      }
+
+      setLastScrollTop(currentScroll <= 0 ? 0 : currentScroll);
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
-
-  useEffect(() => {
-    if (keywordParams) {
-      setSearchInput(keywordParams as string);
-    }
-  }, [keywordParams]);
-
-  useEffect(() => {
-    if (keyword) {
-      fetchSearchSuggestions(keyword);
-    } else {
-      setSearchSuggestions([]);
-    }
-  }, [keyword]);
-
-  useEffect(() => {
-    const fetchTopCategories = async () => {
-      try {
-        const categories = await getCategoriesSuggestions();
-        setCategorySuggestions(categories);
-      } catch (error) {
-        console.error('Failed to fetch category suggestions', error);
-      }
-    };
-
-    fetchTopCategories();
-  }, []);
-
-  const fetchSearchSuggestions = (keyword: string) => {
-    getSuggestions(keyword)
-      .then((suggestions) => {
-        setSearchSuggestions(suggestions.productNames);
-      })
-      .catch((err) => {
-        console.error(`Failed to get search suggestions. ${err}`);
-      });
-  };
-
-  const handleInputFocus = () => {
-    setShowDropdown(true);
-  };
-
-  const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (searchInput.trim()) {
-      router.push(`${SEARCH_URL}/?keyword=${searchInput}`);
-    }
-    setShowDropdown(false);
-    inputRef.current?.blur();
-  };
+  }, [lastScrollTop, hasScrolled]);
 
   return (
-    <header>
-      <div className="container-header">
-        <nav className="top-bar">
-          <div className="top-bar-container container">
-            <div className="left-top-bar">Free shipping for standard order over $100</div>
-
-            <div className="right-top-bar d-flex h-full">
-              {data_menu_top_no_login.map((item) => (
-                <Link href={item.links} className="d-flex align-items-center px-4" key={item.id}>
-                  {item.icon && (
-                    <div className="icon-header-bell-question">
-                      <i className={item.icon}></i>
-                    </div>
-                  )}
-                  {item.name}
-                </Link>
-              ))}
-              <div className="d-flex align-items-center px-4">{children}</div>
-            </div>
+    <header className={`header ${isActive ? 'active' : ''}`}>
+      <div className="container">
+        <nav className="nav">
+          <div className="header__top">
+            <Logo />
+            <SearchForm />
+            <Link className="header__top-link" href="/register">
+              <Image src={addUserIcon} width={22} height={22} alt="add user" />
+              <span>Vreau cont B2B</span>
+            </Link>
+            <button className="header__btn" type="button" onClick={openLoginForm}>
+              <Image src={userIcon} width={20} height={20} alt="user" />
+              <span>Intra in contul tau</span>
+            </button>
           </div>
+          <ul className="header__list">
+            <li className="header__item">
+              <Link className="header__link" href="#">
+                Toate produsele
+                <Image src={arrowDown} width={15} height={8} alt="arrow down" />
+              </Link>
+            </li>
+            <li className="header__item">
+              <Image src={newsIcon} width={16} height={16} alt="news icon" />
+              <Link className="header__link" href="#">
+                Noutati
+              </Link>
+            </li>
+            <li className="header__item">
+              <Image src={offersIcon} width={16} height={16} alt="offers icon" />
+              <Link className="header__link" href="#">
+                Oferte Promotionale
+              </Link>
+            </li>
+          </ul>
         </nav>
-
-        <nav className="limiter-menu-desktop container">
-          {/* <!-- Logo desktop --> */}
-          <Link href="/" className="header-logo me-3">
-            <h3 className="text-black">TEST APP</h3>
-          </Link>
-
-          {/* <!-- Search --> */}
-          <div className="header-search flex-grow-1">
-            <div className="search-wrapper">
-              <form onSubmit={handleSubmitSearch} className="search-form" ref={formRef}>
-                <label htmlFor="header-search" className="search-icon">
-                  <i className="bi bi-search"></i>
-                </label>
-                <input
-                  id="header-search"
-                  ref={inputRef}
-                  className="search-input"
-                  placeholder="What you will find today?"
-                  onFocus={handleInputFocus}
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                />
-
-                {showDropdown && (
-                  <div className="search-auto-complete">
-                    <div className="suggestion">
-                      {searchSuggestions
-                        .slice(0, isExpand ? SUGGESTION_MAX : SUGGESTION_MIN)
-                        .map((item) => (
-                          <Link
-                            href={`${SEARCH_URL}/?keyword=${item.name}`}
-                            className="search-suggestion-item"
-                            key={item.name}
-                            onClick={() => {
-                              setSearchInput(item.name);
-                              setShowDropdown(false);
-                            }}
-                          >
-                            <div className="icon">
-                              <i className="bi bi-search"></i>
-                            </div>
-                            <div className="keyword">{item.name}</div>
-                          </Link>
-                        ))}
-                      {searchSuggestions.length > SUGGESTION_MIN && (
-                        <div className="search-suggestion-action">
-                          <span onClick={() => setIsExpand((prev) => !prev)}>
-                            {isExpand ? (
-                              <>
-                                Collapsed <i className="bi bi-chevron-up"></i>
-                              </>
-                            ) : (
-                              <>
-                                Expand <i className="bi bi-chevron-down"></i>
-                              </>
-                            )}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="bottom-widgets"></div>
-                  </div>
-                )}
-
-                <button type="submit" className="search-button">
-                  Search
-                </button>
-              </form>
-            </div>
-
-            <div className="search-suggestion">
-              {categorySuggestions.map((item) => (
-                <Link href={`${SEARCH_URL}/?keyword=${item.toLocaleLowerCase()}`} key={item}>
-                  <span>{item}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* <!-- Cart --> */}
-          <Link className="header-cart" href="/cart">
-            <div className="icon-cart">
-              <i className="bi bi-cart3"></i>
-            </div>
-            <div className="quantity-cart">{numberCartItems}</div>
-          </Link>
-          {/* <!-- Login --> */}
-          <Link className="header-cart" href="/login">
-            <div className="icon-cart">
-              <p>Login</p>
-            </div>
-          </Link>
-        </nav>
-
-        <nav className="limiter-menu-desktop container"></nav>
+        <LoginForm isOpen={isLoginFormOpen} onClose={closeLoginForm} />
       </div>
-
-      {showDropdown && <div className="container-layer"></div>}
-      <div className="lower-container"></div>
     </header>
   );
 };

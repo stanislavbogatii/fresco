@@ -1,12 +1,14 @@
 import Head from 'next/head';
 
+import CreateProfile from '@/modules/register/components/CreateProfile';
 
 const Register = () => {
   return (
     <>
       <Head>
-        <title>History</title>
+        <title>Register</title>
       </Head>
+      <CreateProfile />
     </>
   );
 };

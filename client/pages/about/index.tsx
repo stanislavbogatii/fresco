@@ -19,6 +19,7 @@ const About = () => {
       <Head>
         <title>About</title>
       </Head>
+      
       <BreadcrumbComponent props={crumb} />
     </>
   );

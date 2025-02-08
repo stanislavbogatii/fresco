@@ -1,0 +1,77 @@
+.register-form {
+  padding: 3rem;
+  background-color: #fefefa;
+  border: 0.0625rem solid #e2e6eb;
+  color: #231f20;
+  border-radius: 0.625rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.register-form__title {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  display: block;
+}
+
+.register-form__label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.register-form__input--cui {
+  max-width: 662px;
+}
+
+.register-form__items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.register-form__label-checkbox {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.register-form__checkbox {
+  width: 18px;
+  height: 18px;
+  border: 0.0625rem solid #d8dbde;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+}
+
+.register-form__checkbox::before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-image: url('../asset/icons/check-mark.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: 3;
+}
+
+.register-form__input-checkbox:checked + .register-form__checkbox {
+  background-color: #8db83f;
+  border-color: transparent;
+}
+
+.register-form__btn.btn {
+  display: block;
+  margin: 20px auto 0;
+  max-width: 300px;
+}

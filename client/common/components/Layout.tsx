@@ -16,11 +16,13 @@ export default function Layout({ children }: Props) {
         <meta name="description" content="Yet another shop storefront" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header>
-        <AuthenticationInfo />
-      </Header>
+      <div className="wrapper">
+        <Header>
+          <AuthenticationInfo />
+        </Header>
         <div className="body">{children}</div>
-      <Footer />
+        <Footer />
+      </div>
     </>
   );
 }

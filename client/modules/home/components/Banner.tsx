@@ -1,40 +1,115 @@
-import ImageWithFallBack from 'common/components/ImageWithFallback';
 import Link from 'next/link';
-import { Carousel, Container } from 'react-bootstrap';
+import Image from 'next/image';
 
-import mainBanner1 from '../../../asset/images/main-banner-1.jpg';
-import mainBanner2 from '../../../asset/images/main-banner-2.jpg';
-import mainBanner3 from '../../../asset/images/main-banner-3.jpg';
-import subBanner from '../../../asset/images/sub-banner.jpg';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 
-const listMainBanner = [mainBanner1.src, mainBanner2.src, mainBanner3.src];
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import 'swiper/css/effect-coverflow';
+
+import firstSlide from '../../../asset/images/main-slider/slide-1.jpg';
+import secondSlide from '../../../asset/images/main-slider/slide-2.webp';
+import thirdSlide from '../../../asset/images/main-slider/slide-3.webp';
+import fourthSlide from '../../../asset/images/main-slider/slide-4.jpg';
+import fifthSlide from '../../../asset/images/main-slider/slide-5.webp';
+import sixthSlide from '../../../asset/images/main-slider/slide-6.jpg';
 
 const Banner = () => {
   return (
-    <Container className="home-banner-container">
-      <div className="home-banner-wrapper">
-        <div className="main-banner">
-          <Carousel>
-            {listMainBanner.map((item, index) => (
-              <Carousel.Item key={item}>
-                <Link href="/products" key={item}>
-                  <ImageWithFallBack
-                    className="d-block w-100"
-                    src={item}
-                    alt={`Banner ${index + 1}`}
-                  />
-                </Link>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        </div>
-        <div className="sub-banner">
-          <Link href="/products">
-            <ImageWithFallBack src={subBanner.src} alt={`sub-banner`} />
-          </Link>
-        </div>
+    <div className="container-fluid section">
+      <div className="main-banner">
+        <Swiper
+          modules={[EffectCoverflow, Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+          spaceBetween={20}
+          effect={'coverflow'}
+          slidesPerView={2}
+          loop={true}
+          centeredSlides={true}
+          pagination={{ clickable: true }}
+          navigation
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 2.5,
+          }}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+        >
+          <SwiperSlide>
+            <Link className="swiper-link" href="#">
+              <Image
+                className="swiper-img"
+                src={firstSlide}
+                width={936}
+                height={490}
+                alt="promo banner"
+              />
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link className="swiper-link" href="#">
+              <Image
+                className="swiper-img"
+                src={secondSlide}
+                width={936}
+                height={490}
+                alt="promo banner"
+              />
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link className="swiper-link" href="#">
+              <Image
+                className="swiper-img"
+                src={thirdSlide}
+                width={936}
+                height={490}
+                alt="promo banner"
+              />
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link className="swiper-link" href="#">
+              <Image
+                className="swiper-img"
+                src={fourthSlide}
+                width={936}
+                height={490}
+                alt="promo banner"
+              />
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link className="swiper-link" href="#">
+              <Image
+                className="swiper-img"
+                src={fifthSlide}
+                width={936}
+                height={490}
+                alt="promo banner"
+              />
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link className="swiper-link" href="#">
+              <Image
+                className="swiper-img"
+                src={sixthSlide}
+                width={936}
+                height={490}
+                alt="promo banner"
+              />
+            </Link>
+          </SwiperSlide>
+        </Swiper>
       </div>
-    </Container>
+    </div>
   );
 };
 

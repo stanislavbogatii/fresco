@@ -1,5 +1,5 @@
 import FeaturedProduct from './FeaturedProduct';
-import Category from './Category';
+import Category from './Categories';
 import Banner from './Banner';
 
 export { FeaturedProduct, Category, Banner };

@@ -1,0 +1,15 @@
+.edge {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.edge__title {
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.edge__text {
+  font-size: 14px;
+  font-weight: 300;
+}

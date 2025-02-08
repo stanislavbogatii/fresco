@@ -1,93 +1,57 @@
-/*==================================================================
-    TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
-==================================================================*/
-.cl0 {
-  color: #fff;
+.footer__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 88px 0;
+  border-bottom: 1px solid #d8dbde;
 }
 
-.cl1 {
-  color: #717fe0;
-}
-
-.cl6 {
-  color: #888;
-}
-
-.cl7 {
-  color: #b2b2b2;
-}
-
-/*==================================================================
-   BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND 
-==================================================================*/
-.bg-none {
-  background-color: transparent;
-}
-
-.bg1 {
-  background-color: #717fe0;
-}
-
-.bg3 {
-  background-color: #222;
-}
-
-/*==================================================================
-       BORDER BORDER  BORDER  BORDER  BORDER  BORDER  BORDER  BORDER
-==================================================================*/
-.bor-radius {
-  border-radius: 23px;
-}
-
-/*==================================================================
- HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW HOW 
-==================================================================*/
-.plh1::-webkit-input-placeholder {
-  color: #b2b2b2;
-}
-.plh1:-moz-placeholder {
-  color: #b2b2b2;
-}
-.plh1::-moz-placeholder {
-  color: #b2b2b2;
-}
-.plh1:-ms-input-placeholder {
-  color: #b2b2b2;
-}
-
-/*---------------------------------------------*/
-.wrap-input {
-  position: relative;
-  border-bottom: 2px solid rgba(204, 204, 204, 0.1);
-}
-
-.input {
-  background-color: transparent;
+.footer__list {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  max-width: 640px;
   width: 100%;
 }
 
-.focus-input {
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  background-color: #6774d5;
-  left: 0;
-  bottom: -2px;
+.footer__name {
+  display: block;
+  margin: 0 0 1.25rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 700;
 }
 
-.input:focus + .focus-input {
-  width: 100%;
+.footer__link {
+  line-height: 2;
+  font-weight: 300;
+  font-size: 0.875rem;
+  transition: color 0.5s ease;
 }
 
-/*//////////////////////////////////////////////////////////////////
-[ Hover ]*/
-.hov-cl:hover {
-  color: #717fe0;
+.footer__link:hover {
+  color: #e95c48;
 }
 
-/*---------------------------------------------*/
-.hov-btn:hover {
-  border-color: #fff;
-  background-color: #fff;
-  color: #717fe0;
+.footer__cards {
+  margin-top: 15px;
+}
+
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 24px 0 48px;
+}
+
+.footer__copyright {
+  font-size: 14px;
+}
+
+.footer__powered {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
