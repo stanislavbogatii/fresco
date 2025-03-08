@@ -1,0 +1,30 @@
+.feedback-form {
+  max-width: 668px;
+  width: 100%;
+  padding: 3rem;
+  background-color: #f4f6f7;
+  border-radius: 0.625rem;
+}
+
+.feedback-form__title {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.25;
+  display: block;
+  margin-bottom: 24px;
+}
+
+.feedback-form__text {
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.feedback-form__textarea.input {
+  padding: 1.25rem;
+  min-height: 8.75rem;
+}
+
+.feedback-form__btn.btn {
+  max-width: 165px;
+}

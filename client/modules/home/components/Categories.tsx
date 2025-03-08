@@ -4,31 +4,8 @@ import Promo from '@/common/components/Promo';
 const Categories = () => {
   return (
     <section className="section categories">
-      <div className="container">
-        <h2 className="title categories__title">Tip produs</h2>
-        <ul className="categories__list">
-          <li className="categories__item">
-            <Category />
-          </li>
-          <li className="categories__item">
-            <Category />
-          </li>
-          <li className="categories__item">
-            <Category />
-          </li>
-          <li className="categories__item">
-            <Category />
-          </li>
-          <li className="categories__item">
-            <Category />
-          </li>
-          <li className="categories__item">
-            <Category />
-          </li>
-          <li className="categories__item">
-            <Category />
-          </li>
-        </ul>
+      <div className="">
+        <h2 className="title sr-only">Promo section</h2>
         <ul className="categories__promo">
           <li className="categories__elem">
             <Promo />

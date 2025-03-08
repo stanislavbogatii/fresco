@@ -29,6 +29,13 @@ import '../styles/edge.css'
 import '../styles/productCard.css'
 import '../styles/news.css'
 import '../styles/partners.css'
+import '../styles/socialJoin.css'
+import '../styles/filterbar.css'
+import '../styles/consultant.css'
+import '../styles/aboutContent.css'
+import '../styles/faqBox.css'
+import '../styles/feedbackForm.css'
+import '../styles/contactBlock.css'
 
 import Layout from '@/common/components/Layout';
 import { AppProvider } from '@/context/AppContext';

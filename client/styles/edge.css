@@ -1,12 +1,12 @@
 .edge {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 15px;
 }
 
 .edge__title {
   font-weight: 700;
-  margin-bottom: 2px;
+  margin: 7px 0 5px;
 }
 
 .edge__text {

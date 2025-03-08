@@ -11,17 +11,13 @@ const Popular = () => {
   return (
     <section className="popular section">
       <div className="container">
-        <h2 className="title">Descopera produsele noastre de top</h2>
+        <h2 className="title">Produse recomandate</h2>
         <div className="product-slider">
           <Swiper
             modules={[Pagination, Autoplay]}
             spaceBetween={24}
-            slidesPerView={5}
+            slidesPerView={4}
             pagination={{ clickable: true }}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
           >
             <SwiperSlide>
               <ProductCard />

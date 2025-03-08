@@ -130,9 +130,23 @@
 }
 
 .login-form__back {
-  display: flex;
-  align-items: center;
-  gap: 5px;
   margin-left: auto;
   margin-top: auto;
+  padding-left: 17px;
+  position: relative;
+}
+
+.login-form__back::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 12px;
+  height: 12px;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url('../asset/icons/back-arrow.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }

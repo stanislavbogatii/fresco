@@ -1,17 +1,6 @@
 import Head from 'next/head';
-import BreadcrumbComponent from '../../common/components/BreadcrumbComponent';
-import { BreadcrumbModel } from '../../modules/breadcrumb/model/BreadcrumbModel';
 
-const crumb: BreadcrumbModel[] = [
-  {
-    pageName: 'Home',
-    url: '/',
-  },
-  {
-    pageName: 'About',
-    url: '/about',
-  },
-];
+import AboutContent from './components/AboutContent';
 
 const About = () => {
   return (
@@ -19,8 +8,7 @@ const About = () => {
       <Head>
         <title>About</title>
       </Head>
-      
-      <BreadcrumbComponent props={crumb} />
+      <AboutContent />
     </>
   );
 };

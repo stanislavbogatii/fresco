@@ -1,0 +1,75 @@
+.contact-block {
+  max-width: 420px;
+  padding-top: 48px;
+}
+
+.contact-block__title {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.25;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.contact-block__list {
+  margin-bottom: 25px;
+}
+
+.contact-block__list-item {
+  padding-left: 25px;
+  line-height: 21px;
+  position: relative;
+}
+
+.contact-block__list-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.contact-block__list-item::before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; 
+  width: 16px;
+  height: 16px; 
+}
+
+.contact-block__list-item--time::before {
+  background-image: url('../asset/icons/time.svg');
+}
+
+.contact-block__list-item--email::before {
+  background-image: url('../asset/icons/email.svg');
+}
+
+.contact-block__list-item--tel::before {
+  background-image: url('../asset/icons/phone.svg');
+}
+
+.contact-block__list-link {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.contact-block__list-link:hover {
+  text-decoration: underline;
+}
+
+.contact-block__item {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.contact-block__item:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.contact-block__item dd {
+  font-weight: 700;
+}

@@ -1,17 +1,8 @@
 import Head from 'next/head';
-import BreadcrumbComponent from '../../common/components/BreadcrumbComponent';
-import { BreadcrumbModel } from '../../modules/breadcrumb/model/BreadcrumbModel';
 
-const crumb: BreadcrumbModel[] = [
-  {
-    pageName: 'Home',
-    url: '/',
-  },
-  {
-    pageName: 'Contact',
-    url: '/contact',
-  },
-];
+import FaqBox from '@/common/components/FaqBox';
+import FeedbackForm from '@/common/components/FeedbackForm';
+import ContactBlock from '@/common/components/ContactBlock';
 
 const Contact = () => {
   return (
@@ -19,7 +10,16 @@ const Contact = () => {
       <Head>
         <title>Contact</title>
       </Head>
-      <BreadcrumbComponent props={crumb} />
+
+      <FaqBox />
+      <section className="contacts section">
+        <div className="container">
+          <div className="contacts__inner">
+            <ContactBlock />
+            <FeedbackForm />
+          </div>
+        </div>
+      </section>
     </>
   );
 };

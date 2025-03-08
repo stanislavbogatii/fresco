@@ -15,25 +15,13 @@ const News = () => {
   return (
     <section className="news section">
       <div className="container">
-        <div className="news__box">
-          <h2 className="title news__title">Noutăți</h2>
-          <Link className="news__link" href="#">
-            Vezi toate
-          </Link>
-        </div>
+        <h2 className="title ">Produse vizualizate recent</h2>
         <div className="product-slider news__slider">
-          <Link className="news__slider-link" href="#">
-            <Image className='news__slider-banner' src={newsBanner} width={268} height={422} alt="news banner" />
-          </Link>
           <Swiper
             modules={[Pagination, Autoplay]}
             spaceBetween={24}
             slidesPerView={4}
             pagination={{ clickable: true }}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
           >
             <SwiperSlide>
               <ProductCard />

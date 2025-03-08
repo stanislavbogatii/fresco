@@ -1,0 +1,17 @@
+.social-join {
+  max-width: 250px;
+}
+
+.social-join__title {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.social-join__list {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+

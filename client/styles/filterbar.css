@@ -1,0 +1,134 @@
+.filterbar__title {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px;
+  border-bottom: 0.0625rem solid #e1e1e1;
+}
+
+.filterbar__list {
+  padding: 15px 0;
+}
+
+.filterbar__item:last-child .filterbar__btn {
+  border-bottom: none;
+}
+
+.filterbar__btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 20px;
+  width: 100%;
+  font-size: 16px;
+  background-color: #f1f3f4;
+  line-height: 1;
+  position: relative;
+  padding-left: 38px;
+  padding-right: 40px;
+}
+
+.filterbar__btn::before {
+  content: '';
+  position: absolute;
+  display: block;
+  background-image: url('../asset/icons/down-arrow.svg');
+  width: 13px;
+  height: 13px;
+  top: 50%;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%) rotate(-90deg);
+  transition: transform 0.5s ease;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.filterbar__btn.active::before {
+  transform: translateY(-50%);
+}
+
+.filterbar__btn::after{
+  content: '';
+  position: absolute;
+  display: block;
+  width: 18px;
+  height: 18px;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.filterbar__btn.filterbar__btn--ingrediente::after {
+  background-image: url('../asset/icons/ingrediente.svg');
+}
+
+.filterbar__btn.filterbar__btn--semipreparate::after {
+  background-image: url('../asset/icons/semipreparate.svg');
+}
+
+.filterbar__btn.filterbar__btn--brutarie::after {
+  background-image: url('../asset/icons/brutarie.svg');
+}
+
+.filterbar__btn.filterbar__btn--deserturi::after {
+  background-image: url('../asset/icons/deserturi.svg');
+}
+
+.filterbar__btn.filterbar__btn--bauturi::after {
+  background-image: url('../asset/icons/bauturi.svg');
+}
+
+.filterbar__btn.filterbar__btn--echipamente::after {
+  background-image: url('../asset/icons/echipamente.svg');
+}
+
+.filterbar__btn.filterbar__btn--servire::after {
+  background-image: url('../asset/icons/servire.svg');
+}
+
+.filterbar__btn.filterbar__btn--consumabile::after {
+  background-image: url('../asset/icons/consumabile.svg');
+}
+
+.filterbar__accordion {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0 24px 0;
+  transition: grid-template-rows 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+.filterbar__accordion.active {
+  opacity: 1;
+  grid-template-rows: 1fr;
+  padding: 0 32px 15px;
+}
+
+.filterbar__accordion-item:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.filterbar__accordion-item {
+  padding-left: 18px;
+  position: relative;
+}
+
+.filterbar__accordion-item::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #77ab1a;
+  border-radius: 50%;
+  left: 0;
+  top: 4px;
+}
