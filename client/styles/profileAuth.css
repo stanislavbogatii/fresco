@@ -1,0 +1,139 @@
+.profile-auth {
+  width: 100%;
+}
+
+.profile-auth__password-item {
+  padding: 24px 24px 0 24px;
+  border: 1px solid #d8dbde;
+  border-radius: 10px;
+}
+
+.profile-auth__password-item:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.profile-auth__title {
+  display: block;
+  font-size: 16px;
+  color: #231f20;
+  margin-bottom: 12px;
+}
+
+.profile-auth__descr {
+  display: block;
+  color: #76859a;
+  margin-bottom: 35px;
+}
+
+.profile-auth__btn {
+  font-size: 14px;
+  line-height: 1;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.reset-password,
+.session {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  opacity: 0;
+  margin-bottom: 0;
+  transition: grid-template-rows 0.3s ease, opacity 0.3s ease, margin-bottom 0.5s ease;
+}
+
+.reset-password.active,
+.session.active {
+  opacity: 1;
+  grid-template-rows: 1fr;
+  margin-bottom: 24px;
+}
+
+.reset-password__text {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.reset-password__descr {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.reset-password__list {
+  display: grid;
+  grid-template-columns: repeat(2, 150px);
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.reset-password__item {
+  padding-left: 30px;
+  position: relative;
+}
+
+.reset-password__item::before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background-image: url('../asset/icons/error-icon.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.reset-password__btn.btn {
+  max-width: 200px;
+}
+
+.session {
+  border: 1px solid #d8dbde;
+  max-width: 400px;
+  border-radius: 10px;
+}
+
+.session__text {
+  display: block;
+  color: #8db83f;
+  border-bottom: 1px solid #d8dbde;
+  padding: 16px 16px 16px 36px;
+  position: relative;
+}
+
+.session__text::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 12px;
+  height: 12px;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url('../asset/icons/star-session.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.session__box {
+  padding: 24px;
+}
+
+.session__title {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.session__item {
+  font-size: 14px;
+  display: flex;
+  gap: 5px;
+}
+
+.session__item:not(:last-child) {
+  margin-bottom: 5px;
+}

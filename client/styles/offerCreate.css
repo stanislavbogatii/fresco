@@ -1,0 +1,110 @@
+.offer-create {
+  width: 100%;
+}
+
+.offer-create__text {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.offer-create__textarea {
+  padding: 1.25rem;
+  height: 100px;
+}
+
+.offer-create__list {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  color: #fff;
+  background-color: #333;
+  border-radius: 10px;
+}
+
+.offer-create__list-item {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 15px;
+}
+
+.offer-create__list-item {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.offer-create__nothing {
+  display: block;
+  font-size: 28px;
+  font-weight: 500;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.offer-create__items {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-radius: 10px;
+  border: 1px solid #d8dbde;
+  margin-bottom: 15px;
+}
+
+.offer-create__item {
+  padding: 12px;
+}
+
+.offer-create__item:not(:last-child) {
+  border-right: 1px solid #d8dbde;
+}
+
+.offer-create__item-head {
+  display: block;
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 2px;
+}
+
+.offer-create__item-footer {
+  font-size: 20px;
+}
+
+.offer-create__label-checkbox {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.offer-create__checkbox {
+  width: 18px;
+  height: 18px;
+  border: 0.0625rem solid #d8dbde;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+}
+
+.offer-create__checkbox::before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-image: url('../asset/icons/check-mark.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: 3;
+}
+
+.offer-create__input-checkbox:checked + .offer-create__checkbox {
+    background-color: #8db83f;
+    border-color: transparent;
+}
+
+.offer-create__btn {
+  max-width: 200px;
+}

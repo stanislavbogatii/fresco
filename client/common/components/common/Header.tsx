@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Logo from '../Logo';
 import SearchForm from '../SearchForm';
 import LoginForm from '../LoginForm';
+import { routes } from '@/utils/routes';
 
 const Header = ({ children }: { children?: React.ReactNode }) => {
   const [isLoginFormOpen, setIsLoginFormOpen] = useState<boolean>(false);
@@ -52,7 +53,8 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
           <div className="header__top">
             <Logo />
             <SearchForm />
-            <Link className="header__top-link" href="/register">
+            <Link className="header__top-user" href={routes.profile}>Salut, Calin!</Link>
+            <Link className="header__top-link" href={routes.register}>
               <span>Vreau cont B2B</span>
             </Link>
             <button className="header__btn" type="button" onClick={openLoginForm}>
@@ -61,7 +63,7 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
           </div>
           <ul className="header__list">
             <li className="header__item">
-              <Link className="header__link header__link--about" href="/about">
+              <Link className="header__link header__link--about" href={routes.about}>
                 Despre noi
               </Link>
             </li>
@@ -76,7 +78,7 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
               </Link>
             </li>
             <li className="header__item">
-              <Link className="header__link header__link--contacts" href="/contact">
+              <Link className="header__link header__link--contacts" href={routes.contact}>
                 Contact
               </Link>
             </li>

@@ -1,0 +1,64 @@
+.user-sidebar {
+  max-width: 200px;
+  width: 100%;
+}
+
+.user-sidebar__user-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.user-sidebar__welcome {
+  font-size: 20px;
+  line-height: 1;
+  color: #231f20;
+}
+
+.user-sidebar__welcome span {
+  font-size: 16px;
+  color: #727273;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.user-sidebar__item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.user-sidebar__link {
+  font-size: 16px;
+  padding: 12px 0 12px 20px;
+  position: relative;
+  transition: font-weight 0.5s ease;
+}
+
+.user-sidebar__link:hover {
+  font-weight: 700;
+}
+
+.user-sidebar__link.active {
+  font-weight: 700;
+}
+
+.user-sidebar__link.active::before {
+  height: 100%;
+}
+
+.user-sidebar__link::before {
+  content: '';
+  position: absolute;
+  display: block;
+  background-color: #77ab1a;
+  width: 2px;
+  height: 0;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: height 0.5s ease;
+}
+
+.user-sidebar__link:hover::before {
+  height: 100%;
+}

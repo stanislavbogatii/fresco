@@ -1,34 +1,71 @@
-import { useRouter } from 'next/router';
-import { CgProfile } from 'react-icons/cg';
-import { TiContacts } from 'react-icons/ti';
+import Image from 'next/image';
+import Link from 'next/link';
 
-type Props = {
-  type: String;
-};
-const UserProfileLeftSideBar = ({ type }: Props) => {
+import User from '../../asset/icons/user-img.svg';
+import { useRouter } from 'next/router';
+import { routes } from '@/utils/routes';
+
+const UserProfileLeftSideBar = () => {
   const router = useRouter();
+
   return (
-    <aside id="drawer">
-      <div
-        className="left-menu-element font-weight-black text-center text-white p-3 d-flex justify-content-start align-items-center"
-        onClick={() => {
-          router.push('/profile');
-        }}
-        style={{ cursor: 'pointer', background: type == 'profile' ? '#eeeeee' : '' }}
-      >
-        <CgProfile style={{ fontSize: '30px', marginRight: '10px', color: '#666666' }} />
-        <h5>User Profile</h5>
+    <aside className="user-sidebar">
+      <div className="user-sidebar__user-box">
+        <Image className="user-sidebar__img" src={User} width={64} height={64} alt="Calin" />
+        <strong className="user-sidebar__welcome">
+          <span>Salut,</span> Calin!
+        </strong>
       </div>
-      <div
-        className="left-menu-element font-weight-black text-center text-white p-3 d-flex justify-content-start align-items-center"
-        onClick={() => {
-          router.push('/address');
-        }}
-        style={{ cursor: 'pointer', background: type == 'address' ? '#eeeeee' : '' }}
-      >
-        <TiContacts style={{ fontSize: '30px', marginRight: '10px', color: '#666666' }} />
-        <h5>Address</h5>
-      </div>
+      <ul className="user-sidebar__list">
+        <li className="user-sidebar__item">
+          <Link
+            className={`user-sidebar__link ${
+              router.pathname === routes.profile || router.pathname === routes.profile_edit
+                ? 'active'
+                : ''
+            }`}
+            href={routes.profile}
+          >
+            Datele mele
+          </Link>
+        </li>
+        <li className="user-sidebar__item">
+          <Link
+            className={`user-sidebar__link ${
+              router.pathname === routes.profile_orders ? 'active' : ''
+            }`}
+            href={routes.profile_orders}
+          >
+            Comenzile mele
+          </Link>
+        </li>
+        <li className="user-sidebar__item">
+          <Link
+            className={`user-sidebar__link ${router.pathname === routes.profile_auth && 'active'}`}
+            href={routes.profile_auth}
+          >
+            Autentificare
+          </Link>
+        </li>
+        <li className="user-sidebar__item">
+          <Link
+            className={`user-sidebar__link ${
+              router.pathname === routes.profile_organization && 'active'
+            }`}
+            href={routes.profile_organization}
+          >
+            Organizatia mea
+          </Link>
+        </li>
+        <li className="user-sidebar__item">
+          <Link
+            className={`user-sidebar__link ${router.pathname === routes.profile_offer || router.pathname === routes.profile_offer_create ? 'active' : ''}`}
+            href={routes.profile_offer}
+          >
+            Oferta comanda
+          </Link>
+        </li>
+      </ul>
     </aside>
   );
 };

@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../styles/reset.css'
 import '../styles/spinner.css';
 import '../styles/completePayment.css';
-import '../styles/MyOrder.css';
+import '../styles/MyOrders.css';
 import '../styles/Footer.css';
 import '../styles/Header.css';
 import '../styles/cart.css';
@@ -36,6 +36,13 @@ import '../styles/aboutContent.css'
 import '../styles/faqBox.css'
 import '../styles/feedbackForm.css'
 import '../styles/contactBlock.css'
+import '../styles/userProfileLeftSideBar.css'
+import '../styles/userInfo.css'
+import '../styles/profileEdit.css'
+import '../styles/profileAuth.css'
+import '../styles/profileOrganization.css';
+import '../styles/profileOffer.css';
+import '../styles/offerCreate.css';
 
 import Layout from '@/common/components/Layout';
 import { AppProvider } from '@/context/AppContext';

@@ -1,89 +1,68 @@
-import { NextPage } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import { UPDATE_SUCCESSFULLY } from '../../common/constants/Common';
-import { Input } from '../../common/items/Input';
-import { Customer } from '../../modules/profile/models/Customer';
-import { ProfileRequest } from '../../modules/profile/models/ProfileRequest';
-import { getMyProfile, updateCustomer } from '../../modules/profile/services/ProfileService';
-import { useRouter } from 'next/router';
 import ProfileLayout from '@/common/components/ProfileLayout';
-import { BreadcrumbModel } from '@/modules/breadcrumb/model/BreadcrumbModel';
+import { RouteModule } from 'next/dist/server/future/route-modules/route-module';
 
-const crumb: BreadcrumbModel[] = [
-  {
-    pageName: 'Home',
-    url: '/',
-  },
-  {
-    pageName: 'Profile',
-    url: '#',
-  },
-];
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { routes } from '@/utils/routes';
 
-const Profile: NextPage = () => {
-  const { handleSubmit, register } = useForm<Customer>();
-  const [customer, setCustomer] = useState<Customer>();
-
-  useEffect(() => {
-    getMyProfile()
-      .then((data) => {
-        setCustomer(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const onSubmit = async (data: any, event: any) => {
-    const request: ProfileRequest = {
-      firstName: event.target.firstName.value,
-      lastName: event.target.lastName.value,
-      email: event.target.email.value,
-    };
-    updateCustomer(request).then(async (_res) => {
-      toast.success(UPDATE_SUCCESSFULLY);
-    });
-  };
-
+const ProfileInfo = () => {
+  const router = useRouter();
+  
   return (
-    <ProfileLayout breadcrumb={crumb} title="Profile" menuActive="profile">
-      <form onSubmit={handleSubmit(onSubmit)} className="w-75">
-        <Input
-          labelText="Username"
-          field="username"
-          defaultValue={customer?.username}
-          register={register}
-          disabled
-        />
-        <Input
-          labelText="First name"
-          field="firstName"
-          defaultValue={customer?.firstName}
-          register={register}
-        />
-        <Input
-          labelText="Last name"
-          field="lastName"
-          defaultValue={customer?.lastName}
-          register={register}
-        />
-        <Input labelText="Email" field="email" defaultValue={customer?.email} register={register} />
-        <div className="text-center">
-          <button className="btn btn-primary" type="submit">
-            Update
-          </button>
-          <Link href="/">
-            <button className="btn btn-secondary m-3">Cancel</button>
-          </Link>
-        </div>
-      </form>
+    <ProfileLayout title="Datele mele">
+      <div className="user-info">
+        <ul className="user-info__list">
+          <li className="user-info__item">
+            <strong className="user-info__name">Prenume</strong>
+            <span className="user-info__text">CALIN</span>
+          </li>
+          <li className="user-info__item">
+            <strong className="user-info__name">Nume</strong>
+            <span className="user-info__text">RUSU</span>
+          </li>
+          <li className="user-info__item">
+            <strong className="user-info__name">E-mail</strong>
+            <span className="user-info__text">calin.rusu10@gmail.com</span>
+          </li>
+          <li className="user-info__item">
+            <strong className="user-info__name">Gen</strong>
+            <span className="user-info__text">-</span>
+          </li>
+          <li className="user-info__item">
+            <strong className="user-info__name">Data nașterii</strong>
+            <span className="user-info__text">-</span>
+          </li>
+          <li className="user-info__item">
+            <strong className="user-info__name">Telefon</strong>
+            <span className="user-info__text">0756225376</span>
+          </li>
+          <li className="user-info__item">
+            <strong className="user-info__name">Nume companie</strong>
+            <span className="user-info__text">BRUTARIA FERMECATA SRL</span>
+          </li>
+          <li className="user-info__item">
+            <strong className="user-info__name">Denumire comercială</strong>
+            <span className="user-info__text">MD4478</span>
+          </li>
+          <li className="user-info__item">
+            <strong className="user-info__name">Cod fiscal (CUI)</strong>
+            <span className="user-info__text">RO46297598</span>
+          </li>
+          <li className="user-info__item">
+            <strong className="user-info__name">Telefon corporativ</strong>
+            <span className="user-info__text">-</span>
+          </li>
+          <li className="user-info__item">
+            <strong className="user-info__name">Inscripția de stat</strong>
+            <span className="user-info__text">-</span>
+          </li>
+        </ul>
+        <Link className="user-info__link" href={routes.profile_edit}>
+          Editează
+        </Link>
+      </div>
     </ProfileLayout>
   );
 };
 
-export default Profile;
+export default ProfileInfo;
