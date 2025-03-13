@@ -1,29 +1,30 @@
-import { getMe, register } from '@/modules/register/services/RegisterServcie';
-import { cookies } from 'next/headers';
+import { useUserInfoContext } from '@/context/UserInfoContext';
+import { signup } from '@/modules/register/services/RegisterServcie';
+import { routes } from '@/utils/routes';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
+  const { fetchUserInfo } = useUserInfoContext();
   
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
-    const data = await register({password, email});
+    const data = await signup({password, email});
 
     if (data && data?.access_token) {
       document.cookie = `access_token=${data.access_token}; path=/; max-age=${60 * 60 * 24 * 7}`;
+      fetchUserInfo();
+      router.push(routes.profile);
     }
   }
 
-  const handleGetUser = async () => {
-    const me = await getMe();
-    console.log(me);
-  }
 
   return (
     <>
-      <button onClick={handleGetUser}>get user</button>
       <form onSubmit={handleRegister} className="register-form">
         <strong className="register-form__title">Detalii companie </strong>
         <label className="register-form__label">

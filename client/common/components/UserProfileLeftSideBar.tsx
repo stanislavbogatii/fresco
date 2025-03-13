@@ -4,9 +4,18 @@ import Link from 'next/link';
 import User from '../../asset/icons/user-img.svg';
 import { useRouter } from 'next/router';
 import { routes } from '@/utils/routes';
+import { useUserInfoContext } from '@/context/UserInfoContext';
 
 const UserProfileLeftSideBar = () => {
   const router = useRouter();
+  const { fetchUserInfo } = useUserInfoContext();
+
+  const handleDeconect = (e: any) => {
+    e.preventDefault();
+    document.cookie = "access_token=; path=/; max-age=0";
+    fetchUserInfo();
+    router.push(routes.home);
+  }
 
   return (
     <aside className="user-sidebar">
@@ -63,6 +72,15 @@ const UserProfileLeftSideBar = () => {
             href={routes.profile_offer}
           >
             Oferta comanda
+          </Link>
+        </li>
+        <li className="user-sidebar__item">
+          <Link
+            onClick={handleDeconect}
+            className={`user-sidebar__link ${router.pathname === routes.profile_offer || router.pathname === routes.profile_offer_create ? 'active' : ''}`}
+            href={routes.profile_offer}
+          >
+            Deconectare
           </Link>
         </li>
       </ul>

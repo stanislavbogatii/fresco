@@ -3,13 +3,34 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 import loginBanner from '../../asset/images/login-banner.png';
+import { signin } from '@/modules/register/services/RegisterServcie';
+import { useRouter } from 'next/router';
+import { routes } from '@/utils/routes';
+import { useUserInfoContext } from '@/context/UserInfoContext';
 
 const LoginForm = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const [isAuthFormOpen, setIsAuthFormOpen] = useState<boolean>(false);
   const [startAnimation, setStartAnimation] = useState<boolean>(false);
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const router = useRouter();
+  const { fetchUserInfo } = useUserInfoContext();
 
   const openAuthForm = () => setIsAuthFormOpen(true);
   const closeAuthForm = () => setIsAuthFormOpen(false);
+
+  const handleSignIn = async (e: any) => {
+    e.preventDefault();
+    if (password && email) {
+      const data = await signin({email, password});
+      if (data && data?.access_token) {
+        document.cookie = `access_token=${data.access_token}; path=/; max-age=${60 * 60 * 24 * 7}`;
+        fetchUserInfo();
+        onClose();
+        router.push(routes.profile);
+      }
+    }
+  }
 
   useEffect(() => {
     if (isOpen) setStartAnimation(true);
@@ -32,10 +53,10 @@ const LoginForm = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
           height={386}
           alt="login-form-decor"
         />
-        <form className="login-form__shape login-form__enter" action="#">
+        <form className="login-form__shape login-form__enter" onSubmit={handleSignIn}>
           <strong className="login-form__title">Salut și bine ai revenit!</strong>
-          <input className="login-form__input" type="email" placeholder="Email companie" />
-          <input className="login-form__input" type="password" placeholder="Adaugă-ti parola" />
+          <input className="login-form__input" type="email" placeholder="Email companie" onChange={(e:any) => setEmail(e.target.value)}/>
+          <input className="login-form__input" type="password" placeholder="Adaugă-ti parola" onChange={(e:any) => setPassword(e.target.value)} />
           <button className="login-form__btn" type="button" onClick={openAuthForm}>
             Seteaza / Reseteaza parola
           </button>
