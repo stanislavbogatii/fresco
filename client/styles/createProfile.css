@@ -1,3 +1,7 @@
+.banner {
+  height: auto;
+}
+
 .register-form {
   padding: 3rem;
   background-color: #fefefa;
@@ -40,6 +44,7 @@
 }
 
 .register-form__checkbox {
+  flex-shrink: 0;
   width: 18px;
   height: 18px;
   border: 0.0625rem solid #d8dbde;
@@ -74,4 +79,15 @@
   display: block;
   margin: 20px auto 0;
   max-width: 300px;
+}
+
+@media (max-width: 680px) {
+  .register-form__items {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0;
+  }
+
+  .register-form {
+    padding: 24px;
+  }
 }

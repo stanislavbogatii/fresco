@@ -19,97 +19,121 @@ import sixthSlide from '../../../asset/images/main-slider/slide-6.jpg';
 
 const Banner = () => {
   return (
-    <div className="container-fluid section">
-      <div className="main-banner">
-        <Swiper
-          modules={[EffectCoverflow, Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-          spaceBetween={20}
-          effect={'coverflow'}
-          slidesPerView={2}
-          loop={true}
-          centeredSlides={true}
-          pagination={{ clickable: true }}
-          navigation
-          coverflowEffect={{
-            rotate: 0,
-            stretch: 0,
-            depth: 100,
-            modifier: 2.5,
-          }}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-        >
-          <SwiperSlide>
-            <Link className="swiper-link" href="#">
-              <Image
-                className="swiper-img"
-                src={firstSlide}
-                width={936}
-                height={490}
-                alt="promo banner"
-              />
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link className="swiper-link" href="#">
-              <Image
-                className="swiper-img"
-                src={secondSlide}
-                width={936}
-                height={490}
-                alt="promo banner"
-              />
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link className="swiper-link" href="#">
-              <Image
-                className="swiper-img"
-                src={thirdSlide}
-                width={936}
-                height={490}
-                alt="promo banner"
-              />
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link className="swiper-link" href="#">
-              <Image
-                className="swiper-img"
-                src={fourthSlide}
-                width={936}
-                height={490}
-                alt="promo banner"
-              />
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link className="swiper-link" href="#">
-              <Image
-                className="swiper-img"
-                src={fifthSlide}
-                width={936}
-                height={490}
-                alt="promo banner"
-              />
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link className="swiper-link" href="#">
-              <Image
-                className="swiper-img"
-                src={sixthSlide}
-                width={936}
-                height={490}
-                alt="promo banner"
-              />
-            </Link>
-          </SwiperSlide>
-        </Swiper>
+    <section className="main-banner section">
+      <div className="container-fluid">
+        <div className="main-banner__inner">
+          <Swiper
+            modules={[EffectCoverflow, Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+            spaceBetween={20}
+            effect={'coverflow'}
+            slidesPerView={2}
+            loop={true}
+            centeredSlides={true}
+            pagination={{ clickable: true }}
+            navigation
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 2.5,
+            }}
+            // autoplay={{
+            //   delay: 2500,
+            //   disableOnInteraction: false,
+            // }}
+            breakpoints={{
+              320: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                coverflowEffect: {
+                  rotate: 0,
+                  stretch: 0,
+                  depth: 0,
+                  modifier: 0,
+                },
+              },
+              1024: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+                coverflowEffect: {
+                  rotate: 0,
+                  stretch: 0,
+                  depth: 100,
+                  modifier: 2.5,
+                },
+              },
+            }}
+          >
+            <SwiperSlide>
+              <Link className="swiper-link" href="#">
+                <Image
+                  className="swiper-img"
+                  src={firstSlide}
+                  width={936}
+                  height={490}
+                  alt="promo banner"
+                />
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Link className="swiper-link" href="#">
+                <Image
+                  className="swiper-img"
+                  src={secondSlide}
+                  width={936}
+                  height={490}
+                  alt="promo banner"
+                />
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Link className="swiper-link" href="#">
+                <Image
+                  className="swiper-img"
+                  src={thirdSlide}
+                  width={936}
+                  height={490}
+                  alt="promo banner"
+                />
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Link className="swiper-link" href="#">
+                <Image
+                  className="swiper-img"
+                  src={fourthSlide}
+                  width={936}
+                  height={490}
+                  alt="promo banner"
+                />
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Link className="swiper-link" href="#">
+                <Image
+                  className="swiper-img"
+                  src={fifthSlide}
+                  width={936}
+                  height={490}
+                  alt="promo banner"
+                />
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Link className="swiper-link" href="#">
+                <Image
+                  className="swiper-img"
+                  src={sixthSlide}
+                  width={936}
+                  height={490}
+                  alt="promo banner"
+                />
+              </Link>
+            </SwiperSlide>
+          </Swiper>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

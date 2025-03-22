@@ -34,6 +34,18 @@
   transition: font-weight 0.5s ease;
 }
 
+.user-sidebar__link.user-sidebar__link--exit {
+  color: #e95c48;
+}
+
+.user-sidebar__link.user-sidebar__link--exit::before {
+  background-color: #e95c48;
+}
+
+.user-sidebar__link.user-sidebar__link--exit:hover::before {
+  background-color: #e95c48;
+}
+
 .user-sidebar__link:hover {
   font-weight: 700;
 }

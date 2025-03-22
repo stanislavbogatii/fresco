@@ -1,7 +1,17 @@
+.register {
+  padding-top: 10px;
+}
+
 .register__content {
   margin-bottom: 25px;
 }
 
 .register__text {
   margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+  .register .banner {
+    margin-bottom: 15px;
+  }
 }

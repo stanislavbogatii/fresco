@@ -20,7 +20,7 @@ export default function Layout({ children }: Props) {
         <Header>
           <AuthenticationInfo />
         </Header>
-        <div className="body">{children}</div>
+        <main className="main">{children}</main>
         <Footer />
       </div>
     </>

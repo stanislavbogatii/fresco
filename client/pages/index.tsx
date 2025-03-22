@@ -10,9 +10,9 @@ import Partners from '@/modules/home/components/Partners';
 
 const Home: NextPage = () => {
   return (
-    <div className="homepage-container">
+    <>
       <Banner />
-      <div className="homepage-container__inner container">
+      {/* <div className="homepage-container__inner container">
         <Filterbar />
         <div className="homepage-container__content">
           <Edges />
@@ -22,8 +22,8 @@ const Home: NextPage = () => {
           <Partners />
           <News />
         </div>
-      </div>
-    </div>
+      </div> */}
+    </>
   );
 };
 export default Home;

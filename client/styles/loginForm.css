@@ -2,7 +2,7 @@
   display: flex;
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 6;
   height: 100dvh;
   opacity: 0;
@@ -26,6 +26,7 @@
   overflow: hidden;
   max-width: 940px;
   width: 100%;
+  overflow-y: auto;
 }
 
 .login-form__img {
@@ -45,6 +46,7 @@
   display: flex;
   flex-direction: column;
   padding: 40px;
+  overflow-y: auto;
 }
 
 .login-form__title {
@@ -62,7 +64,7 @@
   display: block;
   border: 0.0625rem solid #d8dbde;
   border-radius: 0.625rem;
-  height: 3.25rem;
+  min-height: 48px;
   background-color: #fff;
   margin-bottom: 16px;
 }
@@ -149,4 +151,60 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+@media (max-width: 992px) {
+  .login-form__inner {
+    max-width: 400px;
+  }
+
+  .login-form__img {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .login-form__inner {
+    bottom: 0;
+    top: auto;
+    transform: none;
+    right: 0;
+    left: 0;
+    max-width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .login-form__inner form {
+    max-width: 100%;
+  }
+}
+
+@media (max-height: 480px) {
+  .login-form__inner {
+    bottom: 0;
+    top: 70px;
+    transform: none;
+    right: 0;
+    left: 0;
+    max-width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+  }
+
+  .login-form__inner form {
+    height: 100%;
+    max-width: 100%;
+  }
+
+  .login-form__img {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-form__shape {
+    padding: 40px 25px;
+  }
 }

@@ -33,8 +33,17 @@ const LoginForm = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
   }
 
   useEffect(() => {
-    if (isOpen) setStartAnimation(true);
-    else setStartAnimation(false);
+    if (isOpen) {
+      setStartAnimation(true);
+      document.body.style.overflow = 'hidden';
+    } else {
+      setStartAnimation(false);
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   if (!isOpen) return null;

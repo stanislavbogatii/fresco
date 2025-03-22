@@ -18,7 +18,6 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
   const openLoginForm = () => setIsLoginFormOpen(true);
   const closeLoginForm = () => setIsLoginFormOpen(false);
 
-
   useEffect(() => {
     if (!hasScrolled) {
       setIsActive(true);
@@ -26,6 +25,11 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
 
     const handleScroll = () => {
       const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (currentScroll === 0) {
+        setIsActive(true);
+        return;
+      }
 
       if (!hasScrolled) {
         setHasScrolled(true);
@@ -54,22 +58,28 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
       <div className="container">
         <nav className="nav">
           <div className="header__top">
+            <button className="header__menu-btn" type="button">
+              <span className="header__btn-line"></span>
+              <span className="header__btn-line"></span>
+              <span className="header__btn-line"></span>
+              <span className="sr-only">open menu burger</span>
+            </button>
             <Logo />
             <SearchForm />
-            {profile ?
-              <Link className="header__top-user" href={routes.profile}>Salut, Calin!</Link>
-            : 
-            <>
-              <Link className="header__top-link" href={routes.register}>
-              <span>Vreau cont B2B</span>
-            </Link>
-              <button className="header__btn" type="button" onClick={openLoginForm}>
-                <span>Intra in contul tau</span>
-              </button>
-            </>
-            }
-            
-          
+            {profile ? (
+              <Link className="header__top-user" href={routes.profile}>
+                Salut, Calin!
+              </Link>
+            ) : (
+              <>
+                <Link className="header__top-link" href={routes.register}>
+                  <span>Vreau cont B2B</span>
+                </Link>
+                <button className="header__btn" type="button" onClick={openLoginForm}>
+                  <span>Intra in contul tau</span>
+                </button>
+              </>
+            )}
           </div>
           <ul className="header__list">
             <li className="header__item">

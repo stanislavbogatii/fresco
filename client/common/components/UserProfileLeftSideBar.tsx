@@ -68,7 +68,12 @@ const UserProfileLeftSideBar = () => {
         </li>
         <li className="user-sidebar__item">
           <Link
-            className={`user-sidebar__link ${router.pathname === routes.profile_offer || router.pathname === routes.profile_offer_create ? 'active' : ''}`}
+            className={`user-sidebar__link ${
+              router.pathname === routes.profile_offer ||
+              router.pathname === routes.profile_offer_create
+                ? 'active'
+                : ''
+            }`}
             href={routes.profile_offer}
           >
             Oferta comanda
@@ -77,7 +82,7 @@ const UserProfileLeftSideBar = () => {
         <li className="user-sidebar__item">
           <Link
             onClick={handleDeconect}
-            className={`user-sidebar__link ${router.pathname === routes.profile_offer || router.pathname === routes.profile_offer_create ? 'active' : ''}`}
+            className="user-sidebar__link user-sidebar__link--exit"
             href={routes.profile_offer}
           >
             Deconectare
