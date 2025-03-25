@@ -11,8 +11,8 @@ const Contact = () => {
         <title>Contact</title>
       </Head>
 
-      <FaqBox />
       <section className="contacts section">
+        <FaqBox />
         <div className="container">
           <div className="contacts__inner">
             <ContactBlock />

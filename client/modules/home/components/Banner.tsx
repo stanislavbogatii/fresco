@@ -37,10 +37,10 @@ const Banner = () => {
               depth: 100,
               modifier: 2.5,
             }}
-            // autoplay={{
-            //   delay: 2500,
-            //   disableOnInteraction: false,
-            // }}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
             breakpoints={{
               320: {
                 slidesPerView: 1,
@@ -52,7 +52,7 @@ const Banner = () => {
                   modifier: 0,
                 },
               },
-              1024: {
+              992: {
                 slidesPerView: 2,
                 spaceBetween: 20,
                 coverflowEffect: {

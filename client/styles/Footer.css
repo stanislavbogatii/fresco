@@ -85,6 +85,25 @@
   gap: 10px;
 }
 
+.localization-button {
+  position: relative;
+  padding-left: 30px;
+}
+
+.localization-button::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 20px;
+  height: 20px;
+  left: 0;
+  top: -2px;
+  background-image: url('../asset/icons/localization.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 @media (max-width: 992px) {
   .footer__list {
     max-width: 460px;
@@ -92,6 +111,10 @@
 
   .footer__elem:nth-child(2) {
     order: 1;
+  }
+
+  .footer__link:hover {
+    color: #666666;
   }
 }
 
@@ -106,17 +129,15 @@
   }
 }
 
+@media (max-width: 580px) {
+  .footer__bottom {
+    flex-wrap: wrap;
+  }
+}
+
 @media (max-width: 480px) {
   .footer__top .logo {
     padding-bottom: 20px;
     border-bottom: 1px solid #d8dbde;
-  }
-  
-  .footer__bottom {
-    flex-wrap: wrap;
-  }
-
-  .footer__powered {
-    order: 1;
   }
 }

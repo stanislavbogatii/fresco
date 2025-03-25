@@ -30,3 +30,27 @@
 .faq-box__link:hover {
   background-color: #77ab1a;
 }
+
+@media (max-width: 992px) {
+  .faq-box__link:hover {
+    background-color: #231f20;
+  }
+}
+
+@media (max-width: 860px) {
+  .faq-box {
+    max-width: 100%;
+    margin: 0;
+    text-align: left;
+    align-items: start;
+  }
+
+  .faq-box__title {
+    font-size: 24px;
+    max-width: 100%;
+  }
+
+  .faq-box__link {
+    margin-bottom: 15px;
+  }
+}

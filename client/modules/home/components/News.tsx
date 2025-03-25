@@ -14,44 +14,68 @@ import ProductCard from '@/common/components/ProductCard';
 const News = () => {
   return (
     <section className="news section">
-      <div className="container">
-        <h2 className="title ">Produse vizualizate recent</h2>
-        <div className="product-slider news__slider">
-          <Swiper
-            modules={[Pagination, Autoplay]}
-            spaceBetween={24}
-            slidesPerView={4}
-            pagination={{ clickable: true }}
-          >
-            <SwiperSlide>
-              <ProductCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard />
-            </SwiperSlide>
-          </Swiper>
-        </div>
+      <h2 className="title ">Produse vizualizate recent</h2>
+      <div className="product-slider news__slider">
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          spaceBetween={24}
+          slidesPerView={4}
+          pagination={{ clickable: true }}
+          breakpoints={{
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            580: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+            860: {
+              slidesPerView: 3,
+              spaceBetween: 10,
+            },
+            992: {
+              slidesPerView: 2,
+              spaceBetween: 16,
+            },
+            1200: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+            1400: {
+              slidesPerView: 4,
+              spaceBetween: 24,
+            },
+          }}
+        >
+          <SwiperSlide>
+            <ProductCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard />
+          </SwiperSlide>
+        </Swiper>
       </div>
     </section>
   );

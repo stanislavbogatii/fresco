@@ -6,14 +6,19 @@ import SearchForm from '../SearchForm';
 import LoginForm from '../LoginForm';
 import { routes } from '@/utils/routes';
 import { useUserInfoContext } from '@/context/UserInfoContext';
+import MenuBurger from '../MenuBurger';
 
 const Header = ({ children }: { children?: React.ReactNode }) => {
+  const [isMenuBurgerOpen, setIsMenuBurgerOpen] = useState<boolean>(false);
   const [isLoginFormOpen, setIsLoginFormOpen] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [lastScrollTop, setLastScrollTop] = useState<number>(0);
   const [hasScrolled, setHasScrolled] = useState<boolean>(false);
   const scrollThreshold = 148;
   const { profile } = useUserInfoContext();
+
+  const openMenuBurger = () => setIsMenuBurgerOpen(true);
+  const closeMenuBurger = () => setIsMenuBurgerOpen(false);
 
   const openLoginForm = () => setIsLoginFormOpen(true);
   const closeLoginForm = () => setIsLoginFormOpen(false);
@@ -58,18 +63,27 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
       <div className="container">
         <nav className="nav">
           <div className="header__top">
-            <button className="header__menu-btn" type="button">
+            <button className="header__menu-btn" type="button" onClick={openMenuBurger}>
               <span className="header__btn-line"></span>
               <span className="header__btn-line"></span>
               <span className="header__btn-line"></span>
               <span className="sr-only">open menu burger</span>
             </button>
-            <Logo />
+            <Logo profile={!!profile} />
             <SearchForm />
             {profile ? (
-              <Link className="header__top-user" href={routes.profile}>
-                Salut, Calin!
-              </Link>
+              <>
+                <Link className="header__top-user" href={routes.profile}>
+                  <span>Salut, Calin!</span>
+                </Link>
+                <Link className="header__top-favourite" href="#">
+                  <span>Favorite</span>
+                </Link>
+                <Link className="header__basket" href="#">
+                  <span className="header__basket-text">In cos</span>
+                  <span className="header__basket-num">0</span>
+                </Link>
+              </>
             ) : (
               <>
                 <Link className="header__top-link" href={routes.register}>
@@ -110,6 +124,7 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
           </ul>
         </nav>
         <LoginForm isOpen={isLoginFormOpen} onClose={closeLoginForm} />
+        <MenuBurger isOpen={isMenuBurgerOpen} onClose={closeMenuBurger} />
       </div>
     </header>
   );

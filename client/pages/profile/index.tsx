@@ -60,6 +60,7 @@ const ProfileInfo = () => {
         <Link className="user-info__link" href={routes.profile_edit}>
           Editează
         </Link>
+        <Link className="profile__link" href={routes.home}>Homepage</Link>
       </div>
     </ProfileLayout>
   );

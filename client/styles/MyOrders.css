@@ -6,13 +6,27 @@
   overflow: hidden;
 }
 
+.order__top-inner {
+  overflow-x: auto;
+  white-space: nowrap;
+  background-color: #e2e6eb;
+  border-bottom: 1px solid #d8dbde;
+  padding: 16px 32px;
+}
+
 .orders__top {
   display: flex;
   align-items: center;
   gap: 30px;
-  padding: 16px 32px;
-  border-bottom: 1px solid #d8dbde;
-  background-color: #e2e6eb;
+}
+
+.orders__data {
+  max-width: 150px;
+}
+
+.orders__total {
+  max-width: 200px;
+  margin-right: 30px;
 }
 
 .orders__title {
@@ -33,6 +47,8 @@
 .orders__state {
   margin-left: auto;
   text-align: right;
+  max-width: 200px;
+  width: 100%;
 }
 
 .orders__number {
@@ -44,8 +60,9 @@
   font-size: 12px;
   color: #fff;
   background-color: #727273;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   padding: 8px 12px;
+  text-align: center;
 }
 
 .orders__list {
@@ -65,6 +82,7 @@
 .product-item__img-link {
   border-radius: 15px;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .product-item__link {
@@ -84,6 +102,14 @@
 
 .product-item__box {
   display: flex;
-  gap: 10px;
+  gap: 0 10px;
   font-weight: 700;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .orders__state {
+    padding-right: 32px;
+    max-width: 232px;
+  }
 }

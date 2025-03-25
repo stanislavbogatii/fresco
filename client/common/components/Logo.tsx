@@ -4,9 +4,13 @@ import Image from 'next/image';
 
 import logo from '../../asset/images/logo.svg';
 
-const Logo = () => {
+interface LogoProps {
+  profile?: boolean;
+}
+
+const Logo = ({profile}: LogoProps) => {
   return (
-    <Link className="logo" href="/">
+    <Link className={`logo ${profile ? 'logo-small' : ''}`} href="/">
       <Image src={logo} width={162} height={30} alt="logo" />
     </Link>
   );

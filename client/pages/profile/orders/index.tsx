@@ -13,29 +13,31 @@ const ProfileOrders = () => {
   return (
     <ProfileLayout title="Comenzile mele">
       <div className="orders">
-        <div className="orders__top">
-          <div className="orders__data">
-            <strong className="orders__title">Data comenzii</strong>
-            <time className="orders__time" dateTime="2024-11-26">
-              26 noiembrie 2024
-            </time>
-          </div>
-          <div className="orders__total">
-            <strong className="orders__title">Total</strong>
-            <div className="orders__box-price">
-              <span className="orders__price">1.076,25 RON</span>
-              <Image
-                className="orders__price-img"
-                src={masterCard}
-                width={30}
-                height={20}
-                alt="master card"
-              />
+        <div className="order__top-inner">
+          <div className="orders__top">
+            <div className="orders__data">
+              <strong className="orders__title">Data comenzii</strong>
+              <time className="orders__time" dateTime="2024-11-26">
+                26 noiembrie 2024
+              </time>
             </div>
-          </div>
-          <div className="orders__state">
-            <strong className="orders__number"># 1479190774245-01</strong>
-            <div className="orders__status">Comandă în curs de pregătire</div>
+            <div className="orders__total">
+              <strong className="orders__title">Total</strong>
+              <div className="orders__box-price">
+                <span className="orders__price">1.076,25 RON</span>
+                <Image
+                  className="orders__price-img"
+                  src={masterCard}
+                  width={30}
+                  height={20}
+                  alt="master card"
+                />
+              </div>
+            </div>
+            <div className="orders__state">
+              <strong className="orders__number"># 1479190774245-01</strong>
+              <div className="orders__status">Comandă în curs de pregătire</div>
+            </div>
           </div>
         </div>
         <ul className="orders__list">

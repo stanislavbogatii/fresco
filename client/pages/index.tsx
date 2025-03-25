@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Banner />
-      {/* <div className="homepage-container__inner container">
+      <div className="homepage-container__inner container">
         <Filterbar />
         <div className="homepage-container__content">
           <Edges />
@@ -22,7 +22,7 @@ const Home: NextPage = () => {
           <Partners />
           <News />
         </div>
-      </div> */}
+      </div>
     </>
   );
 };

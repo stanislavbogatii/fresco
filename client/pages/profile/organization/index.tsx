@@ -2,13 +2,25 @@ import ProfileLayout from '@/common/components/ProfileLayout';
 import { routes } from '@/utils/routes';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ProfileOrganization = () => {
   const [isUserFormOpen, setIsUserFormOpen] = useState<boolean>(false);
 
   const openLoginForm = () => setIsUserFormOpen(true);
   const closeLoginForm = () => setIsUserFormOpen(false);
+
+  useEffect(() => {
+    if (isUserFormOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  });
 
   return (
     <ProfileLayout title="Informatii organizatie">
@@ -39,38 +51,34 @@ const ProfileOrganization = () => {
           e-mail, iar contul va aparea cu statusul “In asteptare”. Noul utilizator va putea utiliza
           contul, dupa ce il aprobi si ii atribui un rol
         </p>
-        <div className="profile-organization__users-info">
-          <ul className="profile-organization__titles">
-            <li className="profile-organization__title">Email</li>
-            <li className="profile-organization__title">Rol</li>
-            <li className="profile-organization__title">Status</li>
-            <li className="profile-organization__title">Editare</li>
-            <li className="profile-organization__title">Alocare adrese</li>
-          </ul>
-          <ul className="profile-organization__users">
-            <li className="profile-organization__user">
-              <ul className="profile-organization__user-items">
-                <li className="profile-organization__user-item">nubchenko@gmail.com</li>
-                <li className="profile-organization__user-item">
-                  <strong>Administrator</strong>
-                </li>
-                <li className="profile-organization__user-item">Aprobat</li>
-                <li className="profile-organization__user-item">-</li>
-                <li className="profile-organization__user-item">-</li>
-              </ul>
-            </li>
-            <li className="profile-organization__user">
-              <ul className="profile-organization__user-items">
-                <li className="profile-organization__user-item">example@gmail.com</li>
-                <li className="profile-organization__user-item">
-                  <strong>Contabilitate</strong>
-                </li>
-                <li className="profile-organization__user-item">Aprobat</li>
-                <li className="profile-organization__user-item">-</li>
-                <li className="profile-organization__user-item">-</li>
-              </ul>
-            </li>
-          </ul>
+        <div className="profile-organization__inner">
+          <div className="profile-organization__users-info">
+            <ul className="profile-organization__titles">
+              <li className="profile-organization__title">Email</li>
+              <li className="profile-organization__title">Rol</li>
+              <li className="profile-organization__title">Status</li>
+              <li className="profile-organization__title">Editare</li>
+              <li className="profile-organization__title">Alocare adrese</li>
+            </ul>
+            <ul className="profile-organization__user-items">
+              <li className="profile-organization__user-item">nubchenko@gmail.com</li>
+              <li className="profile-organization__user-item">
+                <strong>Administrator</strong>
+              </li>
+              <li className="profile-organization__user-item">Aprobat</li>
+              <li className="profile-organization__user-item">-</li>
+              <li className="profile-organization__user-item">-</li>
+            </ul>
+            <ul className="profile-organization__user-items">
+              <li className="profile-organization__user-item">example@gmail.com</li>
+              <li className="profile-organization__user-item">
+                <strong>Contabilitate</strong>
+              </li>
+              <li className="profile-organization__user-item">Aprobat</li>
+              <li className="profile-organization__user-item">-</li>
+              <li className="profile-organization__user-item">-</li>
+            </ul>
+          </div>
           <button className="profile-organization__add btn" type="button" onClick={openLoginForm}>
             Adauga utilizator
           </button>
@@ -85,7 +93,11 @@ const ProfileOrganization = () => {
               <strong className="profile-organization__poppup-title">Utilizator nou</strong>
               <label className="profile-organization__poppup-label">
                 <span className="profile-organization__poppup-text">Adresa de email</span>
-                <input className="profile-organization__poppup-input input" type="email" placeholder="Ex.: nubchenko@gmail.com" />
+                <input
+                  className="profile-organization__poppup-input input"
+                  type="email"
+                  placeholder="Ex.: nubchenko@gmail.com"
+                />
               </label>
               <label className="profile-organization__poppup-label">
                 <span className="profile-organization__poppup-text">Rol</span>

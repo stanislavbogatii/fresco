@@ -101,10 +101,36 @@
 }
 
 .offer-create__input-checkbox:checked + .offer-create__checkbox {
-    background-color: #8db83f;
-    border-color: transparent;
+  background-color: #8db83f;
+  border-color: transparent;
 }
 
 .offer-create__btn {
   max-width: 200px;
+}
+
+@media (max-width: 992px) {
+  .offer-create__box,
+  .offer-create__box-items {
+    overflow-x: auto;
+  }
+
+  .offer-create__list,
+  .offer-create__items {
+    min-width: 1200px;
+  }
+
+  .offer-create__box-items {
+    margin-bottom: 5px;
+  }
+
+  .offer-create__nothing {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .offer-create__nothing {
+    padding: 35px 0;
+  }
 }

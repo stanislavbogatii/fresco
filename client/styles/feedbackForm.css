@@ -28,3 +28,19 @@
 .feedback-form__btn.btn {
   max-width: 165px;
 }
+
+@media (max-width: 860px) {
+  .feedback-form {
+    max-width: 100%;
+  }
+
+  .feedback-form__title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 680px) {
+  .feedback-form {
+    padding: 24px;
+  }
+}

@@ -161,6 +161,16 @@
   .login-form__img {
     display: none;
   }
+
+  .login-form__button:hover {
+    background-color: #8db83f;
+  }
+
+  .login-form__link:hover {
+    color: #444b5a;
+    background-color: transparent;
+    border-color: #5d5f62;
+  }
 }
 
 @media (max-width: 560px) {
@@ -190,7 +200,6 @@
     max-width: 100%;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-
   }
 
   .login-form__inner form {

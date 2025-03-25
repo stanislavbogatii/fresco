@@ -23,171 +23,165 @@ import lucasBites from '../../../asset/images/partners/lucas-bites.webp';
 const Partners = () => {
   return (
     <section className="partners section">
-      <div className="container">
-        <h2 className="title">Furnizori Bocado</h2>
-        <div className="partners__container">
-          <Swiper
-            modules={[Autoplay]}
-            spaceBetween={30}
-            slidesPerView={4}
-            loop={true}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-          >
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image
-                    className="partner__img"
-                    width="220"
-                    height="75"
-                    src={ecotravio}
-                    alt="ecotravio"
-                  />
-                </Link>
-              </article>
-            </SwiperSlide>
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image
-                    className="partner__img"
-                    width="220"
-                    height="75"
-                    src={agricola}
-                    alt="agricola"
-                  />
-                </Link>
-              </article>
-            </SwiperSlide>
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image
-                    className="partner__img"
-                    width="220"
-                    height="75"
-                    src={alesano}
-                    alt="alesano"
-                  />
-                </Link>
-              </article>
-            </SwiperSlide>
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image
-                    className="partner__img"
-                    width="220"
-                    height="75"
-                    src={fresco}
-                    alt="fresco"
-                  />
-                </Link>
-              </article>
-            </SwiperSlide>
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image
-                    className="partner__img"
-                    width="220"
-                    height="75"
-                    src={macromex}
-                    alt="macromex"
-                  />
-                </Link>
-              </article>
-            </SwiperSlide>
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image
-                    className="partner__img"
-                    width="220"
-                    height="75"
-                    src={pronat}
-                    alt="pronat"
-                  />
-                </Link>
-              </article>
-            </SwiperSlide>
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image
-                    className="partner__img"
-                    width="220"
-                    height="75"
-                    src={dionis}
-                    alt="dionis"
-                  />
-                </Link>
-              </article>
-            </SwiperSlide>
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image
-                    className="partner__img"
-                    width="220"
-                    height="75"
-                    src={kralex}
-                    alt="kralex"
-                  />
-                </Link>
-              </article>
-            </SwiperSlide>
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image className="partner__img" width="220" height="75" src={leida} alt="leida" />
-                </Link>
-              </article>
-            </SwiperSlide>
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image
-                    className="partner__img"
-                    width="220"
-                    height="75"
-                    src={fraher}
-                    alt="fraher"
-                  />
-                </Link>
-              </article>
-            </SwiperSlide>
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image
-                    className="partner__img"
-                    width="220"
-                    height="75"
-                    src={dulcinella}
-                    alt="dulcinella"
-                  />
-                </Link>
-              </article>
-            </SwiperSlide>
-            <SwiperSlide>
-              <article className="partner">
-                <Link className="partner__link" href="#">
-                  <Image
-                    className="partner__img"
-                    width="220"
-                    height="75"
-                    src={lucasBites}
-                    alt="lucas bites"
-                  />
-                </Link>
-              </article>
-            </SwiperSlide>
-          </Swiper>
-        </div>
+      <h2 className="title">Furnizori Bocado</h2>
+      <div className="partners__container">
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={30}
+          slidesPerView={4}
+          loop={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          breakpoints={{
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            580: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+            860: {
+              slidesPerView: 3,
+              spaceBetween: 10,
+            },
+            992: {
+              slidesPerView: 2,
+              spaceBetween: 16,
+            },
+            1200: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+            1400: {
+              slidesPerView: 4,
+              spaceBetween: 24,
+            },
+          }}
+        >
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image
+                  className="partner__img"
+                  width="220"
+                  height="75"
+                  src={ecotravio}
+                  alt="ecotravio"
+                />
+              </Link>
+            </article>
+          </SwiperSlide>
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image
+                  className="partner__img"
+                  width="220"
+                  height="75"
+                  src={agricola}
+                  alt="agricola"
+                />
+              </Link>
+            </article>
+          </SwiperSlide>
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image
+                  className="partner__img"
+                  width="220"
+                  height="75"
+                  src={alesano}
+                  alt="alesano"
+                />
+              </Link>
+            </article>
+          </SwiperSlide>
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image className="partner__img" width="220" height="75" src={fresco} alt="fresco" />
+              </Link>
+            </article>
+          </SwiperSlide>
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image
+                  className="partner__img"
+                  width="220"
+                  height="75"
+                  src={macromex}
+                  alt="macromex"
+                />
+              </Link>
+            </article>
+          </SwiperSlide>
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image className="partner__img" width="220" height="75" src={pronat} alt="pronat" />
+              </Link>
+            </article>
+          </SwiperSlide>
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image className="partner__img" width="220" height="75" src={dionis} alt="dionis" />
+              </Link>
+            </article>
+          </SwiperSlide>
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image className="partner__img" width="220" height="75" src={kralex} alt="kralex" />
+              </Link>
+            </article>
+          </SwiperSlide>
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image className="partner__img" width="220" height="75" src={leida} alt="leida" />
+              </Link>
+            </article>
+          </SwiperSlide>
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image className="partner__img" width="220" height="75" src={fraher} alt="fraher" />
+              </Link>
+            </article>
+          </SwiperSlide>
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image
+                  className="partner__img"
+                  width="220"
+                  height="75"
+                  src={dulcinella}
+                  alt="dulcinella"
+                />
+              </Link>
+            </article>
+          </SwiperSlide>
+          <SwiperSlide>
+            <article className="partner">
+              <Link className="partner__link" href="#">
+                <Image
+                  className="partner__img"
+                  width="220"
+                  height="75"
+                  src={lucasBites}
+                  alt="lucas bites"
+                />
+              </Link>
+            </article>
+          </SwiperSlide>
+        </Swiper>
       </div>
     </section>
   );

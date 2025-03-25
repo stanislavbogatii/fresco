@@ -44,6 +44,7 @@ import '../styles/profileOrganization.css';
 import '../styles/profileOffer.css';
 import '../styles/offerCreate.css';
 import '../styles/mainBanner.css';
+import '../styles/menuBurger.css';
 
 import Layout from '@/common/components/Layout';
 import { AppProvider } from '@/context/AppContext';

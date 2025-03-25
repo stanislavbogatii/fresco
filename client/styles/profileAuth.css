@@ -69,6 +69,8 @@
 .reset-password__item {
   padding-left: 30px;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .reset-password__item::before {
@@ -136,4 +138,10 @@
 
 .session__item:not(:last-child) {
   margin-bottom: 5px;
+}
+
+@media (max-width: 480px) {
+  .reset-password__list {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

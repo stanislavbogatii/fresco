@@ -11,19 +11,17 @@ export default function ProfileLayout({ children, title }: Props) {
       <Head>
         <title>{title ?? 'Profile'}</title>
       </Head>
-      <main className="main">
-        <section className="profile">
-          <div className="container">
-            <div className="profile__inner">
-              <UserProfileLeftSideBar />
-              <div className="profile__content">
-                {title && <h1 className="profile__title">{title}</h1>}
-                {children}
-              </div>
+      <section className="profile">
+        <div className="container">
+          <div className="profile__inner">
+            <UserProfileLeftSideBar />
+            <div className="profile__content">
+              {title && <h1 className="profile__title">{title}</h1>}
+              {children}
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     </>
   );
 }

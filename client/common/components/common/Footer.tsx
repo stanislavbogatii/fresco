@@ -122,7 +122,7 @@ const Footer = () => {
               />
             </Link>
           </p>
-          <button className="footer__button">RO</button>
+          <button className="localization-button">RO</button>
         </div>
       </div>
     </footer>

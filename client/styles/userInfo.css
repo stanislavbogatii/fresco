@@ -55,3 +55,15 @@
   background-size: cover;
   background-position: center;
 }
+
+@media (max-width: 992px) {
+  .user-info {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-info__list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
