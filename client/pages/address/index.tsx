@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
-import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-import { Address } from '../../modules/address/models/AddressModel';
+
 import { deleteAddress } from '../../modules/address/services/AddressService';
 import {
   chooseDefaultAddress,
@@ -23,6 +22,7 @@ import { useRouter } from 'next/router';
 import { TiContacts } from 'react-icons/ti';
 import { BreadcrumbModel } from '@/modules/breadcrumb/model/BreadcrumbModel';
 import ProfileLayout from '@/common/components/ProfileLayout';
+import { type Address } from '@/modules/address/models/AddressModel';
 
 const crumb: BreadcrumbModel[] = [
   {
@@ -85,7 +85,7 @@ const Address: NextPage = () => {
   }, []);
 
   return (
-    <ProfileLayout breadcrumb={crumb} title="Address" menuActive="address">
+    <ProfileLayout title="Address" >
       <div className="d-grid gap-2">
         <button className="btn-create-address" onClick={() => router.push('address/create')}>
           <BiPlusMedical />

@@ -1,4 +1,5 @@
 import { useUserInfoContext } from '@/context/UserInfoContext';
+import { CategoryService } from '@/modules/cateogory/services/CategoryServcie';
 import { signup } from '@/modules/register/services/RegisterServcie';
 import { routes } from '@/utils/routes';
 import { useRouter } from 'next/router';
@@ -7,13 +8,14 @@ import React, { useState } from 'react';
 const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
   const router = useRouter();
   const { fetchUserInfo } = useUserInfoContext();
-  
+
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
-    const data = await signup({password, email});
+    const data = await signup({ password, email, firstName });
 
     if (data && data?.access_token) {
       document.cookie = `access_token=${data.access_token}; path=/; max-age=${60 * 60 * 24 * 7}`;
@@ -38,8 +40,12 @@ const RegisterForm = () => {
         </label>
         <div className="register-form__items">
           <label className="register-form__label">
-            <span className="register-form__text">Nume si prenume *</span>
+            <span className="register-form__text">Nume *</span>
             <input className="register-form__input input" type="text" />
+          </label>
+          <label className="register-form__label">
+            <span className="register-form__text">Prenume *</span>
+            <input className="register-form__input input" type="text" onChange={(e: any) => setFirstName(e.target.value)} />
           </label>
           <label className="register-form__label">
             <span className="register-form__text">Numar de telefon *</span>

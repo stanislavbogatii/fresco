@@ -1,0 +1,33 @@
+import { ApiProperty } from "@nestjs/swagger";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { CategoryContentDto } from "./category-content-dto";
+
+export class CreateCategoryDto {
+  @ApiProperty()
+  @IsBoolean()
+  @IsNotEmpty()
+  isActive: boolean;
+  
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  code: string;
+  
+  @ApiProperty()
+  @IsNumber()
+  @IsOptional()
+  parentId?: number;
+  
+  @ApiProperty({
+    example: [{
+      title: "Category title",
+      description: "Category description",
+      slug: "Category slug",
+      langId: "en"
+    }]
+  })
+  @IsArray()
+  contents: CategoryContentDto[];
+}
+
+

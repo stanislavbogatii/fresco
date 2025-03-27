@@ -9,6 +9,7 @@ import { useUserInfoContext } from '@/context/UserInfoContext';
 import MenuBurger from '../MenuBurger';
 
 const Header = ({ children }: { children?: React.ReactNode }) => {
+
   const [isMenuBurgerOpen, setIsMenuBurgerOpen] = useState<boolean>(false);
   const [isLoginFormOpen, setIsLoginFormOpen] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -74,7 +75,7 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
             {profile ? (
               <>
                 <Link className="header__top-user" href={routes.profile}>
-                  <span>Salut, Calin!</span>
+                  <span>Salut, {profile.firstName}</span>
                 </Link>
                 <Link className="header__top-favourite" href="#">
                   <span>Favorite</span>

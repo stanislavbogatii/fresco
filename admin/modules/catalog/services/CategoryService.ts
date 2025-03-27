@@ -2,7 +2,7 @@ import { Category } from '../models/Category';
 import { ProductThumbnails } from '../models/ProductThumbnails';
 import apiClientService from '@commonServices/ApiClientService';
 
-const baseUrl = '/api/product/backoffice/categories';
+const baseUrl = '/category';
 
 export async function getCategories(): Promise<Category[]> {
   return (await apiClientService.get(baseUrl)).json();
@@ -13,9 +13,11 @@ export async function getCategory(id: number): Promise<Category> {
   return (await apiClientService.get(url)).json();
 }
 
-export async function createCategory(category: Category) {
+export async function createCategory(category: Record<string, any>) {
   return await apiClientService.post(baseUrl, JSON.stringify(category));
 }
+
+
 export async function updateCategory(id: number, category: Category) {
   const url = `${baseUrl}/${id}`;
   const response = await apiClientService.put(url, JSON.stringify(category));

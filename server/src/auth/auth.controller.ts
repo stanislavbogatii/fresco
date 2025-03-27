@@ -6,9 +6,9 @@ import {
   Post,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthDto } from './dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserDto } from 'src/user/dto/user.dto';
+import { SignInDto, SignUpDto } from './dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -23,7 +23,7 @@ export class AuthController {
     type: UserDto,
   })
   @ApiResponse({ status: 400, description: 'Bad Request - Invalid input' })
-  signup(@Body() dto: AuthDto) {
+  signup(@Body() dto: SignUpDto) {
     return this.authService.signup(dto);
   }
 
@@ -36,7 +36,7 @@ export class AuthController {
     type: UserDto,
   })
   @ApiResponse({ status: 401, description: 'Unauthorized - Invalid credentials' })
-  signin(@Body() dto: AuthDto) {
+  signin(@Body() dto: SignInDto) {
     return this.authService.signin(dto);
   }
 }

@@ -16,7 +16,7 @@ async function bootstrap() {
     }),
   );
 
-
+  app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder()
     .setTitle('My NestJS API')

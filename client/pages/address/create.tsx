@@ -65,7 +65,7 @@ const CreateAddress: NextPage = () => {
   };
 
   return (
-    <ProfileLayout breadcrumb={crumb} title="Create Address" menuActive="address">
+    <ProfileLayout title="Create Address" >
       <AddressForm
         handleSubmit={handleSubmit(onSubmit)}
         isDisplay={true}

@@ -91,7 +91,7 @@ const EditAddress: NextPage = () => {
     );
   }
   return (
-    <ProfileLayout breadcrumb={crumb} title="Edit Address" menuActive="address">
+    <ProfileLayout  title="Edit Address" >
       <AddressForm
         handleSubmit={handleSubmit(onSubmit)}
         register={register}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { formatPrice } from 'utils/formatPrice';
 import ImageWithFallBack from './ImageWithFallback';
 
-import styles from 'styles/ProductCard.module.css';
+import styles from 'styles/productList.module.css';
 
 interface ProductCardBaseProps {
   product: {

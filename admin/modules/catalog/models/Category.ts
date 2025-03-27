@@ -1,16 +1,11 @@
+import { CategoryContent } from "./CategoryContent";
+
 export type Category = {
   id: number;
-  name: string;
-  description: string;
-  slug: string;
-  parentId: number | null;
-  metaKeywords: string;
-  metaDescription: string;
-  displayOrder: number;
-  isPublish: boolean;
-  imageId?: number;
-  categoryImage?: {
-    id: number;
-    url: string;
-  };
+  isActive: boolean;
+  code: string;
+  parentId?: number | null;
+  categoryContent: CategoryContent[];
+  createdAt: Date;
+  updateddAt: Date;
 };

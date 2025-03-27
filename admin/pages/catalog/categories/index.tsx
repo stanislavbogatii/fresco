@@ -43,10 +43,12 @@ const CategoryList: NextPage = () => {
     if (!Array.isArray(list)) {
       return <></>;
     }
+    
     const renderArr = list.filter((e) => e.parentId == id);
     const newArr = list.filter((e) => e.parentId != id);
+
     return renderArr
-      .sort((a: Category, b: Category) => a.name.localeCompare(b.name))
+      .sort((a: Category, b: Category) => a.code.localeCompare(b.code))
       .map((category: Category) => {
         return (
           <React.Fragment key={category.id}>
@@ -54,8 +56,11 @@ const CategoryList: NextPage = () => {
               <td>{category.id}</td>
               <td>
                 {parentHierarchy}
-                {category.name}
+                {category.code}
               </td>
+              <td>{category.categoryContent.find(e => e.langId = 'ro')?.title}</td>
+
+              <td>{category.isActive ? '+' : '-'}</td>
               <td>
                 <Link href={`/catalog/categories/${category.id}`}>
                   <button className="btn btn-outline-primary btn-sm" type="button">
@@ -67,7 +72,7 @@ const CategoryList: NextPage = () => {
                   className="btn btn-outline-danger btn-sm"
                   onClick={() => {
                     setCategoryId(category.id);
-                    setCategoryName(category.name);
+                    setCategoryName(category.code);
                     setShowModalDelete(true);
                   }}
                 >
@@ -78,7 +83,7 @@ const CategoryList: NextPage = () => {
             {renderCategoriesHierarchy(
               category.id,
               newArr,
-              parentHierarchy + category.name + ' >> '
+              parentHierarchy + category.code + ' >> '
             )}
           </React.Fragment>
         );
@@ -101,11 +106,13 @@ const CategoryList: NextPage = () => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Name</th>
+            <th>Code</th>
+            <th>Title</th>
+            <th>Is active</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>{renderCategoriesHierarchy(-1, categories, '')}</tbody>
+        <tbody>{renderCategoriesHierarchy(null, categories, '')}</tbody>
       </Table>
       <ModalDeleteCustom
         showModalDelete={showModalDelete}

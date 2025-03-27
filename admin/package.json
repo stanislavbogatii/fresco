@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "SET PORT=3001 && next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "PORT=3002 next dev",
+    "build": "PORT=3002 next build",
+    "start": "PORT=3002 next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -18,7 +18,7 @@
     "bootstrap-icons": "^1.9.1",
     "clsx": "^1.2.1",
     "moment": "^2.29.4",
-    "next": "^14.2.14",
+    "next": "^14.2.26",
     "query-string": "^8.1.0",
     "react": "^18.3.1",
     "react-bootstrap": "^2.4.0",

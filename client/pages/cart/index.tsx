@@ -33,7 +33,7 @@ const Cart = () => {
 
   const [productIdToRemove, setProductIdToRemove] = useState<number>(0);
 
-  const { email } = useUserInfoContext();
+  const { profile } = useUserInfoContext();
 
   const { fetchNumberCartItems } = useCartContext();
 
@@ -201,7 +201,7 @@ const Cart = () => {
     const checkoutItems = selectedItems.map((item) => convertItemToCheckoutItem(item));
 
     let checkout: Checkout = {
-      email: email,
+      email: profile?.email ?? 'test',
       note: '',
       couponCode: couponCode,
       totalAmount: totalPrice,

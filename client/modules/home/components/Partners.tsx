@@ -23,7 +23,7 @@ import lucasBites from '../../../asset/images/partners/lucas-bites.webp';
 const Partners = () => {
   return (
     <section className="partners section">
-      <h2 className="title">Furnizori Bocado</h2>
+      <h2 className="title">Furnizori Fresco</h2>
       <div className="partners__container">
         <Swiper
           modules={[Autoplay]}

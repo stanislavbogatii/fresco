@@ -8,7 +8,7 @@ import { useUserInfoContext } from '@/context/UserInfoContext';
 
 const UserProfileLeftSideBar = () => {
   const router = useRouter();
-  const { fetchUserInfo } = useUserInfoContext();
+  const { profile, fetchUserInfo } = useUserInfoContext();
 
   const handleDeconect = (e: any) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const UserProfileLeftSideBar = () => {
       <div className="user-sidebar__user-box">
         <Image className="user-sidebar__img" src={User} width={64} height={64} alt="Calin" />
         <strong className="user-sidebar__welcome">
-          <span>Salut,</span> Calin!
+          <span>Salut,</span> {profile?.firstName}
         </strong>
       </div>
       <ul className="user-sidebar__list">

@@ -29,7 +29,6 @@ export class UserController {
   })
   @ApiResponse({ status: 401, description: 'Unauthorized - Token missing or invalid' })
   getMe(@GetUser() user: User) {
-    console.log('e')
     return user;
   }
 

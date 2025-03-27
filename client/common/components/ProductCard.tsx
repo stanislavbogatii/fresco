@@ -5,7 +5,7 @@ import Image from 'next/image';
 import productImage from '../../asset/images/products/1.webp'
 import frozenIcon from '../../asset/icons/frozen-ico.svg';
 
-const ProductCard = () => {
+const ProductCard = ({product, key}: any) => {
   return (
     <article className="product-card">
       <Link className="product-card__link" href="#">
