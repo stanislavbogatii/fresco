@@ -42,6 +42,7 @@ const Customers: NextPage = () => {
   const getListCustomer = () => {
     getCustomers(pageNo)
       .then((data) => {
+        console.log(data)
         setCustomers(data.customers);
         setTotalPage(data.totalPage);
         setTotalUser(data.totalUser);

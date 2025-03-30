@@ -18,17 +18,15 @@ export async function createCategory(category: Record<string, any>) {
 }
 
 
-export async function updateCategory(id: number, category: Category) {
+export async function updateCategory(id: number, category: Record<string, any>) {
   const url = `${baseUrl}/${id}`;
-  const response = await apiClientService.put(url, JSON.stringify(category));
-  if (response.status === 204) return response;
-  else return await response.json();
+  return (await apiClientService.patch(url, JSON.stringify(category)));
+  // if (response.status === 204) return response;
+  // else return await response.json();
 }
 export async function deleteCategory(id: number) {
   const url = `${baseUrl}/${id}`;
-  const response = await apiClientService.delete(url);
-  if (response.status === 204) return response;
-  else return await response.json();
+  return (await apiClientService.delete(url));
 }
 
 export async function getProductsByCategory(

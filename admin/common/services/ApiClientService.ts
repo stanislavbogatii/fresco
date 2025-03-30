@@ -48,6 +48,8 @@ const apiClientService = {
   put: (endpoint: string, data: any, contentType: string | null = null) =>
     sendRequest('PUT', endpoint, data, contentType),
   delete: (endpoint: string) => sendRequest('DELETE', endpoint),
+  patch: (endpoint: string, data: any, contentType: string | null = null) =>
+    sendRequest('PATCH', endpoint, data, contentType),
 };
 
 export default apiClientService;

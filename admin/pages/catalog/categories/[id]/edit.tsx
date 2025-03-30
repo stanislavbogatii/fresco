@@ -16,6 +16,9 @@ import { toast } from 'react-toastify';
 import { isValidFile, validTypes } from '../../../../modules/catalog/components/ChooseThumbnail';
 import ChooseImageCommon from '../../../../common/components/ChooseImageCommon';
 import styles from '../../../../styles/ChooseImage.module.css';
+import { Language } from '@catalogModels/Language';
+import { getLanguages } from '@catalogServices/LanguagesService';
+import { Tab, Tabs } from 'react-bootstrap';
 
 type Image = {
   id: number;
@@ -24,7 +27,7 @@ type Image = {
 
 const CategoryEdit: NextPage = () => {
   const router = useRouter();
-  const { setValue, handleSubmit } = useForm<Category>();
+  const { setValue, handleSubmit, register } = useForm<Category>();
   const { id } = router.query;
   var slugify = require('slugify');
   const [categories, setCategories] = useState<Category[]>([]);
@@ -32,25 +35,23 @@ const CategoryEdit: NextPage = () => {
   const [slug, setSlug] = useState<string>();
   const [imageId, setImageId] = useState<number>();
   const [categoryImage, setCategoryImage] = useState<Image | null>();
+  const [languages, setLanguages] = useState<Language[]>([]);
+  const [tabKey, setTabKey] = useState<string>('');
 
   const handleSubmitEdit = async (data: any, event: any) => {
     event.preventDefault();
-    if (event.target.parentCategory.value == 0) event.target.parentCategory.value = null;
-    let category: Category = {
-      id: 0,
-      name: event.target.name.value,
-      slug: event.target.slug.value,
-      metaKeywords: event.target.metaKeywords.value,
-      metaDescription: event.target.metaDescription.value,
-      parentId: event.target.parentCategory.value,
-      displayOrder: event.target.displayOrder.value,
-      description: event.target.description.value,
-      isPublish: event.target.isPublish.checked,
-      imageId,
+    // if (event.target.parentCategory.value == 0) event.target.parentCategory.value = null;
+    const parentId = event?.target?.parentId?.value && event?.target?.parentId?.value != '-1' ? +event?.target?.parentId?.value : null;
+    const category = {
+      code: event?.target?.code?.value,
+      isActive: event?.target?.isActive?.checked,
+      parentId: parentId,
+      contents: data.categoryContent,
     };
 
     if (id) {
       const response = await updateCategory(+id, category);
+      console.log(response)
       if (response.status === ResponseStatus.SUCCESS) {
         router.replace(CATEGORIES_URL);
       }
@@ -65,16 +66,17 @@ const CategoryEdit: NextPage = () => {
     if (category.id === currentCategory?.parentId) {
       return (
         <option selected value={category.id} key={category.id}>
-          {parentHierarchy + category.name}
+          {parentHierarchy + category.code}
         </option>
       );
     }
     return (
       <option value={category.id} key={category.id}>
-        {parentHierarchy + category.name}
+        {parentHierarchy + category.code}
       </option>
     );
   };
+
   const renderCategoriesHierarchy: Function = (
     id: number,
     list: Array<Category>,
@@ -83,7 +85,7 @@ const CategoryEdit: NextPage = () => {
   ) => {
     let renderArr = list.filter((e) => e.parentId == id);
     const newArr = list.filter((e) => e.parentId != id);
-    renderArr = renderArr.sort((a: Category, b: Category) => a.name.localeCompare(b.name));
+    renderArr = renderArr.sort((a: Category, b: Category) => a.code.localeCompare(b.code));
     return renderArr.map((category: Category) => {
       return (
         <React.Fragment key={category.id}>
@@ -91,7 +93,7 @@ const CategoryEdit: NextPage = () => {
           {renderCategoriesHierarchy(
             category.id,
             newArr,
-            parentHierarchy + category.name + ' >> ',
+            parentHierarchy + category.code + ' >> ',
             currentCategory
           )}
         </React.Fragment>
@@ -103,11 +105,13 @@ const CategoryEdit: NextPage = () => {
     if (id)
       getCategory(+id).then((data) => {
         setCategory(data);
-        setSlug(data.slug);
-        if (data.categoryImage) {
-          setImageId(data.categoryImage.id);
-          setCategoryImage(data.categoryImage);
-        }
+        // setSlug(data.slug);
+        console.log(data);
+
+        // if (data.categoryImage) {
+        //   setImageId(data.categoryImage.id);
+        //   setCategoryImage(data.categoryImage);
+        // }
       });
   }, [id]);
 
@@ -115,40 +119,44 @@ const CategoryEdit: NextPage = () => {
     getCategories().then((data) => {
       setCategories(data);
     });
+    getLanguages().then((data) => {
+      setLanguages(data);
+      setTabKey(data[0].langId);
+    });
   }, []);
 
-  const onChangeProductImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event) {
-      return;
-    }
+  // const onChangeProductImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (!event) {
+  //     return;
+  //   }
 
-    const fileList = event.target.files;
-    const isAllValidImage =
-      fileList && Array.from(fileList).every((file) => isValidFile(file, validTypes));
+  //   const fileList = event.target.files;
+  //   const isAllValidImage =
+  //     fileList && Array.from(fileList).every((file) => isValidFile(file, validTypes));
 
-    if (!isAllValidImage) {
-      toast.error('Please select an image file (jpg or png)');
-      return;
-    }
-    try {
-      const file = fileList[0];
-      const res = await uploadMedia(file);
-      const url = URL.createObjectURL(file);
-      setValue?.('imageId', res.id);
-      setImageId(res.id);
-      setCategoryImage({
-        id: res.id,
-        url,
-      });
-    } catch (e) {
-      toast.error('Upload image failed');
-    }
-  };
+  //   if (!isAllValidImage) {
+  //     toast.error('Please select an image file (jpg or png)');
+  //     return;
+  //   }
+  //   try {
+  //     const file = fileList[0];
+  //     const res = await uploadMedia(file);
+  //     const url = URL.createObjectURL(file);
+  //     setValue?.('imageId', res.id);
+  //     setImageId(res.id);
+  //     setCategoryImage({
+  //       id: res.id,
+  //       url,
+  //     });
+  //   } catch (e) {
+  //     toast.error('Upload image failed');
+  //   }
+  // };
 
-  const onDeleteImage = () => {
-    setCategoryImage(null);
-    setImageId(undefined);
-  };
+  // const onDeleteImage = () => {
+  //   setCategoryImage(null);
+  //   setImageId(undefined);
+  // };
 
   return (
     <>
@@ -156,59 +164,80 @@ const CategoryEdit: NextPage = () => {
         <div className="col-md-8">
           <form onSubmit={handleSubmit(handleSubmitEdit)} name="form">
             <div className="mb-3">
-              <label className="form-label" htmlFor="name">
-                Name
+              <label className="form-label" htmlFor="code">
+                Code
               </label>
               <input
+                {...register('code')}
                 className="form-control"
                 type="text"
-                id="name"
-                name="name"
-                defaultValue={category?.name}
-                required
-                onChange={(e) => {
-                  let generate = slugify(e.target.value, {
-                    lower: true,
-                    strict: true,
-                  });
-                  setSlug(generate);
-                }}
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label" htmlFor="slug">
-                Slug
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                id="slug"
-                name="slug"
-                defaultValue={slug}
+                id="code"
+                name="code"
+                defaultValue={category?.code}
                 required
               />
             </div>
-            <div className="mb-3">
+            <Tabs activeKey={tabKey} onSelect={(e: any) => setTabKey(e)} >
+              {languages.map((lang, index) => {
+                setValue(`categoryContent.${index}.langId`, lang.langId);
+                setValue(`categoryContent.${index}.title`, category?.categoryContent[index]?.title)
+                setValue(`categoryContent.${index}.slug`, category?.categoryContent[index]?.slug)
+                setValue(`categoryContent.${index}.description`, category?.categoryContent[index]?.description)
+                return (
+                  <Tab key={lang.langId} eventKey={lang.langId} title={lang.langId} style={{ border: '1px solid #dee2e6', borderTop: 'none', padding: '10px', borderRadius: '.25rem' }}>
+                    <div className="mb-3">
+                      <label className="form-label" htmlFor={`categoryContent.${index}.title`}>
+                        Title
+                      </label>
+                      <input
+                        {...register(`categoryContent.${index}.title`)}
+                        className="form-control"
+                        type="text"
+                        id={`categoryContent.${index}.title`}
+                        name={`categoryContent.${index}.title`}
+                        // defaultValue={category?.categoryContent[index]?.title}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label" htmlFor={`categoryContent.${index}.slug`}>
+                        Slug
+                      </label>
+                      <input
+                        {...register(`categoryContent.${index}.slug`)}
+                        className="form-control"
+                        type="text"
+                        id={`categoryContent.${index}.slug`}
+                        name={`categoryContent.${index}.slug`}
+                        // defaultValue={category?.categoryContent[index]?.slug}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label" htmlFor={`categoryContent.${index}.description`}>
+                        Description
+                      </label>
+                      <textarea
+                        {...register(`categoryContent.${index}.description`)}
+                        className="form-control"
+                        id={`categoryContent.${index}.description`}
+                        // defaultValue={category?.categoryContent[index]?.description}
+                        name={`categoryContent.${index}.description`}
+                      />
+                    </div>
+                  </Tab>
+                );
+              })}
+            </Tabs>
+            <div className="mb-3 mt-3">
               <label className="form-label" htmlFor="parentCategory">
                 Parent category
               </label>
-              <select className="form-control" id="parentCategory" name="parentCategory">
-                <option value={0}>Top</option>
-                {renderCategoriesHierarchy(-1, categories, '', category)}
+              <select className="form-control" id="parentId" name="parentCategory">
+                <option value={-1}>Top</option>
+                {renderCategoriesHierarchy(null, categories, '', category)}
               </select>
             </div>
-            <div className="mb-3">
-              <label className="form-label" htmlFor="description">
-                Description
-              </label>
-              <textarea
-                className="form-control"
-                id="description"
-                defaultValue={category?.description}
-                name="description"
-              />
-            </div>
-            <div className="mb-3">
+
+            {/* <div className="mb-3">
               <label className="form-label" htmlFor="metaKeywords">
                 Meta Keywords
               </label>
@@ -219,8 +248,8 @@ const CategoryEdit: NextPage = () => {
                 name="metaKeywords"
                 defaultValue={category?.metaKeywords}
               />
-            </div>
-            <div className="mb-3">
+            </div> */}
+            {/* <div className="mb-3">
               <label className="form-label" htmlFor="metaDescription">
                 Meta Description
               </label>
@@ -230,8 +259,8 @@ const CategoryEdit: NextPage = () => {
                 name="metaDescription"
                 defaultValue={category?.metaDescription}
               />
-            </div>
-            <div className="mb-3">
+            </div> */}
+            {/* <div className="mb-3">
               <label className="form-label" htmlFor="displayOrder">
                 Display Order
               </label>
@@ -243,40 +272,40 @@ const CategoryEdit: NextPage = () => {
                 id="displayOrder"
                 name="displayOrder"
               />
-            </div>
+            </div> */}
             <div className="d-flex">
               <label
                 className="form-check-label mr-3"
-                htmlFor="isPublish"
+                htmlFor="isActive"
                 style={{ marginRight: '15px' }}
               >
-                Publish
+                isActive
               </label>
               <div className="form-check form-switch mb-3">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  id="isPublish"
-                  name="isPublish"
-                  defaultChecked={category?.isPublish}
+                  id="isActive"
+                  name="isActive"
+                  defaultChecked={category?.isActive}
                 />
               </div>
             </div>
-            {!categoryImage && (
+            {/* {!categoryImage && (
               <div className="mb-3">
                 <label className={styles['image-label']} htmlFor="category-image">
                   Choose category image
                 </label>
               </div>
-            )}
-            <input
+            )} */}
+            {/* <input
               hidden
               type="file"
               multiple
               id="category-image"
               onChange={(event) => onChangeProductImage(event)}
-            />
-            {categoryImage && (
+            /> */}
+            {/* {categoryImage && (
               <div className="mb-3">
                 <ChooseImageCommon
                   id="category-image"
@@ -284,7 +313,7 @@ const CategoryEdit: NextPage = () => {
                   onDeleteImage={onDeleteImage}
                 />
               </div>
-            )}
+            )} */}
             <button className="btn btn-primary" type="submit">
               Save
             </button>

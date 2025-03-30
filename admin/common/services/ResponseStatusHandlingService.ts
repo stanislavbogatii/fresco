@@ -26,6 +26,7 @@ export const handleDeletingResponse = (response: any, itemName: string | number)
 
 //Handle updating response message from API
 export const handleUpdatingResponse = (response: any) => {
+  console.log(response)
   if (response.status === ResponseStatus.SUCCESS) {
     toastSuccess(UPDATE_SUCCESSFULLY);
   } else if (response.title === ResponseTitle.BAD_REQUEST) {

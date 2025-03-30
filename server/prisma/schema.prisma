@@ -69,7 +69,7 @@ model CategoryContent {
   categoryId Int
   langId     String
 
-  category Category @relation(fields: [categoryId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   lang     Lang     @relation(fields: [langId], references: [langId])
 
   @@unique([langId, categoryId])

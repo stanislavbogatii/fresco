@@ -35,7 +35,10 @@ export class CategoryService {
 
   async findOne(id: number) {
     const category = await this.prisma.category.findUnique({
-      where: { id }
+      where: { id },
+      include: {
+        categoryContent: true
+      }
     });
     return category;
   }
@@ -82,9 +85,11 @@ export class CategoryService {
   async remove(id: number) {
     const category = await this.prisma.category.delete({
       where: {
-        id
-      }
+        id,
+      },
+      include: { categoryContent: true },  
     })
     return category;
   }
 }
+ 

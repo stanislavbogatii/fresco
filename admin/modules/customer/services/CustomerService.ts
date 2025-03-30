@@ -2,10 +2,14 @@ import { Customer, CustomerCreateVM, CustomerUpdateVM } from '../models/Customer
 import { Customers } from '../models/Customers';
 import apiClientService from '@commonServices/ApiClientService';
 
-const baseUrl = '/api/customer';
+const baseUrl = '/users';
 
-export async function getCustomers(pageNo: number): Promise<Customers> {
-  const url = `${baseUrl}/backoffice/customers?pageNo=${pageNo}`;
+export async function getCustomers(page?: number, limit?: number): Promise<Customers> {
+  let url = `${baseUrl}`;
+  if (page && page != 0) {
+    url += "?page=" + page;
+  }
+  console.log(url)
   return (await apiClientService.get(url)).json();
 }
 

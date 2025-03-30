@@ -6,6 +6,20 @@ import { EditUserDto } from './dto'
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
+  async findAll(page?: number, limit?: number) {
+    const skip = (page - 1) * limit;
+    const customers = await this.prisma.user.findMany({
+      skip, 
+      take: limit
+    });
+    const totalUser = await this.prisma.user.count();
+    return {
+      customers,
+      totalUser,
+      totalPage: Math.ceil(totalUser / limit)
+    };
+  }
+
   async editUser(
     userId: number,
     dto: EditUserDto,

@@ -3,19 +3,20 @@ import {
   Controller,
   Get,
   Patch,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { GetUser } from '../auth/decorator';
 import { JwtGuard } from '../auth/guard';
 import { EditUserDto } from './dto';
 import { UserService } from './user.service';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { UserDto } from './dto/user.dto';
 
 @ApiTags('users')
 @ApiBearerAuth()
-@UseGuards(JwtGuard)
+// @UseGuards(JwtGuard)
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
@@ -35,7 +36,7 @@ export class UserController {
   @Patch()
   @ApiOperation({ summary: 'Update the current user’s profile' })
   @ApiResponse({
-    status: 200,
+    status: 204,
     description: 'User updated successfully',
     type: UserDto,
   })
@@ -46,5 +47,16 @@ export class UserController {
     @Body() dto: EditUserDto,
   ) {
     return this.userService.editUser(userId, dto);
+  }
+
+  @Get()
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
+  @ApiResponse({ status: 200, description: 'List of users' })
+  async findAll(
+    @Query('page') page = 1,
+    @Query('limit') limit = 10,
+  ) {
+    return this.userService.findAll(+page, +limit);
   }
 }

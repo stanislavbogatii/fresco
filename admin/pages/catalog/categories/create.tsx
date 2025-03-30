@@ -37,7 +37,7 @@ const CategoryCreate: NextPage = () => {
       code: data.code,
       isActive: data.isActive,
       contents: data.categoryContent,
-      parentId: data.parentId ? +data.parentId : null,
+      parentId: data.parentId && +data?.parentId != -1 ? +data.parentId : null,
     };
     const response = await createCategory(category);
 
@@ -143,7 +143,7 @@ const CategoryCreate: NextPage = () => {
               Parent category
             </label>
             <select className="form-control" id="parentCategory" {...register('parentId')}>
-              <option value={0}>Top</option>
+              <option value={-1}>Top</option>
               {renderCategoriesHierarchy(null, categories, '')}
             </select>
           </div>
