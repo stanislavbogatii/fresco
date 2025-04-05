@@ -8,6 +8,7 @@ type InputProps<T extends FieldValues> = {
   error?: string;
   type?: HTMLInputTypeAttribute;
   registerOptions?: RegisterOptions;
+  className?: string;
   defaultValue?: number | string | string[];
   disabled?: boolean;
   placeholder?: string;
@@ -20,18 +21,19 @@ export const Input = <T extends FieldValues>({
   registerOptions = {},
   error,
   defaultValue,
+  className,
   type = 'text',
   disabled = false,
   placeholder,
 }: InputProps<T>) => (
   <div className="mb-3">
-    <label className="form-label" htmlFor={field}>
+    <label className="register-form__text" htmlFor={field}>
       {labelText} {registerOptions?.required && <span className="text-danger">*</span>}
     </label>
     <input
       type={type}
       id={field}
-      className={`form-control ${error ? 'border-danger' : ''}`}
+      className={`form-control ${className} ${error ? 'border-danger' : ''}`}
       {...register(field, registerOptions)}
       defaultValue={defaultValue}
       disabled={disabled}

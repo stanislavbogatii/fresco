@@ -16,7 +16,7 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
   const [lastScrollTop, setLastScrollTop] = useState<number>(0);
   const [hasScrolled, setHasScrolled] = useState<boolean>(false);
   const scrollThreshold = 148;
-  const { profile } = useUserInfoContext();
+  const { user } = useUserInfoContext();
 
   const openMenuBurger = () => setIsMenuBurgerOpen(true);
   const closeMenuBurger = () => setIsMenuBurgerOpen(false);
@@ -70,12 +70,12 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
               <span className="header__btn-line"></span>
               <span className="sr-only">open menu burger</span>
             </button>
-            <Logo profile={!!profile} />
+            <Logo profile={!!user} />
             <SearchForm />
-            {profile ? (
+            {user ? (
               <>
                 <Link className="header__top-user" href={routes.profile}>
-                  <span>Salut, {profile.firstName}</span>
+                  <span>Salut, {user?.profile?.firstName}</span>
                 </Link>
                 <Link className="header__top-favourite" href="#">
                   <span>Favorite</span>

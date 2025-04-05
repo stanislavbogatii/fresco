@@ -18,15 +18,28 @@ import { SignInDto, SignUpDto } from './dto';
     ) {}
   
     async signup(dto: SignUpDto) {
-      // generate the password hash
       const hash = await argon.hash(dto.password);
-      // save the new user in the db
       try {
         const user = await this.prisma.user.create({
           data: {
             email: dto.email,
             hash,
-            firstName: dto.firstName,
+            profile: {
+              create: {
+                firstName: dto.firstName,
+                lastName: dto.lastName,
+                phone: dto?.phone,
+                gender: dto?.gender
+              }
+            },
+            company: {
+              create: {
+                name: dto.companyName,
+                commercialName: dto.companyCommercialName,
+                phone: dto.companyPhone,
+                fiscalCode: dto.companyFiscalCode
+              }
+            }
           },
         });
   

@@ -6,6 +6,11 @@ interface RequestOptions {
   body?: string;
 }
 
+const getCookie = (name: string): string | null => {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? match[2] : null;
+};
+
 const sendRequest = async (
   method: string,
   endpoint: string,
@@ -16,6 +21,7 @@ const sendRequest = async (
   const requestOptions: RequestOptions = {
     method: method.toUpperCase(),
     headers: {
+      'Authorization': `Bearer ${getCookie('access_token')}`,
       'Content-type': contentType ?? defaultContentType,
     },
   };
@@ -28,8 +34,12 @@ const sendRequest = async (
   }
 
   try {
-    const response = await fetch('https://fresco.md/api' + endpoint, method === 'GET' ? undefined : requestOptions);
-
+    const response = await fetch('https://fresco.md/api' + endpoint, method === 'GET' ? {
+      headers: {
+      'Authorization': `Bearer ${getCookie('access_token')}`,
+    },
+    } : requestOptions);
+    
     if (response.type == 'cors' && response.redirected) {
       window.location.href = response.url;
     }

@@ -136,10 +136,10 @@ const ProductList = () => {
                           style={{ cursor: 'pointer' }}
                           className={`d-inline-block my-2 me-2 px-3 border border-secondary rounded-pill ${styles['hover-category']}`}
                           onClick={() => {
-                            handleFilter(CATEGORY_SLUG, cate.slug);
+                            handleFilter(CATEGORY_SLUG, cate.categoryContent[0]?.slug);
                           }}
                         >
-                          {cate.name}
+                          {cate?.categoryContent[0]?.title}
                         </li>
                       ))}
                     </ul>

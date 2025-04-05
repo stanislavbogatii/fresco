@@ -5,8 +5,7 @@ import apiClientService from '@/common/services/ApiClientService';
 export async function getMyProfile(): Promise<Customer | null> {
   const url = '/users/me';
   const response = await apiClientService.get(url);
-
-  if (response.status >= 200 && response.status < 300) return response.json();
+  if (response.status >= 200 && response.status < 300) return await response.json();
   else return null;
 }
 

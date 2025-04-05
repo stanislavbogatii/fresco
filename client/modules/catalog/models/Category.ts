@@ -1,10 +1,11 @@
+import { CategoryContent } from "@/modules/catalog/models/CategoryContent";
+
 export type Category = {
   id: number;
-  name: string;
-  description: string;
-  slug: string;
-  categoryImage?: {
-    id: number;
-    url: string;
-  };
+  isActive: boolean;
+  code: string;
+  parentId?: number | null;
+  categoryContent: CategoryContent[];
+  createdAt: Date;
+  updateddAt: Date;
 };

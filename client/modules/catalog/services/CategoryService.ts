@@ -1,7 +1,7 @@
 import { Category } from '../models/Category';
 import apiClientService from '@/common/services/ApiClientService';
 
-const baseUrl = '/api/product/storefront/categories';
+const baseUrl = '/category';
 
 export async function getCategories(): Promise<Category[]> {
   const response = await apiClientService.get(baseUrl);

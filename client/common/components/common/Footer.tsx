@@ -109,7 +109,7 @@ const Footer = () => {
           </ul>
         </div>
         <div className="footer__bottom">
-          <p className="footer__copyright">Copyright © 2024 - Macromex SRL</p>
+          {/* <p className="footer__copyright">Copyright © 2024 - Macromex SRL</p> */}
           <p className="footer__powered">
             Powered by
             <Link className="footer__powered-link" href="#">

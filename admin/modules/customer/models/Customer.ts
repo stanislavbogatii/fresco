@@ -1,11 +1,15 @@
 export type Customer = {
   id: string;
   email: string;
-  username: string;
+  createdTimestamp: Date;
+  profile: Profile;
+};
+
+export type Profile = {
   firstName: string;
   lastName: string;
-  createdTimestamp: Date;
-};
+  phone: string;
+}
 
 export type CustomerCreateVM = {
   username: string;

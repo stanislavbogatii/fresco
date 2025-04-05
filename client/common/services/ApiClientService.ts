@@ -32,11 +32,11 @@ const sendRequest = async (
     }
     requestOptions.body = data;
   }
-
+  // console.log(document.cookie)
   try {
     const response = await fetch('https://fresco.md/api' + endpoint, method === 'GET' ? {
       headers: {
-      'Authorization': `Bearer ${getCookie('access_token')}`,
+      // 'Authorization': `Bearer ${getCookie('access_token')}`,
     },
     } : requestOptions);
 

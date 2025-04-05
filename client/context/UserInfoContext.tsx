@@ -3,17 +3,17 @@ import { getMyProfile } from '@/modules/profile/services/ProfileService';
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 
 interface UserInfoContextType {
-  profile: Customer | null;  
+  user: Customer | null;  
   fetchUserInfo: () => void;  
 }
 
 export const UserInfoContext = createContext<UserInfoContextType>({
-  profile: null,
+  user: null,
   fetchUserInfo: () => {},
 });
 
 export function UserInfoProvider({ children }: React.PropsWithChildren) {
-  const [profile, setProfile] = useState<null | Customer>(null);
+  const [user, setUser] = useState<null | Customer>(null);
   
   useEffect(() => {
     fetchUserInfo();
@@ -22,7 +22,7 @@ export function UserInfoProvider({ children }: React.PropsWithChildren) {
   const fetchUserInfo = useCallback(() => {
     getMyProfile()
       .then((res) => {
-        setProfile(res);
+        setUser(res);
       })
       .catch((err) => {
         console.log(err);
@@ -31,16 +31,16 @@ export function UserInfoProvider({ children }: React.PropsWithChildren) {
 
   const value = useMemo(
     () => ({
-      profile,
+      user,
       fetchUserInfo,
     }),
-    [profile, fetchUserInfo]
+    [user, fetchUserInfo]
   );
 
   return <UserInfoContext.Provider value={value}>{children}</UserInfoContext.Provider>;
 }
 
 export const useUserInfoContext = () => {
-  const { profile, fetchUserInfo } = useContext(UserInfoContext);
-  return { profile, fetchUserInfo };
+  const { user, fetchUserInfo } = useContext(UserInfoContext);
+  return { user, fetchUserInfo };
 };

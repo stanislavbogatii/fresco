@@ -16,7 +16,7 @@ import { UserDto } from './dto/user.dto';
 
 @ApiTags('users')
 @ApiBearerAuth()
-// @UseGuards(JwtGuard)
+@UseGuards(JwtGuard)
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
@@ -26,7 +26,6 @@ export class UserController {
   @ApiResponse({
     status: 200,
     description: 'User data retrieved successfully',
-    type: UserDto,
   })
   @ApiResponse({ status: 401, description: 'Unauthorized - Token missing or invalid' })
   getMe(@GetUser() user: User) {
@@ -57,6 +56,6 @@ export class UserController {
     @Query('page') page = 1,
     @Query('limit') limit = 10,
   ) {
-    return this.userService.findAll(+page, +limit);
+    return await this.userService.findAll(+page, +limit);
   }
 }

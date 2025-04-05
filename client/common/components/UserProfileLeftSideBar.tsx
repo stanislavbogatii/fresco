@@ -5,13 +5,15 @@ import User from '../../asset/icons/user-img.svg';
 import { useRouter } from 'next/router';
 import { routes } from '@/utils/routes';
 import { useUserInfoContext } from '@/context/UserInfoContext';
+import { signout } from '@/modules/register/services/RegisterServcie';
 
 const UserProfileLeftSideBar = () => {
   const router = useRouter();
-  const { profile, fetchUserInfo } = useUserInfoContext();
+  const { user, fetchUserInfo } = useUserInfoContext();
 
-  const handleDeconect = (e: any) => {
+  const handleDeconect = async (e: any) => {
     e.preventDefault();
+    await signout();
     document.cookie = "access_token=; path=/; max-age=0";
     fetchUserInfo();
     router.push(routes.home);
@@ -22,7 +24,7 @@ const UserProfileLeftSideBar = () => {
       <div className="user-sidebar__user-box">
         <Image className="user-sidebar__img" src={User} width={64} height={64} alt="Calin" />
         <strong className="user-sidebar__welcome">
-          <span>Salut,</span> {profile?.firstName}
+          <span>Salut,</span> {user?.profile?.firstName}
         </strong>
       </div>
       <ul className="user-sidebar__list">

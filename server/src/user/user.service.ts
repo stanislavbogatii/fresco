@@ -10,7 +10,11 @@ export class UserService {
     const skip = (page - 1) * limit;
     const customers = await this.prisma.user.findMany({
       skip, 
-      take: limit
+      take: limit,
+      include: {
+        profile: true,
+        company: true
+      }
     });
     const totalUser = await this.prisma.user.count();
     return {
@@ -31,6 +35,10 @@ export class UserService {
       data: {
         ...dto,
       },
+      include: {
+        profile: true,
+        company: true
+      }
     });
 
     delete user.hash;

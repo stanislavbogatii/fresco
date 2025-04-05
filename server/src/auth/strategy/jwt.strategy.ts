@@ -11,14 +11,18 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class JwtStrategy extends PassportStrategy(
   Strategy,
   'jwt',
-) {
-  constructor(
-    config: ConfigService,
+) { 
+  constructor( 
+    config: ConfigService,  
     private prisma: PrismaService,
   ) {
-    super({
+    super({ 
       jwtFromRequest:
-        ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ExtractJwt.fromExtractors([
+        (req) => { 
+          return req?.cookies?.access_token || null;
+        },
+      ]),
       secretOrKey: config.get('JWT_SECRET'),
     });
   }
@@ -32,6 +36,10 @@ export class JwtStrategy extends PassportStrategy(
         where: {
           id: payload.sub,
         },
+        include: {
+          profile: true,
+          company: true
+        }
       });
     delete user.hash;
     return user;

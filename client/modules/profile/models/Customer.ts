@@ -1,6 +1,9 @@
+import { Company } from "./Company";
+import { Profile } from "./Profile";
+
 export type Customer = {
   email: string;
-  username: string;
-  firstName: string;
-  lastName: string;
+  profile: Profile;
+  company: Company
 };
+

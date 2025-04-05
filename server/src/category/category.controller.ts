@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode  } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, Query, HttpStatus  } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { STATUS_CODES } from 'http';
 
 @ApiTags('categories')
@@ -10,42 +10,42 @@ import { STATUS_CODES } from 'http';
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
+  @ApiResponse({status: HttpStatus.CREATED, description: 'Category created successfuly'})
   @Post()
-  @ApiResponse({
-    status: 201,
-    description: 'Category created successfuly',
-  })
   async create(@Body() createCategoryDto: CreateCategoryDto) {
     return await this.categoryService.create(createCategoryDto);
   }
 
+  @ApiResponse({status: HttpStatus.OK, description: "List of categories"})
+  @ApiQuery({name: 'page', required: false, type: Number, example: 1})
+  @ApiQuery({name: 'limit', required: false, type: Number, example: 10})
   @Get()
-  findAll() {
-    return this.categoryService.findAll();
+  async findAll(
+    @Query('page') page = 1,
+    @Query('limit') limit = 10
+  ) {
+    return await this.categoryService.findAll(page, limit);
   }
 
+  @ApiResponse({status: HttpStatus.OK})
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoryService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.categoryService.findOne(+id);
   }
 
+  @ApiResponse({status: HttpStatus.NO_CONTENT, description: 'Category updated successfuly'})
+  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Category not found' })
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Patch(':id')
-  @HttpCode(204)
-  @ApiResponse({
-    status: 204,
-    description: 'Category updated successfuly',
-  })
-  update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-    return this.categoryService.update(+id, updateCategoryDto);
+  async update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
+    return await this.categoryService.update(+id, updateCategoryDto);
   }
 
   @Delete(':id')
-  @HttpCode(204)
-  @ApiResponse({
-    status: 204,
-    description: 'Category deleted successfuly',
-  })
-  remove(@Param('id') id: string) {
-    return this.categoryService.remove(+id);
+  @ApiResponse({status: HttpStatus.NO_CONTENT, description: 'Category deleted successfuly'})
+  @ApiResponse({status: HttpStatus.NOT_FOUND, description: 'Category not found'})
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async remove(@Param('id') id: string) {
+    return await this.categoryService.remove(+id);
   }
 }

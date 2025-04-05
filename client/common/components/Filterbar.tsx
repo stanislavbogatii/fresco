@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Link from 'next/link';
+import { Category } from '@/modules/catalog/models/Category';
+import { getCategories } from '@/modules/catalog/services/CategoryService';
 
 type AccordionState = {
   [key: string]: boolean;
 };
 
 const Filterbar = () => {
+  const [categories, setCategories] = useState<Category[]>();
+
   const [accordionState, setAccordionState] = useState<AccordionState>({
     ingrediente: true,
     semipreparate: true,
@@ -18,7 +22,18 @@ const Filterbar = () => {
     consumabile: true,
   });
 
-  const toggleAccordion = (item: string) => {
+  useEffect(() => {
+    getCategories().then((data: Category[]) => {
+      setCategories(data);
+      let newObjState: AccordionState = {};
+      data.forEach((category) => {
+        newObjState[category.id] = false;
+      })
+      setAccordionState(newObjState);
+    });
+  }, [])
+
+  const toggleAccordion = (item: number) => {
     setAccordionState((prevState) => ({
       ...prevState,
       [item]: !prevState[item],
@@ -28,7 +43,38 @@ const Filterbar = () => {
   return (
     <aside className="filterbar">
       <ul className="filterbar__list">
-        <li className="filterbar__item">
+        {categories?.filter(category => category.parentId === null).map((category, key) => {
+          return (
+            <li key={key} className="filterbar__item">
+              <button
+                className={`filterbar__btn filterbar__btn--consumabile ${
+                  accordionState[category.id] ? 'active' : ''
+                }`}
+                type="button"
+                onClick={() => toggleAccordion(category.id)}
+              >
+                {category.categoryContent[0]?.title}
+              </button>
+              {categories.find((category_c) => category_c.parentId === category.id) &&
+              <div className={`filterbar__accordion ${accordionState[category.id] ? 'active' : ''}`}>
+                  <ul className="filterbar__accordion-list" style={{ minHeight: '0' }}>
+                      {categories.filter(category_c => category_c.parentId === category.id).map((category_c, key) => {
+                        return (
+                          <li className="filterbar__accordion-item">
+                            <Link className="filterbar__accordion-link" href="#">
+                              {category_c.categoryContent[0].title}
+                            </Link>
+                          </li> 
+                        )
+                      })}
+                  </ul>
+              </div>
+              }
+
+            </li>
+          )
+        })}
+        {/* <li className="filterbar__item">
           <button
             className={`filterbar__btn filterbar__btn--ingrediente ${
               accordionState.ingrediente ? 'active' : ''
@@ -357,7 +403,7 @@ const Filterbar = () => {
               </li>
             </ul>
           </div>
-        </li>
+        </li> */}
       </ul>
     </aside>
   );

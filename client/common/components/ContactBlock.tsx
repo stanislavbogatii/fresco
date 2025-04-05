@@ -9,7 +9,7 @@ const ContactBlock = () => {
         <strong className="contact-block__title">Program comenzi telefonice si suport</strong>
         <ul className="contact-block__list">
           <li className="contact-block__list-item contact-block__list-item--time">
-            Luni - Vineri: 08:30 - 17:30 <span>Sambata - Duminica: INCHIS</span>
+            Luni - Vineri: 09:00 - 18:00 <span>Sambata - Duminica: INCHIS</span>
           </li>
           <li className="contact-block__list-item contact-block__list-item--tel">
             <Link className="contact-block__list-link" href="tel:+37362042038">

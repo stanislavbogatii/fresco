@@ -93,13 +93,11 @@ const AboutContent = () => {
             <h1 className="about__main-title">Despre noi</h1>
             <ul className="about__content-list">
               <li className="about__content-item">
-                <strong className="about__content-title">
+                {/* <strong className="about__content-title">
                   Experti in gasirea celor mai bune solutii pentru domeniul HoReCa.
-                </strong>
+                </strong> */}
                 <p className="about__text">
-                  Bocado este initiativa Macromex ce vine in intampinarea specialistilor HoReCa,
-                  ajutandu-i cu solutii profesionale prin care sa-si usureze munca, timpul petrecut
-                  in bucatarie, si sa creasca in mod real calitatea serviciilor.
+                  Bine ai venit pe FRESCO.MD, locul unde restaurantele și furnizorii din Republica Moldova își optimizează colaborarea prin tehnologie inteligentă și eficientă. Inspirată de succesul Choco.com, platforma noastră simplifică procesul de aprovizionare, reducând costurile și economisind timp prețios.
                 </p>
                 <p className="about__text">
                   De 30 ani, Macromex este printre liderii din industria de produse alimentare pe
@@ -114,15 +112,12 @@ const AboutContent = () => {
               </li>
               <li className="about__content-item">
                 <strong className="about__content-title">
-                  Viziunea noastra, sustinuta de identitate
+                  Misiunea Noastră
                 </strong>
                 <p className="about__text">
-                  Nu intamplator am ales numele Bocado - tradus din portugheza, „bocado” inseamna
-                  „bucatica”, insa, folosit in expresii, „bocado” devine un lucru rafinat. Un
-                  concept care se leaga strans de misiunea noastra: aceea de a pune laolalta
-                  „bucatele” pentru a crea lucruri rafinate.
+                  Ne dorim să revoluționăm industria HoReCa din Moldova, oferind o soluție digitală modernă, care să conecteze restaurantele și furnizorii într-un mod mai rapid, transparent și avantajos pentru toți. Credem într-un viitor în care comenzile și gestionarea stocurilor devin un proces simplu și intuitiv.
                 </p>
-                <p className="about__text">
+                {/* <p className="about__text">
                   Iar cand spunem „misiunea noastra”, o facem pentru ca stim ca doar impreuna putem
                   ridica standardele de gust si calitate.
                 </p>
@@ -130,75 +125,44 @@ const AboutContent = () => {
                   Speram ca, in viitor, sa extindem atat portofoliul de furnizori relevanti pentru
                   domeniul HoReCa si ne dorim sa formam o comunitate a profesionistilor din domeniu,
                   care se sustin reciproc. Aceasta este viziunea si promisiunea noastra.
-                </p>
+                </p> */}
               </li>
               <li className="about__content-item">
                 <strong className="about__content-title">
-                  Impartasim pasiunea pentru mancarea excelenta
+                  Ce Oferim?
                 </strong>
                 <p className="about__text">
-                  Ingredientele principale pe care le adaugam in relatia cu clientii nostri s-au
-                  dovedit a fi o reteta de succes, asa ca o aplicam in continuare. Imbinam
-                  experienta noastra, ambitia de a oferi mereu solutii si produse care depasesc
-                  asteptarile, calitatea superioara a produselor, curajul de a ne asuma riscuri si
-                  viteza de reactie la oportunitatile si schimbarile pietei. Acestea sunt lucrurile
-                  care ne-au determinat si sustinut evolutia.
+                Eficiență și Automatizare – Reducem timpul pierdut în comenzi printr-un sistem digital intuitiv.
                 </p>
                 <p className="about__text">
-                  Succesul tau este important pentru noi, iar pentru ca tu sa oferi clientilor o
-                  mancare excelenta atunci cand pasesc in restaurant, suntem aici sa-ti oferim toate
-                  ingredientele de care ai nevoie pentru a-i impresiona.
+                Transparență Totală – Oferim acces la informații clare despre produse, prețuri și disponibilitate
+                </p>
+                <p className="about__text">
+                Colaborare Simplificată – Creăm un mediu în care restaurantele și furnizorii pot comunica fără obstacole.                </p>
+                <p className="about__text">
+                Reducerea Pierderilor – Optimizăm procesul de aprovizionare pentru a evita risipa de resurse.                </p>
+              </li>
+              <li className="about__content-item">
+                <strong className="about__content-title">De ce să Alegi FRESCO.MD?</strong>
+                <p className="about__text">
+                ✔️ Proces simplificat de comandă și livrare
+                </p>
+                <p className="about__text">
+                ✔️ Acces la o gamă variată de furnizori și produse
+                </p>
+                <p className="about__text">
+                ✔️ Economie de timp și costuri
+                </p>
+                <p className="about__text">
+                ✔️ Suport rapid și dedicat
                 </p>
               </li>
               <li className="about__content-item">
-                <strong className="about__content-title">Servicii excelente</strong>
                 <p className="about__text">
-                  Imbunatatim permanent experienta de utilizare a site-ului, de la crearea initiala
-                  a contului si trimiterea comenzilor, pana la livrare si servicii.
+                Suntem aici pentru a aduce inovație și progres în industria alimentară din Moldova. Alătură-te nouă și hai să construim împreună viitorul HoReCa!
                 </p>
               </li>
-              <li className="about__content-item">
-                <strong className="about__content-title">Distributie nationala</strong>
-                <p className="about__text">
-                  Iti asiguram calitatea produselor inainte, in timpul si dupa livrarea
-                  door-to-door, cu autoutilitare frigorifice si congelatoare.
-                </p>
-              </li>
-              <li className="about__content-item">
-                <strong className="about__content-title">Produse de top</strong>
-                <p className="about__text">
-                  Te aprovizionam cu produse de la furnizori si branduri cu notorietate si toate
-                  informatiile de care ai nevoie despre acestea.
-                </p>
-              </li>
-              <li className="about__content-item">
-                <strong className="about__content-title">Comenzi rapide</strong>
-                <p className="about__text">
-                  Iti garantam mai putin stres in procesul de plasare a comenzilor prin rapiditatea
-                  platformei noastre.
-                </p>
-              </li>
-              <li className="about__content-item">
-                <strong className="about__content-title">Transparenta si control</strong>
-                <p className="about__text">
-                  Iti oferim toate beneficiile de user management prin platforma noastra securizata
-                  pentru o vedere de ansamblu a echipei tale.
-                </p>
-              </li>
-              <li className="about__content-item">
-                <strong className="about__content-title">Suport si asistenta</strong>
-                <p className="about__text">
-                  Te sprijinim cu echipa de consultanti, mereu pregatita sa te asiste cu prezentari
-                  live de produse.
-                </p>
-              </li>
-              <li className="about__content-item">
-                <strong className="about__content-title">Dezvoltare sustenabila</strong>
-                <p className="about__text">
-                  Ne ajutam reciproc, hranindu-ne nevoia de a sustine dezvoltarea pe plan local,
-                  fiind o companie 100% romaneasca.
-                </p>
-              </li>
+              
             </ul>
           </div>
         </div>

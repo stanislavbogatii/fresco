@@ -14,7 +14,7 @@ export class CategoryService {
       data: {
         ...categoryData,
         categoryContent: contents ? {
-          create: createCategoryDto.contents
+          create: contents
         } : undefined
       },
       include: {
@@ -24,8 +24,11 @@ export class CategoryService {
     return category;
   }
 
-  async findAll() {
+  async findAll(page: number, limit: number) {
+    const skip = (page - 1) * limit;
     const categories = await this.prisma.category.findMany({
+      skip,
+      take: limit,
       include: {
         categoryContent: true
       }
@@ -34,7 +37,7 @@ export class CategoryService {
   }
 
   async findOne(id: number) {
-    const category = await this.prisma.category.findUnique({
+    const category = await this.prisma.category.findFirst({
       where: { id },
       include: {
         categoryContent: true
@@ -45,7 +48,6 @@ export class CategoryService {
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
     const { contents, ...categoryData } = updateCategoryDto;
-    console.log(categoryData)
 
     const category = await this.prisma.category.update({
       where: {

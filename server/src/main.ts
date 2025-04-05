@@ -1,5 +1,6 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cors from 'cors';
@@ -17,7 +18,7 @@ async function bootstrap() {
   );
 
   app.setGlobalPrefix('api');
-
+  app.use(cookieParser());
   const config = new DocumentBuilder()
     .setTitle('My NestJS API')
     .setDescription('API documentation for my NestJS application')

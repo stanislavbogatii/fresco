@@ -23,12 +23,12 @@ const LoginForm = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
     e.preventDefault();
     if (password && email) {
       const data = await signin({email, password});
-      if (data && data?.access_token) {
-        document.cookie = `access_token=${data.access_token}; path=/; max-age=${60 * 60 * 24 * 7}`;
+      // if (data) {
+        // document.cookie = `access_token=${data.access_token}; path=/; max-age=${60 * 60 * 24 * 7}`;
         fetchUserInfo();
         onClose();
         router.push(routes.profile);
-      }
+      // }  
     }
   }
 
