@@ -1,6 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
@@ -18,7 +16,7 @@ const News = () => {
       <div className="product-slider news__slider">
         <Swiper
           modules={[Pagination, Autoplay]}
-          spaceBetween={24}
+          spaceBetween={20}
           slidesPerView={4}
           pagination={{ clickable: true }}
           breakpoints={{
@@ -49,6 +47,57 @@ const News = () => {
           }}
         >
           <SwiperSlide>
+            <ProductCard key={0} product={{
+              id: 0,
+              price: 0,
+              article: 'sd',
+              oldPrice: undefined,
+              categoryId: 0,
+              content: {
+                title: '',
+                slug: '',
+                description: '',
+                langId: ''
+              },
+              thumbImage: undefined,
+              images: []
+            }} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard key={0} product={{
+              id: 0,
+              price: 0,
+              oldPrice: undefined,
+              categoryId: 0,
+              article: 'l',
+              content: {
+                title: '',
+                slug: '',
+                description: '',
+                langId: ''
+              },
+              thumbImage: undefined,
+              images: undefined
+            }} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ProductCard key={0} product={{
+              id: 0,
+              price: 0,
+              oldPrice: undefined,
+              categoryId: 0,
+              article: 'l',
+              content: {
+                title: '',
+                slug: '',
+                description: '',
+                langId: ''
+              },
+              thumbImage: undefined,
+              images: undefined
+            }} />
+          </SwiperSlide>
+          {/* <SwiperSlide>
             <ProductCard />
           </SwiperSlide>
           <SwiperSlide>
@@ -65,16 +114,7 @@ const News = () => {
           </SwiperSlide>
           <SwiperSlide>
             <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
+          </SwiperSlide> */}
         </Swiper>
       </div>
     </section>

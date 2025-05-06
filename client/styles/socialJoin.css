@@ -1,10 +1,10 @@
 .social-join {
-  max-width: 250px;
+  max-width: 300px;
 }
 
 .social-join__title {
   display: block;
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 20px;
 }
 
@@ -15,8 +15,14 @@
   margin-bottom: 20px;
 }
 
-@media (max-width: 680px) {
+@media (max-width: 992px) {
   .social-join {
-    max-width: 100%;
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 580px) {
+  .social-join__list {
+    justify-content: start;
   }
 }

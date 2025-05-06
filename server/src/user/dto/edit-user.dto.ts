@@ -1,31 +1,38 @@
-import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { GenderEnum } from '@prisma/client';
 
 export class EditUserDto {
   @ApiProperty({
-    description: 'The email address of the user (optional)',
-    example: 'newemail@example.com',
-    required: false,
+    description: 'The first name for the user account',
+    example: 'Vladik',
   })
-  @IsEmail()
-  @IsOptional()
-  email?: string;
+  @IsString()
+  @IsNotEmpty()
+  firstName: string;
 
   @ApiProperty({
-    description: 'The first name of the user (optional)',
-    example: 'John',
-    required: false,
+    description: 'The last name for the user account',
+    example: 'Tracenco',
+  })
+  @IsString()
+  @IsNotEmpty()
+  lastName: string;
+
+  @ApiProperty({
+    description: 'The phone number for the user account',
+    example: '+373232323',
   })
   @IsString()
   @IsOptional()
-  firstName?: string;
+  phone?: string;
 
   @ApiProperty({
-    description: 'The last name of the user (optional)',
-    example: 'Doe',
-    required: false,
+    description: 'The gender for the user account',
+    example: GenderEnum.male,
+    enum: GenderEnum
   })
-  @IsString()
+  @IsEnum(GenderEnum)
   @IsOptional()
-  lastName?: string;
+  gender?: GenderEnum;
 }

@@ -2,8 +2,8 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ToastContainer } from 'react-toastify';
 
-// import 'bootstrap-icons/font/bootstrap-icons.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import '../styles/reset.css'
@@ -45,22 +45,23 @@ import '../styles/offerCreate.css';
 import '../styles/mainBanner.css';
 import '../styles/menuBurger.css';
 import '../styles/ProductCard.css'
+import '../styles/catalog.css'
+import '../styles/404.css'
+import '../styles/favorite.css'
+import '../styles/product.css'
 
 import Layout from '@/common/components/Layout';
 import { AppProvider } from '@/context/AppContext';
+import Script from 'next/script';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AppProvider>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap"
-          rel="stylesheet"
-        />
       </Head>
+      <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" />
+      
       <Layout>
         <Component {...pageProps} />
       </Layout>

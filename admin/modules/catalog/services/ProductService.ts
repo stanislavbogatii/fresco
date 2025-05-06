@@ -6,7 +6,7 @@ import apiClientService from '@commonServices/ApiClientService';
 import { ProductOptionValueDisplayGet } from '@catalogModels/ProductOptionValuePost';
 
 const baseUrl = '/api/product/backoffice';
-const baseUrlOptionValue = '/api/product';
+const baseUrlOptionValue = '/api/products';
 
 export async function getProducts(
   pageNo: number,

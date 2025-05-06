@@ -102,7 +102,7 @@ const SearchPage = () => {
     <Row xs={4} xl={5} className={styles['search-result__list']}>
       {products.map((product) => (
         <Col key={product.id}>
-          <ProductCard
+          {/* <ProductCard
             className={['products-page']}
             product={{
               id: product.id,
@@ -112,7 +112,7 @@ const SearchPage = () => {
               slug: product.slug,
             }}
             thumbnailId={product.thumbnailId}
-          />
+          /> */}
         </Col>
       ))}
     </Row>

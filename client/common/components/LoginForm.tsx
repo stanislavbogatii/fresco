@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-import loginBanner from '../../asset/images/login-banner.png';
+import loginBanner from '../../asset/images/login.png';
 import { signin } from '@/modules/register/services/RegisterServcie';
 import { useRouter } from 'next/router';
 import { routes } from '@/utils/routes';

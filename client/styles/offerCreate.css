@@ -109,6 +109,19 @@
   max-width: 200px;
 }
 
+.offer-create .nav-item button {
+  color: inherit;
+}
+
+.offer-create .tab-content>div {
+  padding: 25px!important;
+}
+
+.offer-create textarea {
+  padding: 10px 20px;
+  min-height: 150px;
+}
+
 @media (max-width: 992px) {
   .offer-create__box,
   .offer-create__box-items {

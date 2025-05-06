@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -8,18 +8,28 @@ export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createProductDto: CreateProductDto) {
-    const { contents, ...productData } = createProductDto; 
+    const { contents, thumbnailMedia, productImageMedias, ...productData } = createProductDto;
+  
     return await this.prisma.product.create({
       data: {
         ...productData,
-        productContent: contents ? {
-          create: contents
-        } : undefined
+        productContent: contents?.length
+          ? {
+              create: contents,
+            }
+          : undefined,
+        thumbImageId: thumbnailMedia?.id,
+        images: productImageMedias?.length
+          ? {
+              connect: productImageMedias.map((media) => ({ id: media.id })),
+            }
+          : undefined,
       },
       include: {
         productContent: true,
-        categoryProducts: true
-      }
+        categoryProducts: true,
+        thumbImage: true,
+      },
     });
   }
 
@@ -31,7 +41,9 @@ export class ProductService {
       where: {},
       include: {
         productContent: true,
-        categoryProducts: true
+        categoryProducts: true,
+        thumbImage: true,
+        images: true
       }
     })
     const totalProduct = await this.prisma.product.count();
@@ -48,9 +60,32 @@ export class ProductService {
       where: {id},
       include: {
         productContent: true,
-        categoryProducts: true
+        categoryProducts: true,
+        images: true,
+        thumbImage: true
       }
     })
+  }
+
+  async findBySlug(slug: string) {
+    const product = await this.prisma.product.findFirst({
+      where: {
+        productContent: {
+          some: {
+            slug
+          }
+        }
+      },
+      include: {
+        productContent: true,
+        categoryProducts: true,
+        images: true,
+        thumbImage: true
+      }
+    })
+    console.log(product, slug)
+    if (!product) throw new NotFoundException('Product not found');
+    return product;
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
@@ -83,7 +118,8 @@ export class ProductService {
       },
       include: {
         productContent: true,
-        categoryProducts: true
+        categoryProducts: true,
+        thumbImage: true
       }
     });
     return product;

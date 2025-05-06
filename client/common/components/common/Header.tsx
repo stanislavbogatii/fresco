@@ -75,23 +75,23 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
             {user ? (
               <>
                 <Link className="header__top-user" href={routes.profile}>
-                  <span>Salut, {user?.profile?.firstName}</span>
+                <span className="sr-only">open my profile</span>
                 </Link>
-                <Link className="header__top-favourite" href="#">
-                  <span>Favorite</span>
+                <Link className="header__top-favourite" href={routes.favorites}>
+                  <span className="sr-only">open favourite products</span>
                 </Link>
-                <Link className="header__basket" href="#">
-                  <span className="header__basket-text">In cos</span>
+                <Link className="header__basket" href={routes.cart}>
+                  <span className="sr-only">open basket</span>
                   <span className="header__basket-num">0</span>
                 </Link>
               </>
             ) : (
               <>
                 <Link className="header__top-link" href={routes.register}>
-                  <span>Vreau cont B2B</span>
+                  <span className="sr-only">go to register page</span>
                 </Link>
                 <button className="header__btn" type="button" onClick={openLoginForm}>
-                  <span>Intra in contul tau</span>
+                  <span className="sr-only">open login form</span>
                 </button>
               </>
             )}

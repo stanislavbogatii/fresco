@@ -41,7 +41,7 @@ export class AuthController {
   @ApiResponse({ status: 401, description: 'Unauthorized - Invalid credentials' })
   async signin(@Body() dto: SignInDto, @Res() res: Response) {
     const { access_token } = await this.authService.signin(dto);
-    res.setHeader('Set-Cookie', `access_token=${access_token}; Path=/; HttpOnly`);
+    res.setHeader('Set-Cookie', `access_token=${access_token}; Path=/; HttpOnly; Max-Age=315360000`)
     res.status(200).json({ success: true });
   }
 

@@ -8,7 +8,7 @@ const Contact = () => {
   return (
     <>
       <Head>
-        <title>Contact</title>
+        <title>FRESCO | Contact</title>
       </Head>
 
       <section className="contacts section">

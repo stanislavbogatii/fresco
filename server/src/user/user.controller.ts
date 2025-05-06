@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   Patch,
   Query,
   UseGuards,
@@ -41,6 +43,7 @@ export class UserController {
   })
   @ApiResponse({ status: 400, description: 'Bad Request - Invalid input' })
   @ApiResponse({ status: 401, description: 'Unauthorized - Token missing or invalid' })
+  @HttpCode(HttpStatus.NO_CONTENT)
   editUser(
     @GetUser('id') userId: number,
     @Body() dto: EditUserDto,

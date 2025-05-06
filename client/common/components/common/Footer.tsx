@@ -2,21 +2,29 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { useRouter } from 'next/router';
+import { routes } from '@/utils/routes';
+import { useUserInfoContext } from "@/context/UserInfoContext";
+
 import Logo from '../Logo';
 import SocialJoin from '@/common/components/SocialJoin';
 
 import phone from '../../../asset/icons/phone.svg';
 import location from '../../../asset/icons/location.svg';
-import email from '../../../asset/icons/email.svg';
+import email from '../../../asset/icons/message.svg';
 import vtexIcon from '../../../asset/icons/vtex.svg';
 
 const Footer = () => {
+  const router = useRouter();
+  const { user, fetchUserInfo } = useUserInfoContext();
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer__top">
           <div className="footer__top-box">
-            <Logo />
+            <div className="footer__top-logo">
+              <Logo />
+            </div>
             <SocialJoin />
           </div>
           <ul className="footer__list">
@@ -24,7 +32,7 @@ const Footer = () => {
               <strong className="footer__title">Denumire</strong>
               <ul className="footer__items">
                 <li className="footer__item">
-                  <Link className="footer__link" href="/about">
+                  <Link className="footer__link" href={routes.about}>
                     Despre noi
                   </Link>
                 </li>
@@ -44,17 +52,17 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li className="footer__item">
-                  <Link className="footer__link" href="#">
+                  <Link className="footer__link" href={routes.privacy_policy}>
                     Politica de condidentialitate
                   </Link>
                 </li>
                 <li className="footer__item">
-                  <Link className="footer__link" href="#">
+                  <Link className="footer__link" href={routes.terms_and_conditions}>
                     Termeni si conditii
                   </Link>
                 </li>
                 <li className="footer__item">
-                  <Link className="footer__link" href="#">
+                  <Link className="footer__link" href={routes.cookies_policy}>
                     Politica de cookies
                   </Link>
                 </li>

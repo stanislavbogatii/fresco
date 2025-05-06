@@ -1,7 +1,7 @@
 import { Language } from '@catalogModels/Language';
 import apiClientService from '@commonServices/ApiClientService';
 
-const baseUrl = '/lang';
+const baseUrl = '/langs';
 
 export async function getLanguages(): Promise<Language[]> {
   return (await apiClientService.get(baseUrl)).json();

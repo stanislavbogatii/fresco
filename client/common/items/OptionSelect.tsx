@@ -6,6 +6,7 @@ type Option = {
 };
 
 type OptionSelectProps<T extends FieldValues> = {
+  className?: string;
   labelText: string;
   field: Path<T>;
   register: UseFormRegister<T>;
@@ -18,6 +19,7 @@ type OptionSelectProps<T extends FieldValues> = {
 };
 
 export const OptionSelect = <T extends FieldValues>({
+  className,
   labelText,
   field,
   register,
@@ -34,7 +36,7 @@ export const OptionSelect = <T extends FieldValues>({
     </label>
     <select
       id={`select-option-${field}`}
-      className={`form-select ${error ? 'border-danger' : ''}`}
+      className={`${className}`}
       defaultValue={defaultValue || ''}
       {...register(field, registerOptions)}
       disabled={disabled}

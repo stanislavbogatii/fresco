@@ -8,7 +8,12 @@ type AccordionState = {
   [key: string]: boolean;
 };
 
-const Filterbar = () => {
+interface FilterbarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+const Filterbar: React.FC<FilterbarProps> = ({isOpen, onClose}) => {
   const [categories, setCategories] = useState<Category[]>();
 
   const [accordionState, setAccordionState] = useState<AccordionState>({
@@ -33,6 +38,14 @@ const Filterbar = () => {
     });
   }, [])
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, []);
+
   const toggleAccordion = (item: number) => {
     setAccordionState((prevState) => ({
       ...prevState,
@@ -41,40 +54,53 @@ const Filterbar = () => {
   };
 
   return (
-    <aside className="filterbar">
-      <ul className="filterbar__list">
-        {categories?.filter(category => category.parentId === null).map((category, key) => {
-          return (
-            <li key={key} className="filterbar__item">
-              <button
-                className={`filterbar__btn filterbar__btn--consumabile ${
-                  accordionState[category.id] ? 'active' : ''
-                }`}
-                type="button"
-                onClick={() => toggleAccordion(category.id)}
-              >
-                {category.categoryContent[0]?.title}
-              </button>
-              {categories.find((category_c) => category_c.parentId === category.id) &&
-              <div className={`filterbar__accordion ${accordionState[category.id] ? 'active' : ''}`}>
-                  <ul className="filterbar__accordion-list" style={{ minHeight: '0' }}>
-                      {categories.filter(category_c => category_c.parentId === category.id).map((category_c, key) => {
-                        return (
-                          <li className="filterbar__accordion-item">
-                            <Link className="filterbar__accordion-link" href="#">
-                              {category_c.categoryContent[0].title}
-                            </Link>
-                          </li> 
-                        )
-                      })}
-                  </ul>
-              </div>
-              }
+    <aside className={`filterbar ${isOpen ? 'active' : ''}`}>
+      <div className="filterbar__head">
+        <strong className="filterbar__head-title">
+          Filtre
+        </strong>
+        <button className="filterbar__close" type="button" onClick={onClose}>
+          <span className="sr-only">close filters</span>
+        </button>
+      </div>
+      <ul className="filterbar__components">
+        <li className="filterbar__component">
+          <strong className="filterbar__title">
+            Categorii
+          </strong>
+          <ul className="filterbar__list">
+            {categories?.filter(category => category.parentId === null).map((category, key) => {
+              const hasSubcategories = categories.some((category_c) => category_c.parentId === category.id);
+              return (
+                <li key={key} className="filterbar__item">
+                  <button
+                    className={`filterbar__btn filterbar__btn--consumabile ${accordionState[category.id] ? 'active' : ''
+                      } ${!hasSubcategories ? 'empty' : ''}`}
+                    type="button"
+                    onClick={() => toggleAccordion(category.id)}
+                  >
+                    {category.categoryContent[0]?.title}
+                  </button>
+                  {categories.find((category_c) => category_c.parentId === category.id) &&
+                    <div className={`filterbar__accordion ${accordionState[category.id] ? 'active' : ''}`}>
+                      <ul className="filterbar__accordion-list" style={{ minHeight: '0' }}>
+                        {categories.filter(category_c => category_c.parentId === category.id).map((category_c, key) => {
+                          return (
+                            <li key={key} className="filterbar__accordion-item">
+                              <Link className="filterbar__accordion-link" href="#">
+                                {category_c.categoryContent[0].title}
+                              </Link>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    </div>
+                  }
 
-            </li>
-          )
-        })}
-        {/* <li className="filterbar__item">
+                </li>
+              )
+            })}
+            {/* <li className="filterbar__item">
           <button
             className={`filterbar__btn filterbar__btn--ingrediente ${
               accordionState.ingrediente ? 'active' : ''
@@ -404,6 +430,106 @@ const Filterbar = () => {
             </ul>
           </div>
         </li> */}
+          </ul>
+        </li>
+        <li className="filterbar__component">
+          <strong className="filterbar__title">
+            Proprietati
+          </strong>
+          <ul className="filterbar__elements">
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">Bogat in proteine (1)</span>
+              </label>
+            </li>
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">De post (5)</span>
+              </label>
+            </li>
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">Fara arome artificiale (5)</span>
+              </label>
+            </li>
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">Fara coloranti (5)</span>
+              </label>
+            </li>
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">Fara lactoza (5)</span>
+              </label>
+            </li>
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">Vegan (5)</span>
+              </label>
+            </li>
+          </ul>
+        </li>
+        <li className="filterbar__component">
+          <strong className="filterbar__title">
+            Tip local
+          </strong>
+          <ul className="filterbar__elements">
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">Bistro (105)</span>
+              </label>
+            </li>
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">Burgerie (55)</span>
+              </label>
+            </li>
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">Cafenea (1)</span>
+              </label>
+            </li>
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">Cantina (83)</span>
+              </label>
+            </li>
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">Catering (174)</span>
+              </label>
+            </li>
+            <li className="filterbar__element">
+              <label>
+                <input className="filterbar__checkbox checkbox" type="checkbox" />
+                <span className="filterbar__element-checkbox"></span>
+                <span className="filterbar__element-text">Evenimente (140)</span>
+              </label>
+            </li>
+          </ul>
+        </li>
       </ul>
     </aside>
   );

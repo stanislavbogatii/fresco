@@ -2,7 +2,7 @@ import { Category } from '../models/Category';
 import { ProductThumbnails } from '../models/ProductThumbnails';
 import apiClientService from '@commonServices/ApiClientService';
 
-const baseUrl = '/category';
+const baseUrl = '/categories';
 
 export async function getCategories(): Promise<Category[]> {
   return (await apiClientService.get(baseUrl)).json();

@@ -51,7 +51,6 @@ const CategoryEdit: NextPage = () => {
 
     if (id) {
       const response = await updateCategory(+id, category);
-      console.log(response)
       if (response.status === ResponseStatus.SUCCESS) {
         router.replace(CATEGORIES_URL);
       }

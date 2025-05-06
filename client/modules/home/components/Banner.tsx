@@ -10,12 +10,10 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/effect-coverflow';
 
-import firstSlide from '../../../asset/images/main-slider/slide-1.jpg';
-import secondSlide from '../../../asset/images/main-slider/slide-2.webp';
-import thirdSlide from '../../../asset/images/main-slider/slide-3.webp';
-import fourthSlide from '../../../asset/images/main-slider/slide-4.jpg';
-import fifthSlide from '../../../asset/images/main-slider/slide-5.webp';
-import sixthSlide from '../../../asset/images/main-slider/slide-6.jpg';
+import firstSlide from '../../../asset/images/main-slider/slide-1.svg';
+import secondSlide from '../../../asset/images/main-slider/slide-2.svg';
+import thirdSlide from '../../../asset/images/main-slider/slide-3.svg';
+import fourthSlide from '../../../asset/images/main-slider/slide-4.svg';
 
 const Banner = () => {
   return (
@@ -112,18 +110,7 @@ const Banner = () => {
               <Link className="swiper-link" href="#">
                 <Image
                   className="swiper-img"
-                  src={fifthSlide}
-                  width={936}
-                  height={490}
-                  alt="promo banner"
-                />
-              </Link>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Link className="swiper-link" href="#">
-                <Image
-                  className="swiper-img"
-                  src={sixthSlide}
+                  src={thirdSlide}
                   width={936}
                   height={490}
                   alt="promo banner"

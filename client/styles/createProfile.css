@@ -4,7 +4,7 @@
 
 .register-form {
   padding: 3rem;
-  background-color: #fefefa;
+  background-color: #fff;
   border: 0.0625rem solid #e2e6eb;
   color: #231f20;
   border-radius: 0.625rem;
@@ -40,13 +40,12 @@
   margin-bottom: 16px;
   display: flex;
   gap: 10px;
-  font-size: 14px;
 }
 
 .register-form__checkbox {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border: 0.0625rem solid #d8dbde;
   border-radius: 5px;
   background-color: #fff;
@@ -79,6 +78,10 @@
   display: block;
   margin: 20px auto 0;
   max-width: 300px;
+}
+
+.register-form__btn:hover {
+  color: #fff;
 }
 
 @media (max-width: 680px) {

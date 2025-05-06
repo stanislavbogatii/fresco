@@ -8,18 +8,24 @@ import { ProductVariation } from '../models/ProductVariation';
 import { ProductsGet } from '../models/ProductsGet';
 import { SimilarProduct } from '../models/SimilarProduct';
 import apiClientService from '@/common/services/ApiClientService';
+import { CreateProductDto } from '../models/CreateProductDto';
+import { Product } from '../models/Product';
 
-const baseUrl = '/api/product/storefront';
+const baseUrl = '/products';
 const serverSideRenderUrl = `${process.env.API_BASE_PATH}/product/storefront`;
 
-export async function getFeaturedProducts(pageNo: number): Promise<ProductFeature> {
-  const response = await apiClientService.get(`${baseUrl}/products/featured?pageNo=${pageNo}`);
+export async function getProducts(page: number, limit: number): Promise<{products: Product[]}> {
+  const response = await apiClientService.get(`${baseUrl}?page=${page}&limit=${limit}`);
   return response.json();
 }
 
-export async function getProductDetail(slug: string): Promise<ProductDetail> {
-  const response = await apiClientService.get(`${serverSideRenderUrl}/product/${slug}`);
+export async function getProductBySlug(slug: string): Promise<Product> {
+  const response = await apiClientService.get(`${baseUrl}/slug/${slug}`);
   return response.json();
+}
+
+export async function createProduct(dto: CreateProductDto) {
+  return await apiClientService.post(baseUrl, JSON.stringify(dto));
 }
 
 export async function getProductOptionValues(productId: number): Promise<ProductOptionValueGet[]> {

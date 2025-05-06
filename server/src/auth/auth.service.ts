@@ -18,6 +18,18 @@ import { SignInDto, SignUpDto } from './dto';
     ) {}
   
     async signup(dto: SignUpDto) {
+      const userExists = await this.prisma.user.findUnique({
+        where: {
+          email: dto.email,
+        },
+      });
+      if (userExists) {
+        console.log('exits')
+        throw new ForbiddenException(
+          'User with this email already exists',
+        );
+      }
+
       const hash = await argon.hash(dto.password);
       try {
         const user = await this.prisma.user.create({
@@ -42,9 +54,10 @@ import { SignInDto, SignUpDto } from './dto';
             }
           },
         });
-  
+
         return this.signToken(user.id, user.email);
       } catch (error) {
+        console.log(error)
         if (
           error instanceof
           PrismaClientKnownRequestError

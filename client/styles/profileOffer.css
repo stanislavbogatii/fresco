@@ -6,6 +6,8 @@
 .profile-offer__inner {
   overflow-x: auto;
   white-space: nowrap;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
 }
 
 .profile-offer__list {
@@ -13,7 +15,6 @@
   grid-template-columns: repeat(6, 1fr);
   color: #fff;
   background-color: #333;
-  border-radius: 10px;
 }
 
 .profile-offer__list-item {
@@ -50,34 +51,11 @@
   }
 
   .profile-offer__box {
-    padding: 10px 20px 0 5px;
     overflow-x: auto;
   }
   
   .profile-offer__list {
     min-width: 992px;
-  }
-
-  .profile-offer__inner::before,
-  .profile-offer__inner::after {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 12px;
-    background-color: #fff;
-    left: -11px;
-    top: 0;
-    bottom: 0;
-    filter: blur(2px);
-    z-index: 1;
-    border-radius: 2px;
-    box-shadow: 0 11px 16px #ffffff80;
-  }
-
-  .profile-offer__inner::after {
-    right: -6px;
-    left: auto;
-    top: 0;
   }
 }
 

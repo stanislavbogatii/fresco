@@ -14,7 +14,7 @@ const Popular = () => {
       <div className="product-slider">
         <Swiper
           modules={[Pagination, Autoplay]}
-          spaceBetween={24}
+          spaceBetween={20}
           slidesPerView={4}
           pagination={{ clickable: true }}
           breakpoints={{
@@ -44,7 +44,7 @@ const Popular = () => {
             },
           }}
         >
-          <SwiperSlide>
+          {/* <SwiperSlide>
             <ProductCard />
           </SwiperSlide>
           <SwiperSlide>
@@ -70,7 +70,7 @@ const Popular = () => {
           </SwiperSlide>
           <SwiperSlide>
             <ProductCard />
-          </SwiperSlide>
+          </SwiperSlide> */}
         </Swiper>
       </div>
     </section>

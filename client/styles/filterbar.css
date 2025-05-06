@@ -1,13 +1,55 @@
+.filterbar__head {
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid rgb(216, 219, 222);
+  display: none;
+}
+
+.filterbar__head-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.filterbar__close {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+
+.filterbar__close::before,
+.filterbar__close::after {
+  content: '';
+  position: absolute;
+  display: block;
+  height: 2px;
+  width: 30px;
+  border-radius: 2px;
+  background-color: #333;
+  top: 50%;
+  left: 50%;
+}
+
+.filterbar__close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.filterbar__close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
 .filterbar__title {
   display: block;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
-  padding: 10px;
-  border-bottom: 0.0625rem solid #e1e1e1;
+  padding: 0 10px 0 10px;
+  margin-bottom: 25px;
 }
 
 .filterbar__list {
-  padding: 15px 0;
+  margin-bottom: 25px;
 }
 
 .filterbar__item:last-child .filterbar__btn {
@@ -23,12 +65,15 @@
   margin-bottom: 15px;
   border-radius: 20px;
   width: 100%;
-  font-size: 16px;
   background-color: #f1f3f4;
   line-height: 19px;
   position: relative;
-  padding-left: 38px;
+  padding-left: 25px;
   padding-right: 40px;
+}
+
+.filterbar__btn.empty::before {
+  display: none;
 }
 
 .filterbar__btn::before {
@@ -52,52 +97,6 @@
   transform: translateY(-50%);
 }
 
-.filterbar__btn::after{
-  content: '';
-  position: absolute;
-  display: block;
-  width: 18px;
-  height: 18px;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
-
-.filterbar__btn.filterbar__btn--ingrediente::after {
-  background-image: url('../asset/icons/ingrediente.svg');
-}
-
-.filterbar__btn.filterbar__btn--semipreparate::after {
-  background-image: url('../asset/icons/semipreparate.svg');
-}
-
-.filterbar__btn.filterbar__btn--brutarie::after {
-  background-image: url('../asset/icons/brutarie.svg');
-}
-
-.filterbar__btn.filterbar__btn--deserturi::after {
-  background-image: url('../asset/icons/deserturi.svg');
-}
-
-.filterbar__btn.filterbar__btn--bauturi::after {
-  background-image: url('../asset/icons/bauturi.svg');
-}
-
-.filterbar__btn.filterbar__btn--echipamente::after {
-  background-image: url('../asset/icons/echipamente.svg');
-}
-
-.filterbar__btn.filterbar__btn--servire::after {
-  background-image: url('../asset/icons/servire.svg');
-}
-
-.filterbar__btn.filterbar__btn--consumabile::after {
-  background-image: url('../asset/icons/consumabile.svg');
-}
-
 .filterbar__accordion {
   display: grid;
   grid-template-rows: 0fr;
@@ -118,6 +117,7 @@
 }
 
 .filterbar__accordion-item {
+  font-size: 16px;
   padding-left: 18px;
   position: relative;
 }
@@ -131,5 +131,96 @@
   border: 1px solid #77ab1a;
   border-radius: 50%;
   left: 0;
-  top: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.filterbar__accordion-item a:hover {
+  color: inherit;
+}
+
+.filterbar__elements {
+  padding-bottom: 25px;
+}
+
+.filterbar__element label {
+  display: flex;
+  gap: 10px;
+}
+
+.filterbar__element:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.filterbar__element-checkbox {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 0.0625rem solid #d8dbde;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+}
+
+.filterbar__element-checkbox::before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-image: url('../asset/icons/check-mark.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: 3;
+}
+
+.filterbar__checkbox:checked + .filterbar__element-checkbox {
+  background-color: #77ab1a;
+  border-color: transparent;
+}
+
+@media (max-width: 992px) {
+  .filterbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(100%);
+    opacity: 0;
+    background-color: #fff;
+    z-index: 5;
+    max-width: 100%;
+    overflow-y: auto;
+    height: 100dvh;
+    overflow-y: auto;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+  }
+
+  .filterbar.active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .filterbar__head {
+    display: flex;
+  }
+
+  .filterbar__components {
+    padding: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 30px;
+  }
+
+  .filterbar__component:first-child {
+    width: 100%;
+  }
+
+  .filterbar__title {
+    padding-left: 0;
+  }
 }

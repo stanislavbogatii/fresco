@@ -30,7 +30,7 @@ const RelatedProduct = ({ productId }: RelatedProductProps) => {
         <Row md={5}>
           {products.map((product) => (
             <Col key={product.id}>
-              <ProductCard product={product} />
+              {/* <ProductCard product={product} /> */}
             </Col>
           ))}
         </Row>

@@ -5,7 +5,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'api.yas.local',
+        protocol: 'https',
+        hostname: 'fresco.md',
+        pathname: '/**', 
       },
     ],
   },

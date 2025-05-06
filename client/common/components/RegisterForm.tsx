@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Input } from '../items/Input';
+import { toastError } from '@/modules/catalog/services/ToastService';
 
 const RegisterForm = () => {
   const [email, setEmail] = useState('');
@@ -20,6 +21,9 @@ const RegisterForm = () => {
   const handleRegister: SubmitHandler<SignUpPostVm> = async (data: SignUpPostVm, e: any) => {
     e.preventDefault();
     const response = await signup(data);
+    if (response?.message) {
+      toastError(response.message);
+    }
 
     if (response && response?.access_token) {
       document.cookie = `access_token=${response.access_token}; path=/; max-age=${60 * 60 * 24 * 7}`;
@@ -28,11 +32,10 @@ const RegisterForm = () => {
     }
   }
 
-
   return (
     <>
       <form onSubmit={handleSubmit(handleRegister)} className="register-form">
-        <strong className="register-form__title">Informatii personale </strong>
+        <strong className="register-form__title">Informatii personale</strong>
         
         <div className="register-form__items">
           <label className="register-form__label">

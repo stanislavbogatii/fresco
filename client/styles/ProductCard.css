@@ -1,7 +1,7 @@
 .product-card {
-  padding: 0.9375rem;
+  padding: 25px;
   border: 0.0625rem solid #e1e1e1;
-  border-radius: 1.5rem;
+  border-radius: 15px;
   max-width: 266px;
   width: 100%;
   height: 100%;
@@ -12,21 +12,28 @@
 }
 
 .product-card__img {
+  width: 230px;
+  height: 230px;
   margin: 0 auto 1rem;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
 .product-card__article {
   font-size: 12px;
-  display: flex;
+  display: block;
+  margin-bottom: 20px;
 }
 
 .product-card__title {
-  margin-bottom: 1rem;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2px;
   transition: color 0.5s ease;
 }
 
-.product-card__title:hover {
-  color: #77ab1a;
+.product-card__title a {
+  transition: color 0.5s ease;
 }
 
 .product-card__info {
@@ -36,18 +43,6 @@
   margin-bottom: 1rem;
 }
 
-.product-card__weight {
-  display: flex;
-  align-items: center;
-  background-color: #e2e6eb;
-  color: #444b5a;
-  font-size: 12px;
-  line-height: 1;
-  padding: 0 0.5rem;
-  border-radius: 0.5rem;
-  min-height: 16px;
-}
-
 .product-card__btn {
   justify-content: center;
   gap: 5px;
@@ -55,24 +50,42 @@
   align-items: center;
   width: 100%;
   line-height: 1;
-  background-color: transparent;
-  border: 1px solid #e2e6eb;
-  color: #444b5a;
+  background-color: rgb(255, 122, 80);
+  color: #fff;
   font-size: 0.875rem;
-  border-radius: 2rem;
+  border-radius: 15px;
   padding: 0 15px;
   min-height: 40px;
+  font-size: 16px;
   transition: background-color 0.25s ease-in-out;
 }
 
-.product-card__btn:hover {
-  background-color: #f4f6f7;
+.product-card__btn path {
+  transition: fill 0.25s ease;
 }
 
 .product-card__btn-icon {
+  width: 20px;
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (hover:hover) {
+  .product-card__title a:hover {
+    color: #ff6838;
+  }
+
+  .product-card__btn:hover {
+    color: #ff6838;
+    background-color: #fff;
+    box-shadow: 0 0 0 2px rgba(255, 104, 56, .7);
+  }
+
+  .product-card__btn:hover path {
+    fill: #ff6838;
+  }
 }
 
 @media (max-width: 1400px) {

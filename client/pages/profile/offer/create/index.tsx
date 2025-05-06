@@ -1,21 +1,157 @@
+import ProductImage from '@/common/components/ProductImage';
 import ProfileLayout from '@/common/components/ProfileLayout';
+import { Input } from '@/common/items/Input';
+import { TextArea } from '@/common/items/TextArea';
+import { useUserInfoContext } from '@/context/UserInfoContext';
+import { CreateProductDto } from '@/modules/catalog/models/CreateProductDto';
+import { FormProduct } from '@/modules/catalog/models/FormProduct';
+import { createProduct } from '@/modules/catalog/services/ProductService';
+import { toastSuccess } from '@/modules/catalog/services/ToastService';
+import { Language } from '@/modules/languages/models/Language';
+import { getLanguages } from '@/modules/languages/services/LanguageService';
 import { routes } from '@/utils/routes';
+import slugify from 'slugify';
+
 
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { Tab, Tabs } from 'react-bootstrap';
+import { FieldValues, Path, PathValue, RegisterOptions, useForm, UseFormRegisterReturn } from 'react-hook-form';
 
 const ProfileOfferCreate = () => {
+  const { user } = useUserInfoContext();
+  const [languages, setLanguages] = useState<Language[]>([]);
+  const [tabKey, setTabKey] = useState<string>('');
+  const { register, setValue, formState: { errors }, handleSubmit, getValues } = useForm<CreateProductDto>();
+  const router = useRouter();
+
+  useEffect(() => {
+    getLanguages().then((languages: Language[]) => {
+      setLanguages(languages);
+      setTabKey(languages[0].langId);
+    })
+  }, [])
+
+  const handleCreate = (data: CreateProductDto) => {
+    console.log('23')
+    console.log(user, user?.company)
+    if (!user || !user?.company) return;
+    data = { ...data, companyId: user.company.id};
+
+
+    createProduct(data)
+      .then(() => {
+        toastSuccess("Oferta a fost salvata cu succes");
+        router.push(routes.profile_offer);
+      })
+      .catch((error) => {
+        console.log(error);
+
+      });
+  };
+
   return (
     <ProfileLayout title="Salvați oferta">
-      <form className="offer-create">
+      <form className="offer-create" onSubmit={handleSubmit(handleCreate)}>
+
+        <Tabs activeKey={tabKey} onSelect={(e: any) => setTabKey(e)}>
+          {languages.map((lang, index) => {
+            setValue(`contents.${index}.langId`, lang.langId);
+            return (
+              <Tab
+                style={{ border: '1px solid #dee2e6', borderTop: 'none', padding: '10px', borderRadius: '0 0 10px 10px' }}
+                key={lang.langId}
+                eventKey={lang.langId}
+                title={lang.langId.toUpperCase()}>
+                <label className="offer-create__label">
+                  <Input
+                    register={register}
+                    registerOptions={{
+                      required: index === 0 ? { value: true, message: 'Slug is required for the first language' } : false,                      onChange: (e) => {
+                        setValue(
+                          `contents.${index}.slug`,
+                          slugify(e.target.value, {
+                            lower: true,
+                            strict: true,
+                          })
+                        );
+                      },
+                    }}
+                    field={`contents.${index}.title`}
+                    className="offer-create__input input"
+                    type="text"
+                    placeholder="Numele ofertelor"
+                    labelText={'Nume'} />
+                </label>
+                <label className="offer-create__label">
+                  <Input
+                    registerOptions={{
+                        required: index === 0 ? { value: true, message: 'Slug is required for the first language' } : false,
+                      }}
+                    register={register}
+                    field={`contents.${index}.slug`}
+                    className="offer-create__input input"
+                    type="text"
+                    placeholder="Denumirea in URL"
+                    labelText={'Slug'} />
+                </label>
+                <label className="offer-create__label">
+                  <TextArea
+                    className='offer-create__input input'
+                    labelText={'Descriere'}
+                    field={`contents.${index}.description`}
+                    register={register} />
+                </label>
+              </Tab>
+            )
+          })}
+        </Tabs>
+
+        <div className='d-flex w-100 gap-4'>
+          <label className="offer-create__label mt-3 w-100">
+            <Input
+              registerOptions={{
+                required: { value: true, message: 'Codul articolului este necesar' },
+              }}
+              register={register}
+              field={`article`}
+              className="offer-create__input input"
+              type="text"
+              placeholder="Cod articlu"
+              labelText={'Articlu'} />
+          </label>
+
+          <label className="offer-create__label mt-3 w-100">
+            <Input
+              registerOptions={{
+                required: { value: true, message: 'Codul de referinta este necesar' },
+              }}
+              register={register}
+              field={`codeRef`}
+              className="offer-create__input input"
+              type="text"
+              placeholder="Cod de referinta"
+              labelText={'Codul de referinta'} />
+          </label>
+        </div>
+
         <label className="offer-create__label">
-          <span className="offer-create__text">Nume</span>
-          <input className="offer-create__input input" type="text" placeholder="Numele ofertelor" />
+          <Input
+            registerOptions={{
+              required: { value: true, message: 'Pretul este necesar' },
+            }}
+            register={register}
+            field={`price`}
+            className="offer-create__input input"
+            type="number"
+            placeholder="Pret"
+            labelText={'Pret'} />
         </label>
-        <label className="offer-create__label">
-          <span className="offer-create__text">Descriere</span>
-          <textarea className="offer-create__textarea input"></textarea>
-        </label>
-        <div className="offer-create__box">
+
+        <ProductImage setValue={setValue}/>
+
+        {/* <div className="offer-create__box mt-4">
           <ul className="offer-create__list">
             <li className="offer-create__list-item">Cod ref.</li>
             <li className="offer-create__list-item">Articol</li>
@@ -55,8 +191,8 @@ const ProfileOfferCreate = () => {
           <input className="offer-create__input-checkbox checkbox" type="checkbox" required />
           <span className="offer-create__checkbox"></span>
           <span className="offer-create__checkbox-text">Ștergeți coșul după salvare</span>
-        </label>
-        <button className="offer-create__btn btn" type="button">
+        </label> */}
+        <button className="offer-create__btn btn" type="submit">
           Salvați
         </button>
       </form>

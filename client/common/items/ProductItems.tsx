@@ -1,8 +1,9 @@
+import { Product } from '@/modules/catalog/models/Product';
 import ProductCard from 'common/components/ProductCard';
 import { ProductThumbnail } from 'modules/catalog/models/ProductThumbnail';
 
 type Props = {
-  products: ProductThumbnail[];
+  products: Product[];
 };
 
 const ProductItems = ({ products }: Props) => {

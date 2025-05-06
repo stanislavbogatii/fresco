@@ -1,20 +1,37 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { ProductContent } from "@prisma/client";
-import { IsArray, IsBoolean, isBoolean, IsNotEmpty, IsNumber, IsOptional } from "class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString } from "class-validator";
+import { ProductContentDto } from "./product-content.dto";
+import { Transform, Type } from "class-transformer";
 
 export class CreateProductDto {
     @ApiProperty({
-        example: 10
+        example: '10'
     })
-    @IsNumber()
     @IsNotEmpty()
+    @IsNumber()
+    @Type(() => Number)
     price: number;
+
+    @ApiProperty({
+        example: 'AD2392834D'
+    })
+    @IsString()
+    @IsNotEmpty()
+    article: string;
+
+    @ApiProperty({
+        example: '232323455'
+    })
+    @IsString()
+    @IsNotEmpty()
+    codeRef: string;
 
     @ApiProperty({
         example: 20
     })
-    @IsNumber()
     @IsOptional()
+    @IsNumber()
+    @Type(() => Number)
     oldPrice?: number;
 
     @ApiProperty({
@@ -22,7 +39,14 @@ export class CreateProductDto {
     })
     @IsBoolean()
     @IsOptional()
-    isActive: boolean 
+    isActive: boolean;
+
+    @ApiProperty({
+        example: "3"
+    })
+    @IsNumber()
+    @IsNotEmpty()
+    companyId: number;
   
     @ApiProperty({
         example: [{
@@ -33,5 +57,14 @@ export class CreateProductDto {
         }]
     })
     @IsArray()
-    contents: ProductContent[]
+    contents: ProductContentDto[];
+
+    @ApiProperty()
+    @IsArray()
+    @IsOptional()
+    productImageMedias: Array<{id: number, url: string}>;
+
+    @ApiProperty()
+    @IsOptional()
+    thumbnailMedia: {id: number, url: string};
 }

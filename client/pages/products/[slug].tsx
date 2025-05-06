@@ -13,7 +13,7 @@ import { ProductDetail } from '../../modules/catalog/models/ProductDetail';
 import { ProductOptions } from '../../modules/catalog/models/ProductOptions';
 import { ProductVariation } from '../../modules/catalog/models/ProductVariation';
 import {
-  getProductDetail,
+  // getProductDetail,
   getProductOptionValueByProductId,
   getProductOptionValues,
   getProductVariationsByParentId,
@@ -58,44 +58,44 @@ export const getServerSideProps: GetServerSideProps = async (
   const { slug, pvid } = context.query;
 
   // fetch product by slug
-  const product = await getProductDetail(slug as string);
-  if (!product.id) return { notFound: true };
+  // const product = await getProductDetail(slug as string);
+  // if (!product.id) return { notFound: true };
 
   const productOptions: ProductOptions[] = [];
   let productVariations: ProductVariation[] = [];
 
-  if (product.hasOptions) {
-    // fetch product options
-    try {
-      const productOptionValues = await getProductOptionValues(product.id);
+  // if (product.hasOptions) {
+  //   // fetch product options
+  //   try {
+  //     const productOptionValues = await getProductOptionValues(product.id);
 
-      for (const optionValue of productOptionValues) {
-        const index = productOptions.findIndex(
-          (productOption) => productOption.name === optionValue.productOptionName
-        );
-        if (index > -1) {
-          productOptions.at(index)?.value.push(optionValue.productOptionValue);
-        } else {
-          const newProductOption: ProductOptions = {
-            id: optionValue.productOptionId,
-            name: optionValue.productOptionName,
-            value: [optionValue.productOptionValue],
-          };
+  //     for (const optionValue of productOptionValues) {
+  //       const index = productOptions.findIndex(
+  //         (productOption) => productOption.name === optionValue.productOptionName
+  //       );
+  //       if (index > -1) {
+  //         productOptions.at(index)?.value.push(optionValue.productOptionValue);
+  //       } else {
+  //         const newProductOption: ProductOptions = {
+  //           id: optionValue.productOptionId,
+  //           name: optionValue.productOptionName,
+  //           value: [optionValue.productOptionValue],
+  //         };
 
-          productOptions.push(newProductOption);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  //         productOptions.push(newProductOption);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
 
-    // fetch product variations
-    productVariations = await fetchAndSortProductVariations(product.id);
-  }
+  //   // fetch product variations
+  //   productVariations = await fetchAndSortProductVariations(product.id);
+  // }
 
   return {
     props: {
-      product,
+      // product,
       productOptions,
       productVariations,
       pvid: pvid !== undefined ? (pvid as string) : null,

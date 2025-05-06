@@ -5,11 +5,12 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('products')
-@Controller('product')
+@Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @ApiResponse({status: HttpStatus.OK, description: 'Product created succesfuly'})
+  @ApiResponse({status: HttpStatus.CREATED, description: 'Product created succesfuly'})
+  @HttpCode(HttpStatus.CREATED)
   @Post()
   async create(@Body() createProductDto: CreateProductDto) {
     return await this.productService.create(createProductDto);
@@ -23,13 +24,19 @@ export class ProductController {
     @Query('page') page = 1,
     @Query('limit') limit = 10
   ) {
-    return await this.productService.findAll(page, limit);
+    return await this.productService.findAll(+page, +limit);
   }
 
   @ApiResponse({status: HttpStatus.OK})
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.productService.findOne(+id);
+  }
+
+  @ApiResponse({status: HttpStatus.OK})
+  @Get('/slug/:slug')
+  async findBySlug(@Param('slug') slug: string) {
+    return await this.productService.findBySlug(slug);
   }
 
   @ApiOperation({ summary: 'Обновить данные товара' })

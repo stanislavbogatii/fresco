@@ -1,54 +1,80 @@
-import { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import ReactPaginate from 'react-paginate';
+'use client';
 
+import { useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+
+import { getProducts } from '@/modules/catalog/services/ProductService';
+import { Product } from '@/modules/catalog/models/Product';
 import ProductCard from '@/common/components/ProductCard';
-import { ProductThumbnail } from 'modules/catalog/models/ProductThumbnail';
-import { getFeaturedProducts } from 'modules/catalog/services/ProductService';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const FeaturedProduct = () => {
-  const [products, setProduct] = useState<ProductThumbnail[]>([]);
-  const [pageNo, setPageNo] = useState<number>(0);
-  const [totalPage, setTotalPage] = useState<number>(0);
+  const [products, setProducts] = useState<Product[]>([]);
 
-  useEffect(() => {
-    getFeaturedProducts(pageNo).then((res) => {
-      setProduct(res.productList);
-      setTotalPage(res.totalPage);
-    });
-  }, [pageNo]);
-
-  const changePage = ({ selected }: any) => {
-    setPageNo(selected);
+  const loadProducts = async () => {
+    const res = await getProducts(1, 20);
+    setProducts(res.products);
   };
 
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
   return (
-    // <Container className="featured-product-container">
-    //   <div className="title">Featured products</div>
-    //   <Row xs={5} xxl={6}>
-    //     {products.length > 0 &&
-    //       products.map((product) => (
-    //         <Col key={product.id}>
-    //           <ProductCard product={product} />
-    //         </Col>
-    //       ))}
-    //   </Row>
-    //   {totalPage > 1 && (
-    //     <ReactPaginate
-    //       forcePage={pageNo}
-    //       previousLabel={'Previous'}
-    //       nextLabel={'Next'}
-    //       pageCount={totalPage}
-    //       onPageChange={changePage}
-    //       containerClassName={'pagination-container'}
-    //       previousClassName={'previous-btn'}
-    //       nextClassName={'next-btn'}
-    //       disabledClassName={'pagination-disabled'}
-    //       activeClassName={'pagination-active'}
-    //     />
-    //   )}
-    // </Container>
-    <></>
+    <section className="featured section">
+      <Container className="featured-product-container">
+        <h2 className="title">Featured Products</h2>
+
+        {products.length > 0 && (
+          <Swiper
+            modules={[Pagination, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={4}
+            pagination={{ clickable: true }}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            breakpoints={{
+              320: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              580: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              860: {
+                slidesPerView: 3,
+                spaceBetween: 10,
+              },
+              992: {
+                slidesPerView: 2,
+                spaceBetween: 16,
+              },
+              1200: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              1400: {
+                slidesPerView: 4,
+                spaceBetween: 24,
+              },
+            }}
+          >
+            {products.map((product, index) => (
+              <SwiperSlide key={index}>
+                <ProductCard product={product} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
+      </Container>
+    </section>
   );
 };
 

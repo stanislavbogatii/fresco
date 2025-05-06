@@ -6,7 +6,7 @@ import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { STATUS_CODES } from 'http';
 
 @ApiTags('categories')
-@Controller('category')
+@Controller('categories')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 

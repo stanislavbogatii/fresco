@@ -33,7 +33,9 @@ export class UserService {
         id: userId,
       },
       data: {
-        ...dto,
+        profile: {
+          update: dto
+        }
       },
       include: {
         profile: true,

@@ -1,4 +1,5 @@
 import { Customer } from '../models/Customer';
+import { EditUserDto } from '../models/EditUserDto';
 import { ProfileRequest } from '../models/ProfileRequest';
 import apiClientService from '@/common/services/ApiClientService';
 
@@ -9,10 +10,12 @@ export async function getMyProfile(): Promise<Customer | null> {
   else return null;
 }
 
-export async function updateCustomer(profile: ProfileRequest) {
-  const url = '/api/customer/';
-  const response = await apiClientService.put(url, JSON.stringify(profile));
-  if (response.status === 204) return response;
-  else return await response.json();
+export async function updateCustomer(profile: EditUserDto) {
+  const url = '/users';
+    const response = await apiClientService.patch(url, JSON.stringify(profile));
+  if (response.status === 204) {
+    return true;
+  }
+  else return false;
 }
 

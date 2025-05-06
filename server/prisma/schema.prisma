@@ -45,6 +45,7 @@ model Company {
   userId    Int      @unique
 
   user      User     @relation(fields: [userId], references: [id])
+  products  Product[] 
 
   @@map("companies")
 }
@@ -120,14 +121,35 @@ model Product {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  isActive Boolean
+  isActive Boolean   @default(true)
   price    Float
   oldPrice Float?
+  article  String
+  codeRef  String
 
+  companyId Int 
+  
+  company Company   @relation(fields: [companyId], references: [id])
   categoryProducts  CategoryProduct[]
   productContent    ProductContent[]
 
+  thumbImageId      Int?
+  thumbImage        Media? @relation("thumb", fields: [thumbImageId], references: [id])
+  images            Media[]
+
   @@map("products")
+}
+
+model Media {
+  id        Int      @id @default(autoincrement())
+  productId Int?     
+  fileName  String
+  mediaType String
+  url       String
+  caption   String
+  product   Product?  @relation(fields: [productId], references: [id])
+
+  products Product[] @relation("thumb")
 }
 
 model CategoryProduct {

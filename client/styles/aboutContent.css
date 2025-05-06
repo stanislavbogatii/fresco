@@ -1,5 +1,5 @@
 .about {
-  padding-top: 10px;
+  padding-top: 20px;
 }
 
 .about__inner {
@@ -71,6 +71,15 @@
   right: auto;
   left: 0;
   width: 100%;
+}
+
+.about__descr {
+  margin-bottom: 5px;
+}
+
+.about__content-item a {
+  color: #77ab1a;
+  font-weight: 700;
 }
 
 @media (max-width: 992px) {

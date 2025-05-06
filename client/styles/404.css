@@ -1,0 +1,155 @@
+.error {
+  padding-top: 50px;
+  text-align: center;
+}
+
+.error__head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.error__num {
+  font-size: 350px;
+  color: rgb(51, 51, 51);
+  text-shadow:     0 1px 0 hsl(174,5%,80%),
+	                 0 2px 0 hsl(174,5%,75%),
+	                 0 3px 0 hsl(174,5%,70%),
+	                 0 4px 0 hsl(174,5%,66%),
+	                 0 5px 0 hsl(174,5%,64%),
+	                 0 6px 0 hsl(174,5%,62%),
+	                 0 7px 0 hsl(174,5%,61%),
+	                 0 8px 0 hsl(174,5%,60%),
+	
+	                 0 0 5px rgba(0,0,0,.05),
+	                0 1px 3px rgba(0,0,0,.2),
+	                0 3px 5px rgba(0,0,0,.2),
+	               0 5px 10px rgba(0,0,0,.2),
+	              0 10px 10px rgba(0,0,0,.2),
+	              0 20px 20px rgba(0,0,0,.3);
+}
+
+.error__img-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error__donut {
+  animation: donut 3s linear infinite alternate;
+}
+
+@keyframes donut {
+  0% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.error__shadow {
+  animation: shadow 3s linear infinite alternate;
+}
+
+@keyframes shadow {
+  0% {
+    transform: scale(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.error__box {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.error__title {
+  font-size: 64px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.error__title span {
+  display: block;
+  color: rgb(255, 122, 80);
+}
+
+.error__text {
+  margin-bottom: 25px;
+}
+
+@media (max-width: 992px) {
+  .error__num {
+    font-size: 250px;
+  }
+  
+  .error__donut {
+    width: 200px;
+    height: 200px;
+  }
+
+  .error__shadow {
+    width: 150px;
+  }
+
+  .error__title {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .error {
+    padding-top: 25px;
+  }
+
+  .error__head {
+    gap: 15px;
+  }
+
+  .error__num {
+    font-size: 150px;
+  }
+
+  .error__donut {
+    width: 150px;
+    height: 150px;
+  }
+
+  .error__shadow {
+    width: 75px;
+    height: 75px;
+  }
+
+  .error__title {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .error__num {
+    font-size: 125px;
+  }
+
+  .error__donut {
+    width: 100px;
+    height: 100px;
+  }
+
+  .error__shadow {
+    width: 50px;
+    height: 50px;
+  }
+
+  .error__title {
+    font-size: 20px;
+  }
+}

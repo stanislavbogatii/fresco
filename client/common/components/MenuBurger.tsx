@@ -1,8 +1,23 @@
-import { routes } from '@/utils/routes';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
+import { useRouter } from 'next/router';
+import { routes } from '@/utils/routes';
+import { useUserInfoContext } from "@/context/UserInfoContext";
+import { signout } from '@/modules/register/services/RegisterServcie';
+
 const MenuBurger = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  const router = useRouter();
+  const { user, fetchUserInfo } = useUserInfoContext();
+
+  const handleDeconect = async (e: any) => {
+    e.preventDefault();
+    await signout();
+    document.cookie = "access_token=; path=/; max-age=0";
+    fetchUserInfo();
+    router.push(routes.home);
+  }
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -15,7 +30,7 @@ const MenuBurger = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     <aside className={`menu-burger ${isOpen ? 'active' : ''}`} onClick={onClose}>
       <div className="menu-burger__inner">
         <button className="menu-burger__close" onClick={onClose}>
-          close
+          <span className="sr-only">close menu</span>
         </button>
         <div className="menu-burger__content" onClick={(e) => e.stopPropagation()}>
           <ul className="menu-burger__items">
@@ -25,12 +40,12 @@ const MenuBurger = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
               </Link>
             </li>
             <li className="menu-burger__item">
-              <Link className="menu-burger__link menu-burger__link--favourite" href="#">
+              <Link className="menu-burger__link menu-burger__link--favourite" href={routes.favorites} onClick={onClose}>
                 Favorite
               </Link>
             </li>
             <li className="menu-burger__item">
-              <Link className="menu-burger__link menu-burger__link--basket" href="#">
+              <Link className="menu-burger__link menu-burger__link--basket" href={routes.cart} onClick={onClose}>
                 Coș
               </Link>
             </li>
@@ -40,34 +55,34 @@ const MenuBurger = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
               </Link>
             </li>
             <li className="menu-burger__item">
-              <Link className="menu-burger__link" href="#">
+              <Link className="menu-burger__link menu-burger__link--catalog" href={routes.catalog} onClick={onClose}>
                 Catalog de produse
               </Link>
             </li>
           </ul>
           <ul className="menu-burger__elements">
             <li className="menu-burger__element">
-              <Link className="menu-burger__linkage" href="">
+              <Link onClick={onClose} className="menu-burger__linkage" href={routes.about}>
                 Despre noi
               </Link>
             </li>
             <li className="menu-burger__element">
-              <Link className="menu-burger__linkage" href="">
+              <Link onClick={onClose} className="menu-burger__linkage" href="">
                 Furnizori
               </Link>
             </li>
             <li className="menu-burger__element">
-              <Link className="menu-burger__linkage" href="">
+              <Link onClick={onClose} className="menu-burger__linkage" href="">
                 Noutati
               </Link>
             </li>
             <li className="menu-burger__element">
-              <Link className="menu-burger__linkage" href="">
+              <Link onClick={onClose} className="menu-burger__linkage" href={routes.contact}>
                 Contact
               </Link>
             </li>
             <li className="menu-burger__element">
-              <Link className="menu-burger__linkage" href="">
+              <Link onClick={onClose} className="menu-burger__linkage" href="">
                 Oferte Promotionale
               </Link>
             </li>
@@ -78,9 +93,14 @@ const MenuBurger = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
             </Link>
             <div className="menu-burger__box">
               <button className="localization-button">RO</button>
-              <Link className="menu-burger__exit" href="#">
-                Ieși
-              </Link>
+              {user ? (
+                <Link onClick={(e) => {
+                  handleDeconect(e);
+                  onClose();
+                }} className="menu-burger__exit" href="#">
+                  Ieși
+                </Link>
+              ) : null}
             </div>
           </div>
         </div>

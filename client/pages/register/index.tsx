@@ -6,7 +6,7 @@ const Register = () => {
   return (
     <>
       <Head>
-        <title>Register</title>
+        <title>FRESCO | Register</title>
       </Head>
       <CreateProfile />
     </>

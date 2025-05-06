@@ -57,6 +57,8 @@ const apiClientService = {
     sendRequest('POST', endpoint, data, contentType),
   put: (endpoint: string, data: any, contentType: string | null = null) =>
     sendRequest('PUT', endpoint, data, contentType),
+  patch: (endpoint: string, data: any, contentType: string | null = null) =>
+    sendRequest('PATCH', endpoint, data, contentType),
   delete: (endpoint: string) => sendRequest('DELETE', endpoint),
 };
 

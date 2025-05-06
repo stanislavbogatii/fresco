@@ -209,7 +209,7 @@ const ProductList = () => {
               </div>
               <div className="products-list" style={{ marginTop: 10 }}>
                 {/* PRODUCT VIEW */}
-                <Row xs={5} style={{ padding: '0 10px' }}>
+                {/* <Row xs={5} style={{ padding: '0 10px' }}>
                   {products.length > 0 &&
                     products.map((product) => (
                       <ProductCard
@@ -218,7 +218,7 @@ const ProductList = () => {
                         key={product.id}
                       />
                     ))}
-                </Row>
+                </Row> */}
                 {/* PAGINATION */}
                 {totalPage > 1 && (
                   <ReactPaginate

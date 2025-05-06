@@ -78,7 +78,7 @@ const UserProfileLeftSideBar = () => {
             }`}
             href={routes.profile_offer}
           >
-            Oferta comanda
+            Vanzari
           </Link>
         </li>
         <li className="user-sidebar__item">

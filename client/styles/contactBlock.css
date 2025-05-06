@@ -17,7 +17,7 @@
 }
 
 .contact-block__list-item {
-  padding-left: 25px;
+  padding-left: 30px;
   line-height: 21px;
   position: relative;
 }
@@ -36,8 +36,8 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center; 
-  width: 16px;
-  height: 16px; 
+  width: 20px;
+  height: 20px; 
 }
 
 .contact-block__list-item--time::before {
@@ -45,7 +45,8 @@
 }
 
 .contact-block__list-item--email::before {
-  background-image: url('../asset/icons/email.svg');
+  background-size: contain;
+  background-image: url('../asset/icons/message.svg');
 }
 
 .contact-block__list-item--tel::before {
