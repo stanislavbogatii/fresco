@@ -112,11 +112,11 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
                 Noutati
               </Link>
             </li>
-            <li className="header__item">
+            {/* <li className="header__item">
               <Link className="header__link header__link--contacts" href={routes.contact}>
                 Contact
               </Link>
-            </li>
+            </li> */}
             <li className="header__item">
               <Link className="header__link header__link--offers" href="#">
                 Oferte Promotionale

@@ -3,10 +3,10 @@ import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "
 import { CategoryContentDto } from "./category-content-dto";
 
 export class CreateCategoryDto {
-  @ApiProperty()
+  @ApiProperty({default: true})
   @IsBoolean()
   @IsNotEmpty()
-  isActive: boolean;
+  isActive: boolean = true;
   
   @ApiProperty()
   @IsString()

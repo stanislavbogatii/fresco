@@ -35,8 +35,8 @@ const MenuBurger = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
         <div className="menu-burger__content" onClick={(e) => e.stopPropagation()}>
           <ul className="menu-burger__items">
             <li className="menu-burger__item">
-              <Link className="menu-burger__link" href="tel:+37362042038">
-                +373 62 042 038
+              <Link className="menu-burger__link" href="tel:+37360104995">
+              +37360104995
               </Link>
             </li>
             <li className="menu-burger__item">
@@ -76,11 +76,11 @@ const MenuBurger = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                 Noutati
               </Link>
             </li>
-            <li className="menu-burger__element">
+            {/* <li className="menu-burger__element">
               <Link onClick={onClose} className="menu-burger__linkage" href={routes.contact}>
                 Contact
               </Link>
-            </li>
+            </li> */}
             <li className="menu-burger__element">
               <Link onClick={onClose} className="menu-burger__linkage" href="">
                 Oferte Promotionale
@@ -88,8 +88,8 @@ const MenuBurger = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
             </li>
           </ul>
           <div className="menu-burger__footer">
-            <Link className="menu-burger__email" href="mailto:nubchenko@gmail.com">
-              nubchenko@gmail.com
+            <Link className="menu-burger__email" href="mailto:Victor.lescenco13@gmail.com">
+            Victor.lescenco13@gmail.com
             </Link>
             <div className="menu-burger__box">
               <button className="localization-button">RO</button>

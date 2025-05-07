@@ -102,14 +102,14 @@ const Footer = () => {
                 </li>
                 <li className="footer__item">
                   <Image src={email} width={20} height={20} alt="email icon" />
-                  <Link className="footer__link" href="mailto:nubchenko@gmail.com">
-                    nubchenko@gmail.com
+                  <Link className="footer__link" href="mailto:Victor.lescenco13@gmail.com">
+                    Victor.lescenco13@gmail.com
                   </Link>
                 </li>
                 <li className="footer__item">
                   <Image src={phone} width={20} height={20} alt="phone icon" />
-                  <Link className="footer__link footer__link--phone" href="tel:+37362042038">
-                    +373 62 042 038
+                  <Link className="footer__link footer__link--phone" href="tel:+373 60 104 995">
+                    +373 60 104 995
                   </Link>
                 </li>
               </ul>
@@ -118,7 +118,7 @@ const Footer = () => {
         </div>
         <div className="footer__bottom">
           {/* <p className="footer__copyright">Copyright © 2024 - Macromex SRL</p> */}
-          <p className="footer__powered">
+          {/* <p className="footer__powered">
             Powered by
             <Link className="footer__powered-link" href="#">
               <Image
@@ -129,7 +129,7 @@ const Footer = () => {
                 alt="vtex icon"
               />
             </Link>
-          </p>
+          </p> */}
           <button className="localization-button">RO</button>
         </div>
       </div>

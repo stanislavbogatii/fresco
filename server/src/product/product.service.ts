@@ -8,7 +8,7 @@ export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createProductDto: CreateProductDto) {
-    const { contents, thumbnailMedia, productImageMedias, ...productData } = createProductDto;
+    const { contents, thumbImage, images, ...productData } = createProductDto;
   
     return await this.prisma.product.create({
       data: {
@@ -18,10 +18,10 @@ export class ProductService {
               create: contents,
             }
           : undefined,
-        thumbImageId: thumbnailMedia?.id,
-        images: productImageMedias?.length
+        thumbImageId: thumbImage?.id,
+        images: images?.length
           ? {
-              connect: productImageMedias.map((media) => ({ id: media.id })),
+              connect: images.map((media) => ({ id: media.id })),
             }
           : undefined,
       },
@@ -89,7 +89,7 @@ export class ProductService {
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
-    const {contents, ...productData} = updateProductDto;
+    const {contents, thumbImage, images, ...productData} = updateProductDto;
     const product = await this.prisma.product.update({
       where: {id},
       data: {

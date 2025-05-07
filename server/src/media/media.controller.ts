@@ -4,8 +4,10 @@ import { MediaService } from './media.service';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { Express } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('medias')
+@ApiTags('medias')
 export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 

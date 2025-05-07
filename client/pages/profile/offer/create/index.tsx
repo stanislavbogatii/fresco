@@ -34,8 +34,6 @@ const ProfileOfferCreate = () => {
   }, [])
 
   const handleCreate = (data: CreateProductDto) => {
-    console.log('23')
-    console.log(user, user?.company)
     if (!user || !user?.company) return;
     data = { ...data, companyId: user.company.id};
 

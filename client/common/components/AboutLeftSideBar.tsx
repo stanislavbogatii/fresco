@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { routes } from '@/utils/routes';
-import { useUserInfoContext } from "@/context/UserInfoContext";
+// import { useUserInfoContext } from "@/context/UserInfoContext";
 
 const AboutLeftSideBar = () => {
   const router = useRouter();
-  const { user, fetchUserInfo } = useUserInfoContext();
+  // const { user, fetchUserInfo } = useUserInfoContext();
   return (
     <ul className="about__list">
       <li className="about__list-item">
@@ -59,10 +59,10 @@ const AboutLeftSideBar = () => {
         </ul>
       </li>
       <li className="about__list-item">
-        <strong className="about__list-title">bocado.ro</strong>
+        <strong className="about__list-title">fresco.md</strong>
         <ul className="about__items">
           <li className="about__item">
-            <Link className="about__link" href="/about">
+            <Link className="about__link" href={routes.about}>
               Despre noi
             </Link>
           </li>
@@ -81,11 +81,11 @@ const AboutLeftSideBar = () => {
               Politica de cookies
             </Link>
           </li>
-          <li className="about__item">
+          {/* <li className="about__item">
             <Link className="about__link" href="#">
               Integritate Macromex
             </Link>
-          </li>
+          </li> */}
         </ul>
       </li>
     </ul>

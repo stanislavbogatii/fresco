@@ -18,11 +18,11 @@ const CreateProfile = () => {
         />
         <div className="register__content">
           <p className="register__text">
-            Daca vrei sa plasezi o comanda pe bocado.ro, vei avea nevoie de cont. E simplu si merge
+            Daca vrei sa plasezi o comanda pe fresco.md, vei avea nevoie de cont. E simplu si merge
             repede, iar dupa ce l-ai creat, vei putea incepe cumparaturile pe site.
           </p>
           <p className="register__text">
-            Daca nu ai cont pe bocado.ro, completeaza formularul de mai jos.
+            Daca nu ai cont pe fresco.md, completeaza formularul de mai jos.
           </p>
           <p className="register__text">Acest formular este destinat numai persoanelor juridice.</p>
         </div>

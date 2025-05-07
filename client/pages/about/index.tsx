@@ -21,7 +21,7 @@ const AboutInfo = () => {
                 intregii echipe, calitatea produselor, curajul de a ne asuma riscuri si viteza de
                 reactie la oportunitatile si schimbarile pietei au determinat o evolutie constanta
                 si sustinuta a companiei. Vrem sa impartasim cu tine toate aceste experiente,
-                „bocado” cu „bocado”, asa ca iti oferim preparate pe care sa le transformi rapid
+                „Fresco” cu „Fresco”, asa ca iti oferim preparate pe care sa le transformi rapid
                 si facil in mancaruri spectaculoase, bine gatite si sanatoase.
               </p>
             </li>

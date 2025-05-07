@@ -62,9 +62,15 @@ export class CreateProductDto {
     @ApiProperty()
     @IsArray()
     @IsOptional()
-    productImageMedias: Array<{id: number, url: string}>;
+    images?: MediaDto[];
 
     @ApiProperty()
     @IsOptional()
-    thumbnailMedia: {id: number, url: string};
+    thumbImage?: MediaDto;
+}
+
+
+export type MediaDto = {
+    id: number;
+    url: string;
 }

@@ -10,14 +10,23 @@ import { ProductModule } from './product/product.module';
 import { MediaModule } from './media/media.module';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { CategoriesModule } from './admin/categories/categories.module';
+import { AdminModule } from './admin/admin.module';
+import { RouterModule } from '@nestjs/core';
 
 @Module({
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
-      serveRoot: '/uploads',       // URL prefix
+      serveRoot: '/uploads',
       exclude: ['/api*'],
     }),
+    RouterModule.register([
+      {
+        path: 'admin',
+        module: AdminModule,
+      },
+    ]),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -28,7 +37,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     CategoryModule,
     ProductModule,
     MediaModule,
+    CategoriesModule,
+    AdminModule,
     
-  ],
+  ]
 })
 export class AppModule {}

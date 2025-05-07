@@ -22,8 +22,8 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.use(cookieParser());
   const config = new DocumentBuilder()
-    .setTitle('My NestJS API')
-    .setDescription('API documentation for my NestJS application')
+    .setTitle('Fresco backend documentation')
+    .setDescription('API documentation for fresco backend')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
