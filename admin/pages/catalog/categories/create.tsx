@@ -5,8 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import slugify from 'slugify';
 
-import CategoryImage from '@catalogComponents/CategoryImage';
-import { Category } from '@catalogModels/Category';
+import { CreateCategoryDto } from '@catalogModels/CreateCategoryDto';
 import { createCategory, getCategories } from '@catalogServices/CategoryService';
 import { CheckBox, Input, TextArea } from '@commonItems/Input';
 import { handleCreatingResponse } from '@commonServices/ResponseStatusHandlingService';
@@ -17,14 +16,14 @@ import { Tab, Tabs } from 'react-bootstrap';
 
 const CategoryCreate: NextPage = () => {
   const router = useRouter(); 
-  const { handleSubmit, setValue, register, formState: { errors } } = useForm<Category>();
-  const [categories, setCategories] = useState<Category[]>([]);
+  const { handleSubmit, setValue, register, formState: { errors } } = useForm<CreateCategoryDto>();
+  const [categories, setCategories] = useState<CreateCategoryDto[]>([]);
   const [languages, setLanguages] = useState<Language[]>([]);
   const [tabKey, setTabKey] = useState<string>('');
 
   useEffect(() => {
     getCategories().then((data) => {
-      setCategories(data);
+      setCategories(data.items);
     });
     getLanguages().then((data) => {
       setLanguages(data);
@@ -32,14 +31,9 @@ const CategoryCreate: NextPage = () => {
     })
   }, []);
 
-  const onHandleSubmit: SubmitHandler<Category> = async (data: Category) => {
-    const category = {
-      code: data.code,
-      isActive: data.isActive,
-      contents: data.categoryContent,
-      parentId: data.parentId && +data?.parentId != -1 ? +data.parentId : null,
-    };
-    const response = await createCategory(category);
+  const onHandleSubmit: SubmitHandler<CreateCategoryDto> = async (data: CreateCategoryDto) => {
+    data.parentId = data.parentId && +data?.parentId != -1 ? +data.parentId : null
+    const response = await createCategory(data);
 
     if (response.status === 201) {
       router.replace(CATEGORIES_URL);
@@ -50,13 +44,13 @@ const CategoryCreate: NextPage = () => {
 
   const renderCategoriesHierarchy: Function = (
     id: number,
-    list: Array<Category>,
+    list: Array<CreateCategoryDto>,
     parentHierarchy: string
   ) => {
     let renderArr = list.filter((e) => e.parentId == id);
     const newArr = list.filter((e) => e.parentId != id);
-    renderArr = renderArr.sort((a: Category, b: Category) => a.code.localeCompare(b.code));
-    return renderArr.map((category: Category) => (
+    renderArr = renderArr.sort((a: CreateCategoryDto, b: CreateCategoryDto) => a.code.localeCompare(b.code));
+    return renderArr.map((category: CreateCategoryDto) => (
       <React.Fragment key={category.id}>
         <option value={category.id} key={category.id}>
           {parentHierarchy + category.code}
@@ -83,24 +77,24 @@ const CategoryCreate: NextPage = () => {
           
           <Tabs activeKey={tabKey} onSelect={(e: any) => setTabKey(e)} >
             {languages.map((lang, index) => {
-              setValue(`categoryContent.${index}.langId`, lang.langId);
+              setValue(`contents.${index}.langId`, lang.langId);
               return (
                 <Tab key={lang.langId} eventKey={lang.langId} title={lang.langId} style={{ border: '1px solid #dee2e6', borderTop: 'none', padding: '10px', borderRadius: '.25rem'}}>
                   <div>
                     <div className="mb-3">
                         <input 
-                        {...register(`categoryContent.${index}.langId`)}
+                        {...register(`contents.${index}.langId`)}
                         type='hidden' />
                       <Input
                         labelText="Title"
-                        error={errors?.categoryContent ? errors?.categoryContent[index]?.title?.message : ''}
-                        field={`categoryContent.${index}.title`}
+                        error={errors?.contents ? errors?.contents[index]?.title?.message : ''}
+                        field={`contents.${index}.title`}
                         register={register}
                         registerOptions={{
-                          required: { value: true, message: 'Category title is required' },
+                          required: { value: true, message: 'CreateCategoryDto title is required' },
                           onChange: (e) => {
                             setValue(
-                              `categoryContent.${index}.slug`,
+                              `contents.${index}.slug`,
                               slugify(e.target.value, {
                                 lower: true,
                                 strict: true,
@@ -112,9 +106,9 @@ const CategoryCreate: NextPage = () => {
                     </div>
                     <div className="mb-3">
                       <Input
-                        error={errors?.categoryContent ? errors?.categoryContent[index]?.slug?.message : ''}
+                        error={errors?.contents ? errors?.contents[index]?.slug?.message : ''}
                         labelText="Slug"
-                        field={`categoryContent.${index}.slug`}
+                        field={`contents.${index}.slug`}
                         register={register}
                         registerOptions={{
                           required: { value: true, message: 'Slug is required' },
@@ -122,7 +116,7 @@ const CategoryCreate: NextPage = () => {
                       />
                     </div>
                     <div className="mb-3">
-                      <TextArea labelText="Description" field={`categoryContent.${index}.description`} register={register} />
+                      <TextArea labelText="Description" field={`contents.${index}.description`} register={register} />
                     </div>
                     {/* <div className="mb-3">
                       <Input labelText="Meta Keywords" field="metaKeywords" register={register} />

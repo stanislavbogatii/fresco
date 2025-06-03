@@ -2,12 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { Product } from '@/modules/catalog/models/Product';
+import { ProductResponseDto } from '@/modules/catalog/models/ProductResponseDto';
 
-const ProductCard = ({ product }: { product: Product }) => {
-  return product && product.productContent ? (
+const ProductCard = ({ product }: { product: ProductResponseDto }) => {
+  return product && product.contents ? (
     <article className="product-card">
-      <Link className="product-card__link" href={`/product/${product?.productContent[0]?.slug}`}>
+      <Link className="product-card__link" href={`/product/${product?.contents[0]?.slug}`}>
         <Image
           className="product-card__img"
           width="236"
@@ -17,9 +17,10 @@ const ProductCard = ({ product }: { product: Product }) => {
         />
       </Link>
       <h3 className="product-card__title">
-        <Link href={`/product/${product?.productContent[0]?.slug}`}>{product?.productContent[0].title}</Link>
+        <Link href={`/product/${product?.contents[0]?.slug}`}>{product?.contents[0].title}</Link>
       </h3>
       <small className="product-card__article">{product.article}</small>
+      <small className="product-card__article">{product?.category?.title}</small>
       <button className="product-card__btn btn-primary" type="button">
         <i className="product-card__btn-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">

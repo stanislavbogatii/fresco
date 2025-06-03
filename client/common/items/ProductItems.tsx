@@ -1,9 +1,9 @@
-import { Product } from '@/modules/catalog/models/Product';
+import { ProductResponseDto } from '@/modules/catalog/models/ProductResponseDto';
 import ProductCard from 'common/components/ProductCard';
 import { ProductThumbnail } from 'modules/catalog/models/ProductThumbnail';
 
 type Props = {
-  products: Product[];
+  products: ProductResponseDto[];
 };
 
 const ProductItems = ({ products }: Props) => {

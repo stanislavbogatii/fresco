@@ -5,11 +5,11 @@ import { UseFormSetValue } from 'react-hook-form';
 
 import ChooseImages from './ChooseImages';
 import ChooseThumbnail from './ChooseThumbnail';
-import { Product } from '@/modules/catalog/models/Product';
+import { ProductResponseDto } from '@/modules/catalog/models/ProductResponseDto';
 import { CreateProductDto } from '@/modules/catalog/models/CreateProductDto';
 
 type Props = {
-  product?: Product;
+  product?: ProductResponseDto;
   setValue: UseFormSetValue<CreateProductDto>;
 };
 
@@ -35,7 +35,7 @@ const ProductImage = ({ product, setValue }: Props) => {
         />
       </div>
       <div className="mb-3">
-        <h4 className="mb-3">Product Image</h4>
+        <h4 className="mb-3">ProductResponseDto Image</h4>
 
         <ChooseImages
           id="main-product-images"

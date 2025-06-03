@@ -1,4 +1,4 @@
-import { Media } from './Media';
+import { CreateProductMediaDto } from './CreateProductMediaDto';
 // import { ProductAttributeValue } from './ProductAttributeValue';
 // import { ProductOptionValuePost } from './ProductOptionValuePost';
 import { ProductVariation } from './ProductVariation';
@@ -25,8 +25,8 @@ export type FormProduct = {
   isVisibleIndividually?: boolean;
   stockTrackingEnabled?: boolean;
   taxIncluded?: boolean;
-  thumbnailMedia?: Media;
-  productImageMedias?: Media[];
+  thumbnailMedia?: CreateProductMediaDto;
+  productImageMedias?: CreateProductMediaDto[];
   metaTitle?: string;
   metaKeyword?: string;
   metaDescription?: string;

@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Category } from '../../../../modules/catalog/models/Category';
+import { CreateCategoryDto } from '../../../../modules/catalog/models/CreateCategoryDto';
 import {
   getCategories,
   getCategory,
@@ -19,6 +19,7 @@ import styles from '../../../../styles/ChooseImage.module.css';
 import { Language } from '@catalogModels/Language';
 import { getLanguages } from '@catalogServices/LanguagesService';
 import { Tab, Tabs } from 'react-bootstrap';
+import { CategoryResponseDto } from '@catalogModels/CategoryResponseDto';
 
 type Image = {
   id: number;
@@ -27,11 +28,11 @@ type Image = {
 
 const CategoryEdit: NextPage = () => {
   const router = useRouter();
-  const { setValue, handleSubmit, register } = useForm<Category>();
+  const { setValue, handleSubmit, register } = useForm<CreateCategoryDto>();
   const { id } = router.query;
   var slugify = require('slugify');
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [category, setCategory] = useState<Category>();
+  const [categories, setCategories] = useState<CategoryResponseDto[]>([]);
+  const [category, setCategory] = useState<CategoryResponseDto>();
   const [slug, setSlug] = useState<string>();
   const [imageId, setImageId] = useState<number>();
   const [categoryImage, setCategoryImage] = useState<Image | null>();
@@ -46,7 +47,7 @@ const CategoryEdit: NextPage = () => {
       code: event?.target?.code?.value,
       isActive: event?.target?.isActive?.checked,
       parentId: parentId,
-      contents: data.categoryContent,
+      contents: data.contents,
     };
 
     if (id) {
@@ -58,8 +59,8 @@ const CategoryEdit: NextPage = () => {
     }
   };
   const renderSeletedCategory: Function = (
-    category: Category,
-    currentCategory: Category,
+    category: CategoryResponseDto,
+    currentCategory: CategoryResponseDto,
     parentHierarchy: string
   ) => {
     if (category.id === currentCategory?.parentId) {
@@ -78,14 +79,14 @@ const CategoryEdit: NextPage = () => {
 
   const renderCategoriesHierarchy: Function = (
     id: number,
-    list: Array<Category>,
+    list: Array<CategoryResponseDto>,
     parentHierarchy: string,
-    currentCategory: Category
+    currentCategory: CategoryResponseDto
   ) => {
     let renderArr = list.filter((e) => e.parentId == id);
     const newArr = list.filter((e) => e.parentId != id);
-    renderArr = renderArr.sort((a: Category, b: Category) => a.code.localeCompare(b.code));
-    return renderArr.map((category: Category) => {
+    renderArr = renderArr.sort((a: CategoryResponseDto, b: CategoryResponseDto) => a.code.localeCompare(b.code));
+    return renderArr.map((category) => {
       return (
         <React.Fragment key={category.id}>
           {renderSeletedCategory(category, currentCategory, parentHierarchy)}
@@ -116,7 +117,7 @@ const CategoryEdit: NextPage = () => {
 
   useEffect(() => {
     getCategories().then((data) => {
-      setCategories(data);
+      setCategories(data.items);
     });
     getLanguages().then((data) => {
       setLanguages(data);
@@ -178,48 +179,48 @@ const CategoryEdit: NextPage = () => {
             </div>
             <Tabs activeKey={tabKey} onSelect={(e: any) => setTabKey(e)} >
               {languages.map((lang, index) => {
-                setValue(`categoryContent.${index}.langId`, lang.langId);
-                setValue(`categoryContent.${index}.title`, category?.categoryContent[index]?.title)
-                setValue(`categoryContent.${index}.slug`, category?.categoryContent[index]?.slug)
-                setValue(`categoryContent.${index}.description`, category?.categoryContent[index]?.description)
+                setValue(`contents.${index}.langId`, lang.langId);
+                setValue(`contents.${index}.title`, category?.contents[index]?.title)
+                setValue(`contents.${index}.slug`, category?.contents[index]?.slug)
+                setValue(`contents.${index}.description`, category?.contents[index]?.description)
                 return (
                   <Tab key={lang.langId} eventKey={lang.langId} title={lang.langId} style={{ border: '1px solid #dee2e6', borderTop: 'none', padding: '10px', borderRadius: '.25rem' }}>
                     <div className="mb-3">
-                      <label className="form-label" htmlFor={`categoryContent.${index}.title`}>
+                      <label className="form-label" htmlFor={`contents.${index}.title`}>
                         Title
                       </label>
                       <input
-                        {...register(`categoryContent.${index}.title`)}
+                        {...register(`contents.${index}.title`)}
                         className="form-control"
                         type="text"
-                        id={`categoryContent.${index}.title`}
-                        name={`categoryContent.${index}.title`}
-                        // defaultValue={category?.categoryContent[index]?.title}
+                        id={`contents.${index}.title`}
+                        name={`contents.${index}.title`}
+                        // defaultValue={category?.contents[index]?.title}
                       />
                     </div>
                     <div className="mb-3">
-                      <label className="form-label" htmlFor={`categoryContent.${index}.slug`}>
+                      <label className="form-label" htmlFor={`contents.${index}.slug`}>
                         Slug
                       </label>
                       <input
-                        {...register(`categoryContent.${index}.slug`)}
+                        {...register(`contents.${index}.slug`)}
                         className="form-control"
                         type="text"
-                        id={`categoryContent.${index}.slug`}
-                        name={`categoryContent.${index}.slug`}
-                        // defaultValue={category?.categoryContent[index]?.slug}
+                        id={`contents.${index}.slug`}
+                        name={`contents.${index}.slug`}
+                        // defaultValue={category?.contents[index]?.slug}
                       />
                     </div>
                     <div className="mb-3">
-                      <label className="form-label" htmlFor={`categoryContent.${index}.description`}>
+                      <label className="form-label" htmlFor={`contents.${index}.description`}>
                         Description
                       </label>
                       <textarea
-                        {...register(`categoryContent.${index}.description`)}
+                        {...register(`contents.${index}.description`)}
                         className="form-control"
-                        id={`categoryContent.${index}.description`}
-                        // defaultValue={category?.categoryContent[index]?.description}
-                        name={`categoryContent.${index}.description`}
+                        id={`contents.${index}.description`}
+                        // defaultValue={category?.contents[index]?.description}
+                        name={`contents.${index}.description`}
                       />
                     </div>
                   </Tab>

@@ -1,4 +1,4 @@
-export type ProductContent = {
+export type CreateProductContentDto = {
     title: string;
     slug: string;
     description?: string;

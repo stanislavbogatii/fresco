@@ -15,8 +15,9 @@ export class ProductController {
   @ApiResponse({status: HttpStatus.CREATED, description: 'Product created succesfuly'})
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  async create(@Body() createProductDto: CreateProductDto): Promise<void> {
-    await this.productService.create(createProductDto);
+  async create(@Body() dto: CreateProductDto): Promise<void> {
+    console.log(dto);
+    await this.productService.create(dto);
   }
 
   @ApiResponse({status: HttpStatus.OK, description: "List of producst", type: PaginationResultDto<ProductResponseDto>})

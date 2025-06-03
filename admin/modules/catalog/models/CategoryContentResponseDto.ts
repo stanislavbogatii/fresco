@@ -1,4 +1,4 @@
-export type CategoryContent = {
+export type CategoryContentResponseDto = {
   id: number;
   categoryId: number;
   title?: string;

@@ -8,7 +8,7 @@ import ReactPaginate from 'react-paginate';
 
 import BreadcrumbComponent from '../../common/components/BreadcrumbComponent';
 import { BreadcrumbModel } from '../../modules/breadcrumb/model/BreadcrumbModel';
-import { Category } from '../../modules/catalog/models/Category';
+import { CategoryResponseDto } from '../../modules/catalog/models/CategoryResponseDto';
 import { ProductThumbnail } from '../../modules/catalog/models/ProductThumbnail';
 import { getCategories } from '../../modules/catalog/services/CategoryService';
 import { getProductByMultiParams } from '../../modules/catalog/services/ProductService';
@@ -32,7 +32,7 @@ const CATEGORY_SLUG = 'categorySlug';
 const ProductList = () => {
   const router = useRouter();
   const [products, setProduct] = useState<ProductThumbnail[]>([]);
-  const [cates, setCates] = useState<Category[]>([]);
+  const [cates, setCates] = useState<CategoryResponseDto[]>([]);
   const [totalPage, setTotalPage] = useState<number>(0);
   const [pageNo, setPageNo] = useState<number>(0);
 
@@ -47,7 +47,7 @@ const ProductList = () => {
       handleFilter(CATEGORY_SLUG, categorySlugValue);
     }
     getCategories().then((res) => {
-      setCates(res);
+      setCates(res.items);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -136,10 +136,10 @@ const ProductList = () => {
                           style={{ cursor: 'pointer' }}
                           className={`d-inline-block my-2 me-2 px-3 border border-secondary rounded-pill ${styles['hover-category']}`}
                           onClick={() => {
-                            handleFilter(CATEGORY_SLUG, cate.categoryContent[0]?.slug);
+                            handleFilter(CATEGORY_SLUG, cate.contents[0]?.slug);
                           }}
                         >
-                          {cate?.categoryContent[0]?.title}
+                          {cate?.contents[0]?.title}
                         </li>
                       ))}
                     </ul>

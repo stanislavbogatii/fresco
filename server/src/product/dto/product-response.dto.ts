@@ -2,6 +2,7 @@
 import { Expose, Type } from "class-transformer";
 import { ProductAttributeResponseDto } from "./product-attriubute-response.dto";
 import { ProductContentResponseDto } from "./product-content-response.dto";
+import { ProductCategoryResponseDto } from "./product-category-response.dto";
 
 export class MediaResponseDto {
   @Expose()
@@ -44,7 +45,7 @@ export class ProductResponseDto {
 
   @Expose()
   @Type(() => ProductContentResponseDto)
-  productContent: ProductContentResponseDto[];
+  contents: ProductContentResponseDto[];
 
   @Expose()
   @Type(() => ProductAttributeResponseDto)
@@ -60,6 +61,10 @@ export class ProductResponseDto {
 
   @Expose()
   createdAt: Date;
+
+  @Expose()
+  @Type(() => ProductCategoryResponseDto)
+  category: ProductCategoryResponseDto;
 
   updatedAt: Date;
 }

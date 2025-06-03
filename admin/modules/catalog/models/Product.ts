@@ -1,4 +1,4 @@
-import { Category } from './Category';
+import { Category } from './CreateCategoryDto';
 import { Media } from './Media';
 
 export type Product = {

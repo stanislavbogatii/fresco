@@ -9,7 +9,6 @@ import styles from '../../styles/ChooseImage.module.css';
 import { AdminProductVariation } from '@/modules/catalog/models/ProductVariation';
 import { uploadMedia } from '@/modules/media/services/MediaService';
 import { CreateProductDto } from '@/modules/catalog/models/CreateProductDto';
-import { Product } from '@/modules/catalog/models/Product';
 
 type ChooseThumbnailProps = {
   id: string;

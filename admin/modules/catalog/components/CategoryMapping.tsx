@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { UseFormGetValues, UseFormSetValue } from 'react-hook-form';
 
-import { Category } from '@catalogModels/Category';
+import { Category } from '@catalogModels/CreateCategoryDto';
 import { FormProduct } from '@catalogModels/FormProduct';
 import { Product } from '@catalogModels/Product';
 import { getCategories } from '@catalogServices/CategoryService';

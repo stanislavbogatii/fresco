@@ -6,18 +6,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 
 import { getProducts } from '@/modules/catalog/services/ProductService';
-import { Product } from '@/modules/catalog/models/Product';
+import { ProductResponseDto } from '@/modules/catalog/models/ProductResponseDto';
 import ProductCard from '@/common/components/ProductCard';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 const FeaturedProduct = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductResponseDto[]>([]);
 
   const loadProducts = async () => {
     const res = await getProducts(1, 20);
-    setProducts(res.products);
+    console.log(res);
+    setProducts(res.items);
   };
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const FeaturedProduct = () => {
       <Container className="featured-product-container">
         <h2 className="title">Featured Products</h2>
 
-        {products.length > 0 && (
+        {products?.length > 0 && (
           <Swiper
             modules={[Pagination, Autoplay]}
             spaceBetween={20}

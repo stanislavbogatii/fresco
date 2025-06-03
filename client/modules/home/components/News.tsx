@@ -53,12 +53,16 @@ const News = () => {
               article: 'sd',
               oldPrice: undefined,
               categoryId: 0,
-              content: {
+              companyId: 0,
+              codeRef: '',
+              contents: [{
                 title: '',
                 slug: '',
                 description: '',
-                langId: ''
-              },
+                langId: '',
+                ingredients: '',
+                instructions: '',
+              }],
               thumbImage: undefined,
               images: []
             }} />
@@ -70,12 +74,16 @@ const News = () => {
               oldPrice: undefined,
               categoryId: 0,
               article: 'l',
-              content: {
+              companyId: 0,
+              codeRef: '',
+              contents: [{
                 title: '',
                 slug: '',
                 description: '',
-                langId: ''
-              },
+                langId: '',
+                ingredients: '',
+                instructions: '',
+              }],
               thumbImage: undefined,
               images: undefined
             }} />
@@ -87,16 +95,21 @@ const News = () => {
               oldPrice: undefined,
               categoryId: 0,
               article: 'l',
-              content: {
+              companyId: 0,
+              codeRef: '',
+              contents: [{
                 title: '',
                 slug: '',
                 description: '',
-                langId: ''
-              },
+                langId: '',
+                ingredients: '',
+                instructions: '',
+              }],
               thumbImage: undefined,
               images: undefined
             }} />
           </SwiperSlide>
+          
           {/* <SwiperSlide>
             <ProductCard />
           </SwiperSlide>

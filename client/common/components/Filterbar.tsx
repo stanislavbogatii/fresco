@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Link from 'next/link';
-import { Category } from '@/modules/catalog/models/Category';
+import { CategoryResponseDto } from '@/modules/catalog/models/CategoryResponseDto';
 import { getCategories } from '@/modules/catalog/services/CategoryService';
 
 type AccordionState = {
@@ -14,7 +14,7 @@ interface FilterbarProps {
 }
 
 const Filterbar: React.FC<FilterbarProps> = ({isOpen, onClose}) => {
-  const [categories, setCategories] = useState<Category[]>();
+  const [categories, setCategories] = useState<CategoryResponseDto[]>();
 
   const [accordionState, setAccordionState] = useState<AccordionState>({
     ingrediente: true,
@@ -28,10 +28,11 @@ const Filterbar: React.FC<FilterbarProps> = ({isOpen, onClose}) => {
   });
 
   useEffect(() => {
-    getCategories().then((data: Category[]) => {
-      setCategories(data);
+    getCategories().then((data) => {
+      console.log(data)
+      setCategories(data.items);
       let newObjState: AccordionState = {};
-      data.forEach((category) => {
+      data.items.forEach((category) => {
         newObjState[category.id] = false;
       })
       setAccordionState(newObjState);
@@ -79,7 +80,7 @@ const Filterbar: React.FC<FilterbarProps> = ({isOpen, onClose}) => {
                     type="button"
                     onClick={() => toggleAccordion(category.id)}
                   >
-                    {category.categoryContent[0]?.title}
+                    {category.contents[0]?.title}
                   </button>
                   {categories.find((category_c) => category_c.parentId === category.id) &&
                     <div className={`filterbar__accordion ${accordionState[category.id] ? 'active' : ''}`}>
@@ -88,7 +89,7 @@ const Filterbar: React.FC<FilterbarProps> = ({isOpen, onClose}) => {
                           return (
                             <li key={key} className="filterbar__accordion-item">
                               <Link className="filterbar__accordion-link" href="#">
-                                {category_c.categoryContent[0].title}
+                                {category_c.contents[0].title}
                               </Link>
                             </li>
                           )

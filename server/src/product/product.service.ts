@@ -11,33 +11,25 @@ export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateProductDto) {
-    // const { contents, thumbImage, images, ...productData } = createProductDto;
+    const { contents, thumbImage, images, ...data } = dto;
   
     await this.prisma.product.create({
       data: {
-        isActive: dto.isActive,
-        price: dto.price,
-        oldPrice: dto.oldPrice,
-        article: dto.article,
-        codeRef: dto.codeRef,
-        brand: dto.brand,
-        origin_country: dto.origin_country,
-        vat_rate: dto.vat_rate,
-        companyId: dto.companyId,
-        thumbImageId: dto.thumbImage?.id,
+        ...data,
+        thumbImageId: thumbImage?.id ?? undefined,
         images: {
-          connect: dto.images.map((media) => ({ id: media.id })),
+          connect: dto.images ? dto.images.map((media) => ({ id: media.id })) : undefined,
         },
-        attributes: {
+        attributes: dto.attributes ?{
           create: dto.attributes.map((attr) => ({
             value: attr.value,
-            detail: { connect: { id: attr.detailId } },
+            detail: { connect: { id: attr.id } },
           })),
-        },
-        productContent: {
+        } : undefined,
+        contents: {
           create: dto.contents.map((content) => ({
             ...content,
-            lang: { connect: { langId: content.langId } },
+            langId: content.langId,
           })),
         },
       },
@@ -52,15 +44,27 @@ export class ProductService {
       take: limit,
       where: {},
       include: {
-        productContent: true,
-        categoryProducts: true,
+        contents: true,
         thumbImage: true,
+        category: {
+          include: {
+            contents: true
+          }
+        },
         images: true
       }
     })
     const total = await this.prisma.product.count();
     const mapped = products.map((product) => {
-      return plainToInstance(ProductResponseDto, product, {excludeExtraneousValues: true});
+      return plainToInstance(ProductResponseDto, {
+        ...product,
+        category: {
+          id: product?.category?.id,
+          title: product?.category?.contents[0]?.title || '',
+          slug: product?.category?.contents[0]?.slug || '',
+          langId: product?.category?.contents[0]?.langId || '',
+        }
+      }, {excludeExtraneousValues: true});
     });
 
     return new PaginationResultDto(total, mapped);
@@ -70,51 +74,68 @@ export class ProductService {
     const product =  await this.prisma.product.findFirst({
       where: {id},
       include: {
-        productContent: true,
-        categoryProducts: true,
+        contents: true,
+        category: {
+          include: {
+            contents: true
+          }
+        },
         images: true,
         thumbImage: true
       }
     })
-    return plainToInstance(ProductResponseDto, product, {excludeExtraneousValues: true});
+    return plainToInstance(ProductResponseDto, {
+      ...product,
+        category: {
+          id: product?.category?.id,
+          title: product?.category?.contents[0]?.title || '',
+          slug: product?.category?.contents[0]?.slug || '',
+          langId: product?.category?.contents[0]?.langId || '',
+        }
+    }, {excludeExtraneousValues: true});
   }
 
   async findBySlug(slug: string): Promise<ProductResponseDto> {
     const product = await this.prisma.product.findFirst({
       where: {
-        productContent: {
+        contents: {
           some: {
             slug
           }
         }
       },
       include: {
-        productContent: true,
-        categoryProducts: true,
+        contents: true,
+        category: {
+          include: {
+            contents: true
+          }
+        },
         images: true,
         thumbImage: true
       }
     })
     if (!product) throw new NotFoundException('Product not found');
-    return plainToInstance(ProductResponseDto, product, {excludeExtraneousValues: true});
-  }
+    return plainToInstance(ProductResponseDto, {
+      ...product,
+        category: {
+          id: product?.category?.id,
+          title: product?.category?.contents[0]?.title || '',
+          slug: product?.category?.contents[0]?.slug || '',
+          langId: product?.category?.contents[0]?.langId || '',
+        }
+    }, {excludeExtraneousValues: true});  }
 
   async update(id: number, dto: UpdateProductDto) {
+    const { contents, thumbImage, images, ...data } = dto;
+
     await this.prisma.product.update({
       where: {id},
       data: {
-        isActive: dto.isActive,
-        price: dto.price,
-        oldPrice: dto.oldPrice,
-        article: dto.article,
-        codeRef: dto.codeRef,
-        brand: dto.brand,
-        origin_country: dto.origin_country,
-        vat_rate: dto.vat_rate,
-        company: dto.companyId ? { connect: { id: dto.companyId } } : undefined,
-        thumbImage: dto.thumbImage?.id ? { connect: { id: dto.thumbImage.id } } : undefined,
+        ...data,
         images: dto.images ? { connect: dto.images.map((media) => ({ id: media.id })) } : undefined,
-        productContent: {
+        thumbImageId: thumbImage?.id ?? undefined,
+        contents: {
           deleteMany: {},
           create: dto.contents.map((c) => ({ ...c }))
         },
@@ -122,13 +143,12 @@ export class ProductService {
           deleteMany: {},
           create: dto.attributes.map((a) => ({
             value: a.value,
-            detail: { connect: { id: a.detailId } }
+            detail: { connect: { id: a.id } }
           }))
         },
       },
       include: {
-        productContent: true,
-        categoryProducts: true,
+        contents: true,
         thumbImage: true
       }
     });

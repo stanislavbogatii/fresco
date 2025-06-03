@@ -2,7 +2,7 @@ import { Expose } from "class-transformer";
 
 export class ProductAttributeResponseDto {
   @Expose()
-  detailId: number;
+  id: number;
 
   @Expose()
   value: string;

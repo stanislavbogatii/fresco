@@ -1,4 +1,6 @@
-import { Media } from './Media';
+
+
+import { Media } from "@/modules/media/models/Media";
 
 export type ProductVariation = {
   id: number;

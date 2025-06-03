@@ -1,7 +1,7 @@
 import ProductImage from '@/common/components/ProductImage';
 import ProfileLayout from '@/common/components/ProfileLayout';
 import { Input } from '@/common/items/Input';
-import { TextArea } from '@/common/items/TextArea';
+import { Select, TextArea } from '@/common/items/TextArea';
 import { useUserInfoContext } from '@/context/UserInfoContext';
 import { CreateProductDto } from '@/modules/catalog/models/CreateProductDto';
 import { FormProduct } from '@/modules/catalog/models/FormProduct';
@@ -18,10 +18,13 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { FieldValues, Path, PathValue, RegisterOptions, useForm, UseFormRegisterReturn } from 'react-hook-form';
+import { getCategories } from '@/modules/catalog/services/CategoryService';
+import { CategoryResponseDto } from '@/modules/catalog/models/CategoryResponseDto';
 
 const ProfileOfferCreate = () => {
   const { user } = useUserInfoContext();
   const [languages, setLanguages] = useState<Language[]>([]);
+  const [categories, setCategories] = useState<CategoryResponseDto[]>();
   const [tabKey, setTabKey] = useState<string>('');
   const { register, setValue, formState: { errors }, handleSubmit, getValues } = useForm<CreateProductDto>();
   const router = useRouter();
@@ -31,12 +34,15 @@ const ProfileOfferCreate = () => {
       setLanguages(languages);
       setTabKey(languages[0].langId);
     })
+    getCategories().then((data) => {
+      console.log(data)
+      setCategories(data.items);
+    })
   }, [])
 
   const handleCreate = (data: CreateProductDto) => {
     if (!user || !user?.company) return;
     data = { ...data, companyId: user.company.id};
-
 
     createProduct(data)
       .then(() => {
@@ -145,6 +151,25 @@ const ProfileOfferCreate = () => {
             type="number"
             placeholder="Pret"
             labelText={'Pret'} />
+        </label>
+
+        <label className="offer-create__label">
+          <Select
+            registerOptions={{
+              required: { value: true, message: 'Categorie este bligatorie' },
+            }}
+            register={register}
+            field={`categoryId`}
+            className="offer-create__input input"
+            labelText={'Categorie'} 
+            defaultValue={categories?.[0]?.id || ''}
+            placeholder='Selecteaza o categorie'
+            options={
+              categories?.map((category) => ({
+                value: category.id,
+                label: category.contents[0].title,
+              })) || []
+            } />
         </label>
 
         <ProductImage setValue={setValue}/>

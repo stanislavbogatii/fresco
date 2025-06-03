@@ -1,9 +1,10 @@
-import { Category } from '../models/Category';
+import { CategoryResponseDto } from '../models/CategoryResponseDto';
+import { PaginationResponse } from '@/models/PaginationResponse';
 import apiClientService from '@/common/services/ApiClientService';
 
 const baseUrl = '/categories';
 
-export async function getCategories(): Promise<Category[]> {
+export async function getCategories(): Promise<PaginationResponse<CategoryResponseDto>> {
   const response = await apiClientService.get(baseUrl);
   return await response.json();
 }

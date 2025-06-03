@@ -15,7 +15,7 @@ import Head from "next/head";
 
 import { getProductBySlug } from "@/modules/catalog/services/ProductService";
 import { useRouter } from "next/router";
-import { Product as ProductModel } from "@/modules/catalog/models/Product";
+import { ProductResponseDto as ProductModel } from "@/modules/catalog/models/ProductResponseDto";
 import { Media } from "@/modules/media/models/Media";
 
 const crumb: BreadcrumbModel[] = [
@@ -94,7 +94,7 @@ const Product = () => {
     if (slug) loadProduct(slug.toString());
   }, [router.query]);
 
-  return product && product.productContent && (
+  return product && product.contents && (
     <>
     <Head>
       <title>FRESCO | Cartofi wedges condimentati 2.5kg</title>
@@ -130,7 +130,7 @@ const Product = () => {
                     src={`https://fresco.md${image.url}`}
                     width={100}
                     height={100}
-                    alt={image.fileName}
+                    alt={image?.fileName ?? ''}
                   />
                 </li>
               ))}
@@ -138,12 +138,12 @@ const Product = () => {
           </div>
 
           <div className="product__top-content">
-            <h1 className="product__top-title">{product?.productContent[0]?.title}</h1>
+            <h1 className="product__top-title">{product?.contents[0]?.title}</h1>
             <span className="product__article">COD: {product?.article}</span>
             <span className="product__top-weight">60g</span>
             <StarRating />
             <p className="product__top-descr">
-              {product?.productContent[0]?.description}
+              {product?.contents[0]?.description}
             </p>
             <ul className="product__top-relations">
               <li className="product__top-relation product__top-relation--ice">Produs congelat</li>

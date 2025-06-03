@@ -6,12 +6,12 @@ import { uploadMedia } from '../services/MediaService';
 import { isValidFile, validTypes } from './ChooseThumbnail';
 import ChooseImageCommon from '../../../common/components/ChooseImageCommon';
 import { UseFormSetValue } from 'react-hook-form/dist/types';
-import { Category } from '../models/Category';
+import { CreateCategoryDto } from '../models/CreateCategoryDto';
 
 type CategoryImageProps = {
   id: string;
   image: Image | null;
-  setValue: UseFormSetValue<Category>;
+  setValue: UseFormSetValue<CreateCategoryDto>;
 };
 
 type Image = {

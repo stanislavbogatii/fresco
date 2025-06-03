@@ -16,12 +16,12 @@ export class CategoryService {
     await this.prisma.category.create({
       data: {
         ...categoryData,
-        categoryContent: contents ? {
+        contents: contents ? {
           create: contents
         } : undefined
       },
       include: {
-        categoryContent: true
+        contents: true
       }
     })
   }
@@ -32,7 +32,7 @@ export class CategoryService {
       skip,
       take: limit,
       include: {
-        categoryContent: true
+        contents: true
       }
     });
     const total = await this.prisma.category.count();
@@ -41,14 +41,14 @@ export class CategoryService {
         excludeExtraneousValues: true
       })
     })
-    return  new PaginationResultDto(total, mapped);
+    return new PaginationResultDto(total, mapped);
   }
 
   async findOne(id: number): Promise<CategoryResponseDto> {
     const category = await this.prisma.category.findFirst({
       where: { id },
       include: {
-        categoryContent: true
+        contents: true
       }
     });
     return plainToInstance(CategoryResponseDto, category, {
@@ -65,7 +65,7 @@ export class CategoryService {
       },
       data: {
         ...categoryData,
-        categoryContent: contents ? {
+        contents: contents ? {
           upsert: contents.map((content) => ({
             where: { 
               langId_categoryId: {
@@ -88,7 +88,7 @@ export class CategoryService {
         } : undefined
       },
       include: {
-        categoryContent: true
+        contents: true
       }
     })
   }
@@ -98,7 +98,7 @@ export class CategoryService {
       where: {
         id,
       },
-      include: { categoryContent: true },  
+      include: { contents: true },  
     })
   }
 }

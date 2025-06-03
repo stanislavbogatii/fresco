@@ -2,13 +2,13 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Table } from 'react-bootstrap';
-import type { Category } from '../../../modules/catalog/models/Category';
 import ModalDeleteCustom from '../../../common/items/ModalDeleteCustom';
 import { deleteCategory, getCategories } from '../../../modules/catalog/services/CategoryService';
 import { handleDeletingResponse } from '../../../common/services/ResponseStatusHandlingService';
+import { CategoryResponseDto } from '@catalogModels/CategoryResponseDto';
 
 const CategoryList: NextPage = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<CategoryResponseDto[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
   const [categoryName, setCategoryName] = useState('');
@@ -23,7 +23,7 @@ const CategoryList: NextPage = () => {
   };
   function getListCategory(): void {
     getCategories().then((data) => {
-      setCategories(data);
+      setCategories(data.items);
       setLoading(false);
     });
   }
@@ -37,7 +37,7 @@ const CategoryList: NextPage = () => {
 
   const renderCategoriesHierarchy: Function = (
     id: number,
-    list: Array<Category>,
+    list: Array<CategoryResponseDto>,
     parentHierarchy: string
   ) => {
     if (!Array.isArray(list)) {
@@ -48,8 +48,8 @@ const CategoryList: NextPage = () => {
     const newArr = list.filter((e) => e.parentId != id);
 
     return renderArr
-      .sort((a: Category, b: Category) => a.code.localeCompare(b.code))
-      .map((category: Category) => {
+      .sort((a: CategoryResponseDto, b: CategoryResponseDto) => a.code.localeCompare(b.code))
+      .map((category: CategoryResponseDto) => {
         return (
           <React.Fragment key={category.id}>
             <tr>
@@ -58,7 +58,7 @@ const CategoryList: NextPage = () => {
                 {parentHierarchy}
                 {category.code}
               </td>
-              <td>{category.categoryContent.find(e => e.langId = 'ro')?.title}</td>
+              <td>{category?.contents?.find(e => e.langId = 'ro')?.title}</td>
 
               <td>{category.isActive ? '+' : '-'}</td>
               <td>

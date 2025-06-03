@@ -1,19 +1,21 @@
-import { Category } from '../models/Category';
+import { PaginationResponse } from 'models/PaginationResponse';
+import { CreateCategoryDto } from '../models/CreateCategoryDto';
 import { ProductThumbnails } from '../models/ProductThumbnails';
 import apiClientService from '@commonServices/ApiClientService';
+import { CategoryResponseDto } from '@catalogModels/CategoryResponseDto';
 
 const baseUrl = '/categories';
 
-export async function getCategories(): Promise<Category[]> {
+export async function getCategories(): Promise<PaginationResponse<CategoryResponseDto>> {
   return (await apiClientService.get(baseUrl)).json();
 }
 
-export async function getCategory(id: number): Promise<Category> {
+export async function getCategory(id: number): Promise<CategoryResponseDto> {
   const url = `${baseUrl}/${id}`;
   return (await apiClientService.get(url)).json();
 }
 
-export async function createCategory(category: Record<string, any>) {
+export async function createCategory(category: CreateCategoryDto) {
   return await apiClientService.post(baseUrl, JSON.stringify(category));
 }
 

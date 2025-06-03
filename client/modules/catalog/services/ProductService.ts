@@ -9,17 +9,18 @@ import { ProductsGet } from '../models/ProductsGet';
 import { SimilarProduct } from '../models/SimilarProduct';
 import apiClientService from '@/common/services/ApiClientService';
 import { CreateProductDto } from '../models/CreateProductDto';
-import { Product } from '../models/Product';
+import { ProductResponseDto } from '../models/ProductResponseDto';
+import { PaginationResponse } from '@/models/PaginationResponse';
 
 const baseUrl = '/products';
 const serverSideRenderUrl = `${process.env.API_BASE_PATH}/product/storefront`;
 
-export async function getProducts(page: number, limit: number): Promise<{products: Product[]}> {
+export async function getProducts(page: number, limit: number): Promise<PaginationResponse<ProductResponseDto>> {
   const response = await apiClientService.get(`${baseUrl}?page=${page}&limit=${limit}`);
   return response.json();
 }
 
-export async function getProductBySlug(slug: string): Promise<Product> {
+export async function getProductBySlug(slug: string): Promise<ProductResponseDto> {
   const response = await apiClientService.get(`${baseUrl}/slug/${slug}`);
   return response.json();
 }

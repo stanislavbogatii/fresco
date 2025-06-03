@@ -2,7 +2,7 @@ import { IsInt, IsString, IsNotEmpty } from "class-validator"
 
 export class CreateProductAttributeDto {
   @IsInt()
-  detailId: number
+  id: number
 
   @IsString()
   @IsNotEmpty()

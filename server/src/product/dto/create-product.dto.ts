@@ -4,6 +4,12 @@ import { CreateProductContentDto } from "./create-product-content.dto";
 import { Transform, Type } from "class-transformer";
 import { CreateProductAttributeDto } from "./create-product-attribute.dto";
 
+
+export class MediaDto {
+    id: number;
+    url: string;
+}
+
 export class CreateProductDto {
     @ApiProperty({
         example: '10'
@@ -59,7 +65,16 @@ export class CreateProductDto {
     })
     @IsNumber()
     @IsNotEmpty()
+    @Type(() => Number)
     companyId: number;
+
+    @ApiProperty({
+        example: "1"
+    })
+    @IsNotEmpty()
+    @IsNumber()
+    @Type(() => Number)
+    categoryId: number;
   
     @IsArray()
     @ValidateNested({ each: true })
@@ -68,12 +83,14 @@ export class CreateProductDto {
     
     @IsArray()
     @ValidateNested({ each: true })
+    @IsOptional()
     @Type(() => CreateProductAttributeDto)
     attributes: CreateProductAttributeDto[];
 
     @ApiProperty()
     @IsArray()
     @IsOptional()
+    @Type(() => MediaDto)
     images?: MediaDto[];
 
     @ApiProperty()
@@ -82,8 +99,5 @@ export class CreateProductDto {
 }
 
 
-export type MediaDto = {
-    id: number;
-    url: string;
-}
+
 
