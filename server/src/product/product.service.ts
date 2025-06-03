@@ -2,38 +2,50 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { PaginationResultDto } from 'src/dto/pagination-result.dto';
+import { ProductResponseDto } from './dto/product-response.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createProductDto: CreateProductDto) {
-    const { contents, thumbImage, images, ...productData } = createProductDto;
+  async create(dto: CreateProductDto) {
+    // const { contents, thumbImage, images, ...productData } = createProductDto;
   
-    return await this.prisma.product.create({
+    await this.prisma.product.create({
       data: {
-        ...productData,
-        productContent: contents?.length
-          ? {
-              create: contents,
-            }
-          : undefined,
-        thumbImageId: thumbImage?.id,
-        images: images?.length
-          ? {
-              connect: images.map((media) => ({ id: media.id })),
-            }
-          : undefined,
-      },
-      include: {
-        productContent: true,
-        categoryProducts: true,
-        thumbImage: true,
+        isActive: dto.isActive,
+        price: dto.price,
+        oldPrice: dto.oldPrice,
+        article: dto.article,
+        codeRef: dto.codeRef,
+        brand: dto.brand,
+        origin_country: dto.origin_country,
+        vat_rate: dto.vat_rate,
+        companyId: dto.companyId,
+        thumbImageId: dto.thumbImage?.id,
+        images: {
+          connect: dto.images.map((media) => ({ id: media.id })),
+        },
+        attributes: {
+          create: dto.attributes.map((attr) => ({
+            value: attr.value,
+            detail: { connect: { id: attr.detailId } },
+          })),
+        },
+        productContent: {
+          create: dto.contents.map((content) => ({
+            ...content,
+            lang: { connect: { langId: content.langId } },
+          })),
+        },
       },
     });
+
   }
 
-  async findAll(page?: number, limit?: number) {
+  async findAll(page?: number, limit?: number): Promise<PaginationResultDto<ProductResponseDto>> {
     const skip = (page - 1) * limit;
     const products = await this.prisma.product.findMany({
       skip, 
@@ -46,17 +58,16 @@ export class ProductService {
         images: true
       }
     })
-    const totalProduct = await this.prisma.product.count();
+    const total = await this.prisma.product.count();
+    const mapped = products.map((product) => {
+      return plainToInstance(ProductResponseDto, product, {excludeExtraneousValues: true});
+    });
 
-    return {
-      products,
-      totalProduct,
-      totalPage: Math.ceil(totalProduct / limit)
-    };
+    return new PaginationResultDto(total, mapped);
   }
 
-  async findOne(id: number) {
-    return await this.prisma.product.findFirst({
+  async findOne(id: number): Promise<ProductResponseDto> {
+    const product =  await this.prisma.product.findFirst({
       where: {id},
       include: {
         productContent: true,
@@ -65,9 +76,10 @@ export class ProductService {
         thumbImage: true
       }
     })
+    return plainToInstance(ProductResponseDto, product, {excludeExtraneousValues: true});
   }
 
-  async findBySlug(slug: string) {
+  async findBySlug(slug: string): Promise<ProductResponseDto> {
     const product = await this.prisma.product.findFirst({
       where: {
         productContent: {
@@ -83,38 +95,36 @@ export class ProductService {
         thumbImage: true
       }
     })
-    console.log(product, slug)
     if (!product) throw new NotFoundException('Product not found');
-    return product;
+    return plainToInstance(ProductResponseDto, product, {excludeExtraneousValues: true});
   }
 
-  async update(id: number, updateProductDto: UpdateProductDto) {
-    const {contents, thumbImage, images, ...productData} = updateProductDto;
-    const product = await this.prisma.product.update({
+  async update(id: number, dto: UpdateProductDto) {
+    await this.prisma.product.update({
       where: {id},
       data: {
-        ...productData,
-        productContent: contents ? {
-          upsert: contents.map((content) => ({
-            where: { 
-              langId_productId: {
-                langId: content.langId,
-                productId: id
-              } 
-            },
-            update: {
-              title: content.title,
-              description: content.description,
-              slug: content.slug,
-            },
-            create: {
-              title: content.title,
-              description: content.description,
-              slug: content.slug,
-              langId: content.langId
-            },
-          })),
-        } : undefined
+        isActive: dto.isActive,
+        price: dto.price,
+        oldPrice: dto.oldPrice,
+        article: dto.article,
+        codeRef: dto.codeRef,
+        brand: dto.brand,
+        origin_country: dto.origin_country,
+        vat_rate: dto.vat_rate,
+        company: dto.companyId ? { connect: { id: dto.companyId } } : undefined,
+        thumbImage: dto.thumbImage?.id ? { connect: { id: dto.thumbImage.id } } : undefined,
+        images: dto.images ? { connect: dto.images.map((media) => ({ id: media.id })) } : undefined,
+        productContent: {
+          deleteMany: {},
+          create: dto.contents.map((c) => ({ ...c }))
+        },
+        attributes: {
+          deleteMany: {},
+          create: dto.attributes.map((a) => ({
+            value: a.value,
+            detail: { connect: { id: a.detailId } }
+          }))
+        },
       },
       include: {
         productContent: true,
@@ -122,7 +132,6 @@ export class ProductService {
         thumbImage: true
       }
     });
-    return product;
   }
 
   async remove(id: number) {

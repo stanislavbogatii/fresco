@@ -3,6 +3,9 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PaginationResultDto } from 'src/dto/pagination-result.dto';
+import { ProductResponseDto } from './dto/product-response.dto';
+import { PaginationQueryDto } from 'src/dto/pagination-query.dto';
 
 @ApiTags('products')
 @Controller('products')
@@ -12,30 +15,32 @@ export class ProductController {
   @ApiResponse({status: HttpStatus.CREATED, description: 'Product created succesfuly'})
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  async create(@Body() createProductDto: CreateProductDto) {
-    return await this.productService.create(createProductDto);
+  async create(@Body() createProductDto: CreateProductDto): Promise<void> {
+    await this.productService.create(createProductDto);
   }
 
-  @ApiQuery({name: "page", required: false, type: Number, example: 1})
-  @ApiQuery({name: "limit", required: false, type: Number, example: 10})
-  @ApiResponse({status: HttpStatus.OK, description: "List of producst"})
+  @ApiResponse({status: HttpStatus.OK, description: "List of producst", type: PaginationResultDto<ProductResponseDto>})
   @Get()
   async findAll(
-    @Query('page') page = 1,
-    @Query('limit') limit = 10
-  ) {
-    return await this.productService.findAll(+page, +limit);
+    @Query() query: PaginationQueryDto
+  ) : Promise<PaginationResultDto<ProductResponseDto>> {
+    const {page, limit} = query;
+    return await this.productService.findAll(page, limit);
   }
 
   @ApiResponse({status: HttpStatus.OK})
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(
+    @Param('id') id: string
+  ) : Promise<ProductResponseDto> {
     return await this.productService.findOne(+id);
   }
 
   @ApiResponse({status: HttpStatus.OK})
   @Get('/slug/:slug')
-  async findBySlug(@Param('slug') slug: string) {
+  async findBySlug(
+    @Param('slug') slug: string
+  ) : Promise<ProductResponseDto> {
     return await this.productService.findBySlug(slug);
   }
 
@@ -44,8 +49,11 @@ export class ProductController {
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Product not found' })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return await this.productService.update(+id, updateProductDto);
+  async update(
+    @Param('id') id: string, 
+    @Body() updateProductDto: UpdateProductDto
+  ): Promise<void> {
+    await this.productService.update(+id, updateProductDto);
   }
 
   @ApiOperation({ summary: 'Remove product' })
@@ -53,7 +61,9 @@ export class ProductController {
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Product not found' })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return await this.productService.remove(+id);
+  async remove(
+    @Param('id') id: string
+  ) : Promise<void> {
+    await this.productService.remove(+id);
   }
 }

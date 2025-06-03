@@ -1,7 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString } from "class-validator";
-import { ProductContentDto } from "./product-content.dto";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString, ValidateNested } from "class-validator";
+import { CreateProductContentDto } from "./create-product-content.dto";
 import { Transform, Type } from "class-transformer";
+import { CreateProductAttributeDto } from "./create-product-attribute.dto";
 
 export class CreateProductDto {
     @ApiProperty({
@@ -34,6 +35,18 @@ export class CreateProductDto {
     @Type(() => Number)
     oldPrice?: number;
 
+    @IsOptional()
+    @IsString()
+    brand?: string
+
+    @IsOptional()
+    @IsString()
+    origin_country?: string
+
+    @IsOptional()
+    @IsNumber()
+    vat_rate?: number
+
     @ApiProperty({
         example: true
     })
@@ -48,16 +61,15 @@ export class CreateProductDto {
     @IsNotEmpty()
     companyId: number;
   
-    @ApiProperty({
-        example: [{
-            title: "Product title",
-            description: "Product description",
-            slug: "product-slug",
-            langId: "en"
-        }]
-    })
     @IsArray()
-    contents: ProductContentDto[];
+    @ValidateNested({ each: true })
+    @Type(() => CreateProductContentDto)
+    contents: CreateProductContentDto[];
+    
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => CreateProductAttributeDto)
+    attributes: CreateProductAttributeDto[];
 
     @ApiProperty()
     @IsArray()
@@ -74,3 +86,4 @@ export type MediaDto = {
     id: number;
     url: string;
 }
+

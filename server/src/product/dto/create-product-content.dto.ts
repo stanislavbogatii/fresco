@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsOptional, IsString } from "class-validator";
 
-export class ProductContentDto {
+export class CreateProductContentDto {
     @ApiProperty({
         example: "Product title"
     })

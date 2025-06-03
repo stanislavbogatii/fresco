@@ -13,6 +13,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
+
 model User {
   id            Int      @id @default(autoincrement())
   createdAt     DateTime @default(now())
@@ -126,18 +129,80 @@ model Product {
   oldPrice Float?
   article  String
   codeRef  String
+  brand    String?
 
+
+  origin_country  String?
+  vat_rate        Float?
+  
   companyId Int 
   
   company Company   @relation(fields: [companyId], references: [id])
   categoryProducts  CategoryProduct[]
   productContent    ProductContent[]
-
+  attributes        ProductAttribute[]
   thumbImageId      Int?
   thumbImage        Media? @relation("thumb", fields: [thumbImageId], references: [id])
   images            Media[]
 
   @@map("products")
+}
+
+model ProductAttribute {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  value     String
+
+  productId Int
+  detailId  Int
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  detail    Attribute @relation(fields: [detailId], references: [id])
+
+  @@map("product_attriutes")
+}
+
+model Attribute {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name      String
+  type      AttributeType @default(STRING)
+  options   String? 
+  productDetails ProductAttribute[]
+
+  @@map("attributes")
+}
+
+enum AttributeType {
+  STRING
+  NUMBER
+  BOOLEAN
+}
+
+model ProductContent {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title              String?
+  description        String?
+  slug               String?
+  instructions       String?
+  storage_conditions String?
+  ingredients        String?
+
+  productId Int
+  langId    String
+
+  product Product @relation(fields: [productId], references: [id])
+  lang    Lang    @relation(fields: [langId], references: [langId])
+
+  @@unique([langId, productId])
+  @@map("product_content")
 }
 
 model Media {
@@ -166,21 +231,4 @@ model CategoryProduct {
   @@map("category_product")
 }
 
-model ProductContent {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
-  title       String?
-  description String?
-  slug        String?
-
-  productId Int
-  langId    String
-
-  product Product @relation(fields: [productId], references: [id])
-  lang    Lang    @relation(fields: [langId], references: [langId])
-
-  @@unique([langId, productId])
-  @@map("product_content")
-}

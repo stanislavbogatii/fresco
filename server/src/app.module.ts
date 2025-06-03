@@ -13,6 +13,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { CategoriesModule } from './admin/categories/categories.module';
 import { AdminModule } from './admin/admin.module';
 import { RouterModule } from '@nestjs/core';
+import { AttributeModule } from './attribute/attribute.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { RouterModule } from '@nestjs/core';
     MediaModule,
     CategoriesModule,
     AdminModule,
+    AttributeModule,
     
   ]
 })

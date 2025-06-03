@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
-import { CategoryContentDto } from "./category-content-dto";
+import { CreateCategoryContentDto } from "./create-category-content-dto";
 
 export class CreateCategoryDto {
   @ApiProperty({default: true})
@@ -27,7 +27,7 @@ export class CreateCategoryDto {
     }]
   })
   @IsArray()
-  contents: CategoryContentDto[];
+  contents: CreateCategoryContentDto[];
 }
 
 
