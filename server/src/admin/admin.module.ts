@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.module';
     imports: [
         UserModule,
         CategoryModule,
-        AuthModule
+        AuthModule,
     ]
 })
 export class AdminModule {}

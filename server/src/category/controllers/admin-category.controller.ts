@@ -1,16 +1,16 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, Query, HttpStatus  } from '@nestjs/common';
-import { CategoryService } from './category.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CategoryService } from '../category.service';
+import { CreateCategoryDto } from '../dto/create-category.dto';
+import { UpdateCategoryDto } from '../dto/update-category.dto';
 import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { STATUS_CODES } from 'http';
 import { PaginationResultDto } from 'src/dto/pagination-result.dto';
-import { CategoryResponseDto } from './dto/category-response.dto';
+import { CategoryResponseDto } from '../dto/category-response.dto';
 import { PaginationQueryDto } from 'src/dto/pagination-query.dto';
 
-@ApiTags('categories')
-@Controller('categories')
-export class CategoryController {
+@ApiTags('admin / categories')
+@Controller('admin/categories')
+export class AdminCategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @ApiResponse({status: HttpStatus.CREATED, description: 'Category created successfuly'})

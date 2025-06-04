@@ -95,7 +95,9 @@ model Category {
   parent          Category?         @relation("CategoryHierarchy", fields: [parentId], references: [id])
   children        Category[]        @relation("CategoryHierarchy")
   contents        CategoryContent[]
-  products        Product[]         
+  products        Product[]     
+
+  attributes      CategoryAttribute[]
 
   // categoryProducts         CategoryProduct[]
 
@@ -169,6 +171,22 @@ model ProductAttribute {
   @@map("product_attriutes")
 }
 
+model CategoryAttribute {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  value     String
+
+  categoryId Int
+  attributeId  Int
+
+  category     Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  attribute    Attribute @relation(fields: [attributeId], references: [id])
+
+  @@map("category_attriutes")
+}
+
 model Attribute {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
@@ -177,7 +195,9 @@ model Attribute {
   name      String
   type      AttributeType @default(STRING)
   options   String? 
-  productDetails ProductAttribute[]
+
+  productAttribute ProductAttribute[]
+  categoryAttribute CategoryAttribute[]
 
   @@map("attributes")
 }

@@ -54,6 +54,11 @@ export const menu_catalog_item_data = [
     name: 'Product Templates',
     link: '/catalog/product-templates',
   },
+  {
+    id: 8,
+    name: 'Attributes',
+    link: '/catalog/attributes',
+  },
 ];
 
 export const menu_customer_item_data = [

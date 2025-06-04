@@ -124,7 +124,8 @@ export class ProductService {
           slug: product?.category?.contents[0]?.slug || '',
           langId: product?.category?.contents[0]?.langId || '',
         }
-    }, {excludeExtraneousValues: true});  }
+    }, {excludeExtraneousValues: true});  
+  }
 
   async update(id: number, dto: UpdateProductDto) {
     const { contents, thumbImage, images, ...data } = dto;

@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AttributeService } from './attribute.service';
-import { AttributeController } from './attribute.controller';
+import { ClientAttributeController } from './controllers/client-attribute.controller';
+import { AdminAttributeController } from './controllers/admin-attribute.controller';
 
 @Module({
-  controllers: [AttributeController],
+  controllers: [ClientAttributeController, AdminAttributeController],
   providers: [AttributeService],
 })
 export class AttributeModule {}
