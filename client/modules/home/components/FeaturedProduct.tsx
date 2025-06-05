@@ -16,7 +16,7 @@ const FeaturedProduct = () => {
   const [products, setProducts] = useState<ProductResponseDto[]>([]);
 
   const loadProducts = async () => {
-    const res = await getProducts(1, 20);
+    const res = await getProducts({page: 1, limit: 20});
     console.log(res);
     setProducts(res.items);
   };

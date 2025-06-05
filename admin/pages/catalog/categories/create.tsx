@@ -26,6 +26,7 @@ const CategoryCreate: NextPage = () => {
       setCategories(data.items);
     });
     getLanguages().then((data) => {
+      console.log(data)
       setLanguages(data);
       setTabKey(data[0].langId);
     })

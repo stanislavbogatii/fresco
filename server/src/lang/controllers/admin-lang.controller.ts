@@ -1,12 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { LangService } from './lang.service';
-import { CreateLangDto } from './dto/create-lang.dto';
-import { UpdateLangDto } from './dto/update-lang.dto';
+import { LangService } from '../lang.service';
+import { CreateLangDto } from '../dto/create-lang.dto';
+import { UpdateLangDto } from '../dto/update-lang.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('langs')
-@Controller('langs')
-export class LangController {
+@ApiTags('admin / langs')
+@Controller('admin/langs')
+export class AdminLangController {
   constructor(private readonly langService: LangService) {}
 
   @Post()

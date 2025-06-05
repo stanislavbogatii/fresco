@@ -3,7 +3,7 @@ import { Type } from 'class-transformer';
 import { IsOptional, IsInt, Min } from 'class-validator';
 
 export class PaginationQueryDto {
-@ApiPropertyOptional({ example: 1 })
+  @ApiPropertyOptional({ example: 1 })
   @IsOptional()
   @Type(() => Number)
   @IsInt()

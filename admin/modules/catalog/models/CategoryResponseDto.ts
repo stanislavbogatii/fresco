@@ -1,4 +1,4 @@
-import { CategoryContentResponseDto } from "@/modules/catalog/models/CategoryContentResponseDto";
+import { CategoryContentResponseDto } from "./CategoryContentResponseDto";
 
 export type CategoryResponseDto = {
   id: number;

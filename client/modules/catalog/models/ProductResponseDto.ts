@@ -6,6 +6,7 @@ export interface ProductResponseDto extends CreateProductDto {
   category?: ProductCategoryResponseDto;
   images?: Media[];
   thumbImage?: Media;
+  createdAt: Date;
 }
 
 interface ProductCategoryResponseDto {

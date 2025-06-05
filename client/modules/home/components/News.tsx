@@ -64,7 +64,8 @@ const News = () => {
                 instructions: '',
               }],
               thumbImage: undefined,
-              images: []
+              images: [],
+              createdAt: new Date()
             }} />
           </SwiperSlide>
           <SwiperSlide>
@@ -85,7 +86,8 @@ const News = () => {
                 instructions: '',
               }],
               thumbImage: undefined,
-              images: undefined
+              images: undefined,
+              createdAt: new Date()
             }} />
           </SwiperSlide>
           <SwiperSlide>
@@ -106,7 +108,8 @@ const News = () => {
                 instructions: '',
               }],
               thumbImage: undefined,
-              images: undefined
+              images: undefined,
+              createdAt: new Date()
             }} />
           </SwiperSlide>
           

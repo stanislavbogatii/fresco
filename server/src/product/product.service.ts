@@ -5,6 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { PaginationResultDto } from 'src/dto/pagination-result.dto';
 import { ProductResponseDto } from './dto/product-response.dto';
 import { plainToInstance } from 'class-transformer';
+import { GetProductsQueryDto } from './dto/get-products-query.dto';
 
 @Injectable()
 export class ProductService {
@@ -37,12 +38,18 @@ export class ProductService {
 
   }
 
-  async findAll(page?: number, limit?: number): Promise<PaginationResultDto<ProductResponseDto>> {
+  async findAll(query: GetProductsQueryDto): Promise<PaginationResultDto<ProductResponseDto>> {
+    const {page, limit, categoryId, companyId, search} = query;
+    const where: any = {}
+    if (categoryId) where.categoryId = Number(categoryId);
+    if (companyId) where.companyId = Number(companyId);
+    if (search) where.contents.some.title = {contains: search, mode: 'insensitive'}
+
     const skip = (page - 1) * limit;
     const products = await this.prisma.product.findMany({
       skip, 
       take: limit,
-      where: {},
+      where,
       include: {
         contents: true,
         thumbImage: true,

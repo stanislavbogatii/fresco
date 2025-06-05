@@ -1,6 +1,5 @@
 import { YasError } from '@/common/services/errors/YasError';
 import { ProductSlug } from '../../cart/models/ProductSlug';
-import { ProductDetail } from '../models/ProductDetail';
 import { ProductAll, ProductFeature } from '../models/ProductFeature';
 import { ProductOptionValueDisplay, ProductOptionValueGet } from '../models/ProductOptionValueGet';
 import { ProductThumbnail } from '../models/ProductThumbnail';
@@ -11,12 +10,22 @@ import apiClientService from '@/common/services/ApiClientService';
 import { CreateProductDto } from '../models/CreateProductDto';
 import { ProductResponseDto } from '../models/ProductResponseDto';
 import { PaginationResponse } from '@/models/PaginationResponse';
+import { GetProductsQueryDto } from '../models/GetproductsQueryDto';
 
 const baseUrl = '/products';
 const serverSideRenderUrl = `${process.env.API_BASE_PATH}/product/storefront`;
 
-export async function getProducts(page: number, limit: number): Promise<PaginationResponse<ProductResponseDto>> {
-  const response = await apiClientService.get(`${baseUrl}?page=${page}&limit=${limit}`);
+export async function getProducts(query: GetProductsQueryDto): Promise<PaginationResponse<ProductResponseDto>> {
+  const params = new URLSearchParams();
+
+  if (query.page) params.append('page', String(query.page));
+  if (query.limit) params.append('limit', String(query.limit));
+  if (query.search) params.append('search', query.search);
+  if (query.companyId) params.append('companyId', String(query.companyId));
+  if (query.categoryId) params.append('categoryId', String(query.categoryId));
+
+  const url = `${baseUrl}?${params.toString()}`;
+  const response = await apiClientService.get(url);
   return response.json();
 }
 

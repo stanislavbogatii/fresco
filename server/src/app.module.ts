@@ -14,6 +14,8 @@ import { CategoriesModule } from './admin/categories/categories.module';
 import { AdminModule } from './admin/admin.module';
 import { RouterModule } from '@nestjs/core';
 import { AttributeModule } from './attribute/attribute.module';
+import { OrderModule } from './order/order.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -41,6 +43,8 @@ import { AttributeModule } from './attribute/attribute.module';
     CategoriesModule,
     AdminModule,
     AttributeModule,
+    OrderModule,
+    CartModule,
     
   ]
 })

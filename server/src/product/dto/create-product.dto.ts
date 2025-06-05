@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString, ValidateNested } from "class-validator";
 import { CreateProductContentDto } from "./create-product-content.dto";
-import { Transform, Type } from "class-transformer";
+import { Type } from "class-transformer";
 import { CreateProductAttributeDto } from "./create-product-attribute.dto";
 
 

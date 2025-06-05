@@ -6,6 +6,7 @@ import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PaginationResultDto } from 'src/dto/pagination-result.dto';
 import { ProductResponseDto } from './dto/product-response.dto';
 import { PaginationQueryDto } from 'src/dto/pagination-query.dto';
+import { GetProductsQueryDto } from './dto/get-products-query.dto';
 
 @ApiTags('products')
 @Controller('products')
@@ -23,10 +24,9 @@ export class ProductController {
   @ApiResponse({status: HttpStatus.OK, description: "List of producst", type: PaginationResultDto<ProductResponseDto>})
   @Get()
   async findAll(
-    @Query() query: PaginationQueryDto
+    @Query() query: GetProductsQueryDto
   ) : Promise<PaginationResultDto<ProductResponseDto>> {
-    const {page, limit} = query;
-    return await this.productService.findAll(page, limit);
+    return await this.productService.findAll(query);
   }
 
   @ApiResponse({status: HttpStatus.OK})

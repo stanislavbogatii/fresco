@@ -10,10 +10,10 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/effect-coverflow';
 
-import firstSlide from '../../../asset/images/main-slider/slide-1.svg';
-import secondSlide from '../../../asset/images/main-slider/slide-2.svg';
-import thirdSlide from '../../../asset/images/main-slider/slide-3.svg';
-import fourthSlide from '../../../asset/images/main-slider/slide-4.svg';
+import firstSlide from '../../../asset/images/main-slider/slide-1.webp';
+import secondSlide from '../../../asset/images/main-slider/slide-2.webp';
+import thirdSlide from '../../../asset/images/main-slider/slide-3.webp';
+import fourthSlide from '../../../asset/images/main-slider/slide-4.webp';
 
 const Banner = () => {
   return (
