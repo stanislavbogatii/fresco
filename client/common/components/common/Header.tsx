@@ -7,6 +7,7 @@ import LoginForm from '../LoginForm';
 import { routes } from '@/utils/routes';
 import { useUserInfoContext } from '@/context/UserInfoContext';
 import MenuBurger from '../MenuBurger';
+import { useCartContext } from '@/context/CartContext';
 
 const Header = ({ children }: { children?: React.ReactNode }) => {
 
@@ -17,6 +18,7 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
   const [hasScrolled, setHasScrolled] = useState<boolean>(false);
   const scrollThreshold = 148;
   const { user } = useUserInfoContext();
+  const { numberCartItems } = useCartContext();
 
   const openMenuBurger = () => setIsMenuBurgerOpen(true);
   const closeMenuBurger = () => setIsMenuBurgerOpen(false);
@@ -82,7 +84,7 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
                 </Link>
                 <Link className="header__basket" href={routes.cart}>
                   <span className="sr-only">open basket</span>
-                  <span className="header__basket-num">0</span>
+                  <span className="header__basket-num">{numberCartItems}</span>
                 </Link>
               </>
             ) : (

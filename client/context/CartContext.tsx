@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import { getNumberCartItems } from '@/modules/cart/services/CartService';
+import { getCart } from '@/modules/cart/services/CartService';
+import { CartItemResponseDto } from '@/modules/cart/models/CartItemResponseDto';
 
 export const CartContext = createContext({
   numberCartItems: 0,
@@ -16,8 +17,11 @@ export function CartProvider({ children }: React.PropsWithChildren) {
   }, []);
 
   const fetchNumberCartItems = useCallback(() => {
-    getNumberCartItems()
-      .then((res) => setNumberCartItems(res))
+    getCart()
+      .then((res) => {
+        const count = res?.items?.reduce((currentTotal: number, item: CartItemResponseDto) => currentTotal + item.quantity, 0)
+        setNumberCartItems(count);
+      })
       .catch((err) => console.log(err));
   }, []);
 

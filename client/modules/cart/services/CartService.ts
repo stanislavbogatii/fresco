@@ -6,8 +6,33 @@ import { YasError } from '@/common/services/errors/YasError';
 import { getProductsByIds } from '@/modules/catalog/services/ProductService';
 import { CartItemPutVm } from '../models/CartItemPutVm';
 import { CartItemDeleteVm } from '../models/CartItemDeleteVm';
+import { AddToCartDto } from '../models/AddToCartDto';
+import { CartResponseDto } from '../models/CartResponseDto';
 
-const CART_BASE_URL = `/api/cart/storefront/cart/items`;
+const CART_BASE_URL = `/cart`;
+const baseUrl = '/carts';
+
+export async function addToCart(dto: AddToCartDto) {
+  const response = await apiClientService.post(`${baseUrl}/add`, JSON.stringify(dto));
+  if (!response.ok) {
+    return await throwDetailedError(response);
+  };
+}
+
+export async function removeFromCart(id: number) {
+  const response = await apiClientService.delete(`${baseUrl}/${id}`);
+  if (!response.ok) {
+    await throwDetailedError(response);
+  }
+  return await response.json();
+}
+
+export async function getCart(): Promise<CartResponseDto> {
+  const response = await apiClientService.get(`${baseUrl}`);
+  return response.json();
+}
+
+
 
 export async function addCartItem(payload: CartItemPostVm): Promise<CartItemGetVm> {
   const response = await apiClientService.post(CART_BASE_URL, JSON.stringify(payload));

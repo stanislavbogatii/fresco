@@ -32,20 +32,26 @@ export class CartService {
   }
 
   async getCart(userId: number) {
-    return await this.prisma.cart.findUnique({
+    return await this.prisma.cart.upsert({
       where: { userId },
       include: {
         items: {
-          include: { 
+          include: {
             product: {
               include: {
                 contents: true
               }
-            } 
+            }
           },
         },
       },
+      create: { userId },
+      update: {}
     });
+  }
+
+  async delete(id: number) {
+    await this.prisma.cart.delete({where: {id}})
   }
 
   async findAll() {

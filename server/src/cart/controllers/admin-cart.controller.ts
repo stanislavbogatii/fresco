@@ -4,8 +4,8 @@ import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
 import { CartResponseDto } from '../dto/cart-response.dto';
 
-@ApiTags('admin / cart')
-@Controller('amdin/cart')
+@ApiTags('admin / carts')
+@Controller('amdin/carts')
 export class AdminCartController {
   constructor(private readonly cartService: CartService) {}
 

@@ -225,9 +225,10 @@ model Product {
   thumbImage        Media? @relation("thumb", fields: [thumbImageId], references: [id])
   images            Media[]
 
-  @@map("products")
   OrderItem OrderItem[]
   CartItem CartItem[]
+  
+  @@map("products")
 }
 
 model ProductAttribute {

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpCode, HttpStatus, ParseIntPipe } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -32,9 +32,9 @@ export class ProductController {
   @ApiResponse({status: HttpStatus.OK})
   @Get(':id')
   async findOne(
-    @Param('id') id: string
+    @Param('id', ParseIntPipe) id: number
   ) : Promise<ProductResponseDto> {
-    return await this.productService.findOne(+id);
+    return await this.productService.findOne(id);
   }
 
   @ApiResponse({status: HttpStatus.OK})
@@ -51,10 +51,10 @@ export class ProductController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Patch(':id')
   async update(
-    @Param('id') id: string, 
+    @Param('id', ParseIntPipe) id: number, 
     @Body() updateProductDto: UpdateProductDto
   ): Promise<void> {
-    await this.productService.update(+id, updateProductDto);
+    await this.productService.update(id, updateProductDto);
   }
 
   @ApiOperation({ summary: 'Remove product' })
@@ -63,8 +63,8 @@ export class ProductController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   async remove(
-    @Param('id') id: string
+    @Param('id', ParseIntPipe) id: number
   ) : Promise<void> {
-    await this.productService.remove(+id);
+    await this.productService.remove(id);
   }
 }

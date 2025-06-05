@@ -7,7 +7,9 @@ export const AppContext = React.createContext({});
 export function AppProvider({ children }: React.PropsWithChildren<{}>) {
   return (
     <UserInfoProvider>
-      <CartProvider>{children}</CartProvider>
+      <CartProvider>
+        {children}
+      </CartProvider>
     </UserInfoProvider>
   );
 }
