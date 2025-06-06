@@ -4,7 +4,6 @@ import { IsOptional, IsNumberString, IsString, IsInt, Min } from "class-validato
 
 export class GetProductsQueryDto {
     @IsOptional()
-    @IsNumberString()
     @Type(() => Number)
     @IsInt()
     categoryId?: number;

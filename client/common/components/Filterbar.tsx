@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { CategoryResponseDto } from '@/modules/catalog/models/CategoryResponseDto';
 import { getCategories } from '@/modules/catalog/services/CategoryService';
+import { routes } from '@/utils/routes';
+import arrow_icon from '@/asset/icons/down-arrow.svg';
 
 type AccordionState = {
   [key: string]: boolean;
@@ -80,7 +82,9 @@ const Filterbar: React.FC<FilterbarProps> = ({isOpen, onClose}) => {
                     type="button"
                     onClick={() => toggleAccordion(category.id)}
                   >
-                    {category.contents[0]?.title}
+                    <Link className="filterbar__accordion-link" href={routes.catalog + '/' + category.contents[0].slug}>
+                      {category.contents[0].title}
+                    </Link>
                   </button>
                   {categories.find((category_c) => category_c.parentId === category.id) &&
                     <div className={`filterbar__accordion ${accordionState[category.id] ? 'active' : ''}`}>
@@ -88,7 +92,7 @@ const Filterbar: React.FC<FilterbarProps> = ({isOpen, onClose}) => {
                         {categories.filter(category_c => category_c.parentId === category.id).map((category_c, key) => {
                           return (
                             <li key={key} className="filterbar__accordion-item">
-                              <Link className="filterbar__accordion-link" href="#">
+                              <Link className="filterbar__accordion-link" href={routes.catalog + '/' + category_c.contents[0].slug}>
                                 {category_c.contents[0].title}
                               </Link>
                             </li>

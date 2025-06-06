@@ -1,30 +1,28 @@
+'use client';
+
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-
-import Logo from '../Logo';
-import SearchForm from '../SearchForm';
-import LoginForm from '../LoginForm';
 import { routes } from '@/utils/routes';
 import { useUserInfoContext } from '@/context/UserInfoContext';
-import MenuBurger from '../MenuBurger';
 import { useCartContext } from '@/context/CartContext';
+import { useLoginFormStore } from '@/stores/useLoginStore';
+import LoginForm from '../LoginForm';
+import Logo from '../Logo';
+import MenuBurger from '../MenuBurger';
+import SearchForm from '../SearchForm';
 
 const Header = ({ children }: { children?: React.ReactNode }) => {
-
   const [isMenuBurgerOpen, setIsMenuBurgerOpen] = useState<boolean>(false);
-  const [isLoginFormOpen, setIsLoginFormOpen] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [lastScrollTop, setLastScrollTop] = useState<number>(0);
   const [hasScrolled, setHasScrolled] = useState<boolean>(false);
   const scrollThreshold = 148;
   const { user } = useUserInfoContext();
   const { numberCartItems } = useCartContext();
+  const { openLoginForm, isLoginFormOpen, closeLoginForm } = useLoginFormStore();
 
   const openMenuBurger = () => setIsMenuBurgerOpen(true);
   const closeMenuBurger = () => setIsMenuBurgerOpen(false);
-
-  const openLoginForm = () => setIsLoginFormOpen(true);
-  const closeLoginForm = () => setIsLoginFormOpen(false);
 
   useEffect(() => {
     if (!hasScrolled) {
@@ -77,7 +75,7 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
             {user ? (
               <>
                 <Link className="header__top-user" href={routes.profile}>
-                <span className="sr-only">open my profile</span>
+                  <span className="sr-only">open my profile</span>
                 </Link>
                 <Link className="header__top-favourite" href={routes.favorites}>
                   <span className="sr-only">open favourite products</span>
@@ -114,11 +112,6 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
                 Noutati
               </Link>
             </li>
-            {/* <li className="header__item">
-              <Link className="header__link header__link--contacts" href={routes.contact}>
-                Contact
-              </Link>
-            </li> */}
             <li className="header__item">
               <Link className="header__link header__link--offers" href="#">
                 Oferte Promotionale

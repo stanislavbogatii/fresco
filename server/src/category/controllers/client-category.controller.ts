@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, Query, HttpStatus  } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, Query, HttpStatus, ParseIntPipe  } from '@nestjs/common';
 import { CategoryService } from '../category.service';
 import { CreateCategoryDto } from '../dto/create-category.dto';
 import { UpdateCategoryDto } from '../dto/update-category.dto';
@@ -31,9 +31,17 @@ export class ClientCategoryController {
   @ApiResponse({status: HttpStatus.OK})
   @Get(':id')
   async findOne(
-    @Param('id') id: string
+    @Param('id', ParseIntPipe) id: number
   ): Promise<CategoryResponseDto> {
-    return await this.categoryService.findOne(+id);
+    return await this.categoryService.findOne(id);
+  }
+
+  @ApiResponse({status: HttpStatus.OK})
+  @Get('/slug/:slug')
+  async findBySlug(
+    @Param('slug') slug: string
+  ): Promise<CategoryResponseDto> {
+    return await this.categoryService.findBySlug(slug);
   }
 
   @ApiResponse({status: HttpStatus.NO_CONTENT, description: 'Category updated successfuly'})

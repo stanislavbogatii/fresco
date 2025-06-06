@@ -61,7 +61,7 @@ export class ProductService {
         images: true
       }
     })
-    const total = await this.prisma.product.count();
+    const total = await this.prisma.product.count({where});
     const mapped = products.map((product) => {
       return plainToInstance(ProductResponseDto, {
         ...product,

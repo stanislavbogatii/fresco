@@ -1,12 +1,14 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-
 import loginBanner from '../../asset/images/login.png';
 import { signin } from '@/modules/register/services/RegisterServcie';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation'; // Используем next/navigation для App Router
 import { routes } from '@/utils/routes';
 import { useUserInfoContext } from '@/context/UserInfoContext';
+import { useCartContext } from '@/context/CartContext';
 
 const LoginForm = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const [isAuthFormOpen, setIsAuthFormOpen] = useState<boolean>(false);
@@ -15,22 +17,28 @@ const LoginForm = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
   const [email, setEmail] = useState('');
   const router = useRouter();
   const { fetchUserInfo } = useUserInfoContext();
+  const { fetchNumberCartItems } = useCartContext();
 
   const openAuthForm = () => setIsAuthFormOpen(true);
   const closeAuthForm = () => setIsAuthFormOpen(false);
 
-  const handleSignIn = async (e: any) => {
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password && email) {
-      const data = await signin({email, password});
-      // if (data) {
-        // document.cookie = `access_token=${data.access_token}; path=/; max-age=${60 * 60 * 24 * 7}`;
-        fetchUserInfo();
-        onClose();
-        router.push(routes.profile);
-      // }  
+      try {
+        const data = await signin({ email, password });
+        if (data) {
+          // document.cookie = `access_token=${data.access_token}; path=/; max-age=${60 * 60 * 24 * 7}`;
+          await fetchUserInfo();
+          await fetchNumberCartItems();
+          onClose();
+          router.push(routes.profile);
+        }
+      } catch (error) {
+        console.error('Sign-in error:', error);
+      }
     }
-  }
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -64,8 +72,20 @@ const LoginForm = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
         />
         <form className="login-form__shape login-form__enter" onSubmit={handleSignIn}>
           <strong className="login-form__title">Salut și bine ai revenit!</strong>
-          <input className="login-form__input" type="email" placeholder="Email companie" onChange={(e:any) => setEmail(e.target.value)}/>
-          <input className="login-form__input" type="password" placeholder="Adaugă-ti parola" onChange={(e:any) => setPassword(e.target.value)} />
+          <input
+            className="login-form__input"
+            type="email"
+            placeholder="Email companie"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
+          <input
+            className="login-form__input"
+            type="password"
+            placeholder="Adaugă-ti parola"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
           <button className="login-form__btn" type="button" onClick={openAuthForm}>
             Seteaza / Reseteaza parola
           </button>

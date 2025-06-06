@@ -15,6 +15,11 @@ export async function getCategory(id: number): Promise<CategoryResponseDto> {
   return (await apiClientService.get(url)).json();
 }
 
+export async function getCategoryBySlug(slug: string): Promise<CategoryResponseDto> {
+  const url = `${baseUrl}/by-slug/${slug}`;
+  return (await apiClientService.get(url)).json();
+}
+
 export async function createCategory(category: CreateCategoryDto) {
   return await apiClientService.post(baseUrl, JSON.stringify(category));
 }

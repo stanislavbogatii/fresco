@@ -56,6 +56,22 @@ export class CategoryService {
     });
   }
 
+  async findBySlug(slug: string): Promise<CategoryResponseDto> {
+    const category = await this.prisma.category.findFirst({
+      where: { 
+        contents: {
+          some: {slug}
+        } 
+      },
+      include: {
+        contents: true
+      }
+    });
+    return plainToInstance(CategoryResponseDto, category, {
+      excludeExtraneousValues: true
+    });
+  }
+
   async update(id: number, updateCategoryDto: UpdateCategoryDto): Promise<void> {
     const { contents, ...categoryData } = updateCategoryDto;
 

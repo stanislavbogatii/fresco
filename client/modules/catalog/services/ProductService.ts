@@ -23,7 +23,6 @@ export async function getProducts(query: GetProductsQueryDto): Promise<Paginatio
   if (query.search) params.append('search', query.search);
   if (query.companyId) params.append('companyId', String(query.companyId));
   if (query.categoryId) params.append('categoryId', String(query.categoryId));
-
   const url = `${baseUrl}?${params.toString()}`;
   const response = await apiClientService.get(url);
   return response.json();

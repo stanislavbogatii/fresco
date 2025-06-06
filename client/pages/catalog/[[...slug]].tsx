@@ -6,28 +6,68 @@ import Filterbar from '@/common/components/Filterbar';
 
 import BreadcrumbComponent from '../../common/components/BreadcrumbComponent';
 import { BreadcrumbModel } from '../../modules/breadcrumb/model/BreadcrumbModel';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { ProductResponseDto } from '@/modules/catalog/models/ProductResponseDto';
+import { getProducts } from '@/modules/catalog/services/ProductService';
+import { GetServerSideProps } from 'next';
+import { getCategoryBySlug } from '@/modules/catalog/services/CategoryService';
+import { CategoryResponseDto } from '@/modules/catalog/models/CategoryResponseDto';
+import { routes } from '@/utils/routes';
 
-const crumb: BreadcrumbModel[] = [
-  {
-    pageName: 'Home',
-    url: '/',
-  },
-  {
-    pageName: 'Catalog de produse',
-    url: '/catalog',
-  },
-];
 
-const Catalog = () => {
+
+interface Props {
+  category: CategoryResponseDto;
+}
+
+const Catalog = ({category}: Props) => {
   const [isFilterbarOpen, setIsFilterbarOpen] = useState(false);
+  const router = useRouter();
+  const { slug } = router.query;
+  const [products, setProducts] = useState<ProductResponseDto[]>([])
+  const [totalProducts, setTotalProducts] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const crumb: BreadcrumbModel[] = [
+    {
+      pageName: 'Home',
+      url: routes.home,
+    },
+    {
+      pageName: 'Catalog de produse',
+      url: routes.catalog,
+    },
+    ...(category ? [{
+      pageName: category.contents[0].title ?? '',
+      url: `${routes.catalog}/${category.contents[0].slug}`,
+    }] : [])
+      
+  ];
 
   const hadnleOpenFilterbar = () => setIsFilterbarOpen(true);
+  useEffect(() => {
+    setLoading(true);
+    getProducts({
+      page: 1, 
+      limit: 20,
+      ...(category ? { categoryId: category.id } : {})
+    })
+    .then((response) => {
+      setProducts(response.items);
+      setTotalProducts(response.total);
+    })
+    .catch((error) => {
+      setProducts([]);
+      setTotalProducts(0);
+    })
+    setLoading(false);
+  }, [category]);
 
   return (
     <>
       <Head>
-        <title>FRESCO | Catalog</title>
+        <title>FRESCO | Catalog {category ? `| ${category.contents[0].title}` : ''} </title>
       </Head>
       <section className="catalog section">
         <div className="catalog-container">
@@ -44,7 +84,7 @@ const Catalog = () => {
             <div className="catalog__content">
               <div className="catalog__nav">
                 <p className="catalog__total">
-                  290 produse găsite
+                  {totalProducts} produse găsite
                 </p>
                 <button className="catalog__open-filterbar" type="button" onClick={hadnleOpenFilterbar}>
                   <span className="sr-only">open filterbar</span>
@@ -62,43 +102,16 @@ const Catalog = () => {
                 </div>
               </div>
               <ul className="catalog__list">
-                {/* <li className="catalog__item">
-                  <ProductCard />
-                </li>
-                <li className="catalog__item">
-                  <ProductCard />
-                </li>
-                <li className="catalog__item">
-                  <ProductCard />
-                </li>
-                <li className="catalog__item">
-                  <ProductCard />
-                </li>
-                <li className="catalog__item">
-                  <ProductCard />
-                </li>
-                <li className="catalog__item">
-                  <ProductCard />
-                </li>
-                <li className="catalog__item">
-                  <ProductCard />
-                </li>
-                <li className="catalog__item">
-                  <ProductCard />
-                </li>
-                <li className="catalog__item">
-                  <ProductCard />
-                </li>
-                <li className="catalog__item">
-                  <ProductCard />
-                </li>
-                <li className="catalog__item">
-                  <ProductCard />
-                </li>
-                <li className="catalog__item">
-                  <ProductCard />
-                </li> */}
+                {products.map(product => {
+                  return (
+                    <li key={product.id} className="catalog__item">
+                      <ProductCard product={product} />
+                    </li> 
+                  );
+                })}
+
               </ul>
+
               <ul className="pagination">
                 <li className="pagination__item">
                   <Link className="pagination__link active" href="#">
@@ -124,6 +137,7 @@ const Catalog = () => {
                   </Link>
                 </li>
               </ul>
+
             </div>
           </div>
         </div>
@@ -131,5 +145,31 @@ const Catalog = () => {
     </>
   )
 }
+
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const slug = context.params?.slug as string;
+  
+  if (!slug)  return {
+      props: {
+        category: null,
+      },
+    };
+  
+  const category = await getCategoryBySlug(slug); 
+
+  if (!category) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      category,
+    },
+  };
+};
 
 export default Catalog;
