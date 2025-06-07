@@ -26,16 +26,27 @@ export class ClientCartController {
     await this.cartService.addToCart(user.id, dto);
   }
 
+  @ApiOperation({summary: "Update item quantity"})
+  @ApiResponse({ status: 200, description: 'Item updated successfully' })
+  @ApiResponse({ status: 404, description: 'Item not found' })
+  @Patch('item/quantity')
+  async updateItemQuantity(
+    @GetUser() user: User,
+    @Body() dto: AddToCartDto
+  ): Promise<void> {
+    await this.cartService.updateItemQuantity(user.id, dto);
+  }
+
   @ApiOperation({ summary: 'Remove product from cart' })
   @ApiResponse({ status: HttpStatus.NO_CONTENT, description: 'Item deleted successfully' })
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Item not found' })
-  @HttpCode(HttpStatus.NOT_FOUND)
-  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete('/item/:id')
   async delete(
     @GetUser() user: User,
     @Param('id', ParseIntPipe) id: number
   ): Promise<void> {
-    await this.cartService.delete(id);
+    await this.cartService.deleteItem(id);
   }
 
   @ApiOperation({ summary: 'Get user cart' })
@@ -50,10 +61,13 @@ export class ClientCartController {
       {
         id: cart.id,
         items: cart.items.map((item) => ({
+          id: item.id,
           productId: item.productId,
           quantity: item.quantity,
           productTitle: item.product.contents[0]?.title,
+          productSlug: item.product.contents[0]?.slug,
           productPrice: item.product.price,
+          productThumbnail: item.product.thumbImage?.url
         })),
       },
       { excludeExtraneousValues: true }

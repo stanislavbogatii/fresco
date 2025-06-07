@@ -19,12 +19,18 @@ export async function addToCart(dto: AddToCartDto) {
   };
 }
 
+export async function updateCartItem(dto: AddToCartDto) {
+  const response = await apiClientService.patch(`${baseUrl}/item/quantity`, JSON.stringify(dto));
+  if (!response.ok) {
+    return await throwDetailedError(response);
+  };
+}
+
 export async function removeFromCart(id: number) {
-  const response = await apiClientService.delete(`${baseUrl}/${id}`);
+  const response = await apiClientService.delete(`${baseUrl}/item/${id}`);
   if (!response.ok) {
     await throwDetailedError(response);
   }
-  return await response.json();
 }
 
 export async function getCart(): Promise<CartResponseDto> {
@@ -109,19 +115,19 @@ export async function bulkDeleteCartItems(payload: CartItemDeleteVm[]): Promise<
   return await response.json();
 }
 
-export async function updateCartItem(
-  productId: number,
-  payload: CartItemPutVm
-): Promise<CartItemGetVm> {
-  const response = await apiClientService.put(
-    `${CART_BASE_URL}/${productId}`,
-    JSON.stringify(payload)
-  );
-  if (!response.ok) {
-    await throwDetailedError(response);
-  }
-  return await response.json();
-}
+// export async function updateCartItem(
+//   productId: number,
+//   payload: CartItemPutVm
+// ): Promise<CartItemGetVm> {
+//   const response = await apiClientService.put(
+//     `${CART_BASE_URL}/${productId}`,
+//     JSON.stringify(payload)
+//   );
+//   if (!response.ok) {
+//     await throwDetailedError(response);
+//   }
+//   return await response.json();
+// }
 
 async function throwDetailedError(response: Response) {
   const errorResponse = await response.json();

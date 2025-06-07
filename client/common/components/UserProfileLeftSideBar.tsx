@@ -31,7 +31,7 @@ const UserProfileLeftSideBar = () => {
         <li className="user-sidebar__item">
           <Link
             className={`user-sidebar__link ${
-              router.pathname === routes.profile || router.pathname === routes.profile_edit
+              router.pathname === routes.profile.root || router.pathname === routes.profile.edit
                 ? 'active'
                 : ''
             }`}
@@ -43,17 +43,17 @@ const UserProfileLeftSideBar = () => {
         <li className="user-sidebar__item">
           <Link
             className={`user-sidebar__link ${
-              router.pathname === routes.profile_orders ? 'active' : ''
+              router.pathname === routes.profile.orders ? 'active' : ''
             }`}
-            href={routes.profile_orders}
+            href={routes.profile.orders}
           >
             Comenzile mele
           </Link>
         </li>
         <li className="user-sidebar__item">
           <Link
-            className={`user-sidebar__link ${router.pathname === routes.profile_auth && 'active'}`}
-            href={routes.profile_auth}
+            className={`user-sidebar__link ${router.pathname === routes.profile.auth && 'active'}`}
+            href={routes.profile.auth}
           >
             Autentificare
           </Link>
@@ -61,9 +61,9 @@ const UserProfileLeftSideBar = () => {
         <li className="user-sidebar__item">
           <Link
             className={`user-sidebar__link ${
-              router.pathname === routes.profile_organization && 'active'
+              router.pathname === routes.profile.organization && 'active'
             }`}
-            href={routes.profile_organization}
+            href={routes.profile.organization}
           >
             Organizatia mea
           </Link>
@@ -71,12 +71,12 @@ const UserProfileLeftSideBar = () => {
         <li className="user-sidebar__item">
           <Link
             className={`user-sidebar__link ${
-              router.pathname === routes.profile_offer ||
-              router.pathname === routes.profile_offer_create
+              router.pathname === routes.profile.offer.root ||
+              router.pathname === routes.profile.offer.create
                 ? 'active'
                 : ''
             }`}
-            href={routes.profile_offer}
+            href={routes.profile.offer.root}
           >
             Vanzari
           </Link>
@@ -85,7 +85,7 @@ const UserProfileLeftSideBar = () => {
           <Link
             onClick={handleDeconect}
             className="user-sidebar__link user-sidebar__link--exit"
-            href={routes.profile_offer}
+            href={routes.profile.offer.root}
           >
             Deconectare
           </Link>

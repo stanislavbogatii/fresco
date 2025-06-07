@@ -15,4 +15,7 @@ export class CartItemResponseDto {
 
     @Expose()
     productPrice: number;
+
+    @Expose()
+    productThumbnail?: string;
 }

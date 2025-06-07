@@ -4,4 +4,6 @@ export type CartItemResponseDto = {
     quantity: number;
     productTitle: string;
     productPrice: number;
+    productSlug: string;
+    productThumbnail?: string;
 }

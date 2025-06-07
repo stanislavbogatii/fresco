@@ -65,7 +65,7 @@ const ProfileOffer = () => {
           <span className="profile-offer__text">Nimic de arătat.</span>
         </>
         }
-        <Link className="profile-offer__link btn" href={routes.profile_offer_create}>
+        <Link className="profile-offer__link btn" href={routes.profile.offer.create}>
           Nou
         </Link>
       </div>

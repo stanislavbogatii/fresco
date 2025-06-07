@@ -5,7 +5,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import loginBanner from '../../asset/images/login.png';
 import { signin } from '@/modules/register/services/RegisterServcie';
-import { useRouter } from 'next/navigation'; // Используем next/navigation для App Router
+import { useRouter } from 'next/navigation'; 
 import { routes } from '@/utils/routes';
 import { useUserInfoContext } from '@/context/UserInfoContext';
 import { useCartContext } from '@/context/CartContext';
@@ -17,7 +17,7 @@ const LoginForm = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
   const [email, setEmail] = useState('');
   const router = useRouter();
   const { fetchUserInfo } = useUserInfoContext();
-  const { fetchNumberCartItems } = useCartContext();
+  const { fetchCart } = useCartContext();
 
   const openAuthForm = () => setIsAuthFormOpen(true);
   const closeAuthForm = () => setIsAuthFormOpen(false);
@@ -30,9 +30,9 @@ const LoginForm = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
         if (data) {
           // document.cookie = `access_token=${data.access_token}; path=/; max-age=${60 * 60 * 24 * 7}`;
           await fetchUserInfo();
-          await fetchNumberCartItems();
+          await fetchCart();
           onClose();
-          router.push(routes.profile);
+          router.push(routes.profile.root);
         }
       } catch (error) {
         console.error('Sign-in error:', error);

@@ -1,29 +1,30 @@
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import ImageWithFallBack from '@/common/components/ImageWithFallback';
 import { CartItemGetDetailsVm } from '@/modules/cart/models/CartItemGetVm';
 import { formatPrice } from 'utils/formatPrice';
 import { PromotionVerifyResult } from '@/modules/promotion/model/Promotion';
+import { CartItemResponseDto } from '../models/CartItemResponseDto';
+import { routes } from '@/utils/routes';
 
 interface CartItemProps {
-  item: CartItemGetDetailsVm;
+  item: CartItemResponseDto;
   isLoading: boolean;
   isSelected: boolean;
   promotionApply?: PromotionVerifyResult;
   handleSelectCartItemChange: (productId: number) => void;
-  handleDecreaseQuantity: (productId: number) => void;
-  handleIncreaseQuantity: (productId: number) => void;
+  handleDecreaseQuantity: (itemId: number) => void;
+  handleIncreaseQuantity: (itemId: number) => void;
   handleCartItemQuantityOnBlur: (
     productId: number,
     event: React.FocusEvent<HTMLInputElement>
   ) => void;
   handleCartItemQuantityKeyDown: (
-    productId: number,
+    itemId: number,
     event: React.KeyboardEvent<HTMLInputElement>
   ) => void;
-  handleOpenDeleteConfirmationModal: (productId: number) => void;
+  handleOpenDeleteConfirmationModal: (itemId: number) => void;
 }
-
 const calculateProductPrice = (
   item: CartItemGetDetailsVm,
   promotionApply?: PromotionVerifyResult
@@ -65,8 +66,8 @@ const CartItem: FC<CartItemProps> = ({
           />
         </label>
       </td>
-      <td className="cart__product__item d-flex align-items-center">
-        <div className="h-100">
+      <td className="cart__product__item d-flex align-items-center gap-2">
+        <div>
           <Link
             href={{
               pathname: '/redirect',
@@ -74,33 +75,32 @@ const CartItem: FC<CartItemProps> = ({
             }}
           >
             <ImageWithFallBack
-              src={item.thumbnailUrl}
-              alt={item.productName}
-              style={{ width: '120px', height: '120px', cursor: 'pointer' }}
+              src={`https://fresco.md${item?.productThumbnail ?? ''}`}
+              alt={item.productTitle}
+              style={{ width: '120px', height: '120px', cursor: 'pointer', objectFit: 'cover' }}
             />
           </Link>
-        </div>
+        </div>  
         <div className="cart__product__item__title pt-0">
           <Link
             href={{
-              pathname: '/redirect',
-              query: { productId: item.productId },
+              pathname: routes.product.bySlug(item.productSlug),
             }}
           >
-            <h6 className="product-link">{item.productName}</h6>
+            <h6 className="product-link">{item.productTitle}</h6>
           </Link>
         </div>
       </td>
       <td className="cart__price">
         {promotionApply?.productId === item.productId && (
-          <div style={{ textDecorationLine: 'line-through' }}>{formatPrice(item.price)}</div>
+          <div style={{ textDecorationLine: 'line-through' }}>{formatPrice(item.productPrice)}</div>
         )}
 
         <div>
           {
             promotionApply?.discountType === 'PERCENTAGE'
-              ? formatPrice(item.price - item.price * (promotionApply.discountValue / 100)) // Calculate percentage discount
-              : formatPrice(item.price - (promotionApply?.discountValue ?? 0)) // Fixed discount
+              ? formatPrice(item.productPrice - item.productPrice * (promotionApply.discountValue / 100)) // Calculate percentage discount
+              : formatPrice(item.productPrice - (promotionApply?.discountValue ?? 0)) // Fixed discount
           }
         </div>
       </td>
@@ -111,7 +111,7 @@ const CartItem: FC<CartItemProps> = ({
               id="minus-button"
               type="button"
               className="minus"
-              onClick={() => handleDecreaseQuantity(item.productId)}
+              onClick={() => handleDecreaseQuantity(item.id)}
               disabled={isLoading}
             >
               -
@@ -125,8 +125,8 @@ const CartItem: FC<CartItemProps> = ({
               max=""
               name="quantity"
               defaultValue={item.quantity}
-              onBlur={(e) => handleCartItemQuantityOnBlur(item.productId, e)}
-              onKeyDown={(e) => handleCartItemQuantityKeyDown(item.productId, e)}
+              onBlur={(e) => handleCartItemQuantityOnBlur(item.id, e)}
+              onKeyDown={(e) => handleCartItemQuantityKeyDown(item.id, e)}
               title="Qty"
               className="input-text qty text"
               disabled={isLoading}
@@ -135,7 +135,7 @@ const CartItem: FC<CartItemProps> = ({
               id="plus-button"
               type="button"
               className="plus"
-              onClick={() => handleIncreaseQuantity(item.productId)}
+              onClick={() => {handleIncreaseQuantity(item.id)}}
               disabled={isLoading}
             >
               +
@@ -143,12 +143,12 @@ const CartItem: FC<CartItemProps> = ({
           </div>
         </div>
       </td>
-      <td className="cart__total">{calculateProductPrice(item, promotionApply)}</td>
+      {/* <td className="cart__total">{calculateProductPrice(item, promotionApply)}</td> */}
       <td className="cart__close">
         {' '}
         <button
           className="remove_product"
-          onClick={() => handleOpenDeleteConfirmationModal(item.productId)}
+          onClick={() => handleOpenDeleteConfirmationModal(item.id)}
         >
           <i className="bi bi-x-lg fs-5"></i>
         </button>{' '}

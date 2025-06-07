@@ -6,7 +6,6 @@ export class AddToCartDto {
   productId: number;
 
   @IsInt()
-  @Min(1)
   @IsNotEmpty()
   quantity: number;
 }

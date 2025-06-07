@@ -11,7 +11,7 @@ import { useLoginFormStore } from '@/stores/useLoginStore';
 const ProductCard = ({ product }: { product: ProductResponseDto }) => {
 
   const { user } = useUserInfoContext();
-  const { fetchNumberCartItems } = useCartContext();
+  const { fetchCart } = useCartContext();
   const { openLoginForm } = useLoginFormStore();
 
   const handleAddToCart = () => {
@@ -20,7 +20,7 @@ const ProductCard = ({ product }: { product: ProductResponseDto }) => {
       quantity: 1
     })
     .then(() => {
-      fetchNumberCartItems();
+      fetchCart();
     })
     .catch((error) => {
       console.error(error)

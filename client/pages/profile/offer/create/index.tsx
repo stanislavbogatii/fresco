@@ -47,7 +47,7 @@ const ProfileOfferCreate = () => {
     createProduct(data)
       .then(() => {
         toastSuccess("Oferta a fost salvata cu succes");
-        router.push(routes.profile_offer);
+        router.push(routes.profile.offer.root);
       })
       .catch((error) => {
         console.log(error);
@@ -219,7 +219,7 @@ const ProfileOfferCreate = () => {
           Salvați
         </button>
       </form>
-      <Link className="profile__link" href={routes.profile_offer}>
+      <Link className="profile__link" href={routes.profile.offer.root}>
         Înapoi
       </Link>
     </ProfileLayout>

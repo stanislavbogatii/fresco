@@ -58,7 +58,7 @@ const ProfileInfo = () => {
             <span className="user-info__text">-</span>
           </li>
         </ul>
-        <Link className="user-info__link" href={routes.profile_edit}>
+        <Link className="user-info__link" href={routes.profile.edit}>
           Editează
         </Link>
         <Link className="profile__link" href={routes.home}>Homepage</Link>

@@ -12,6 +12,7 @@ import { ProductResponseDto } from '../models/ProductResponseDto';
 import { PaginationResponse } from '@/models/PaginationResponse';
 import { GetProductsQueryDto } from '../models/GetproductsQueryDto';
 
+
 const baseUrl = '/products';
 const serverSideRenderUrl = `${process.env.API_BASE_PATH}/product/storefront`;
 
@@ -24,6 +25,7 @@ export async function getProducts(query: GetProductsQueryDto): Promise<Paginatio
   if (query.companyId) params.append('companyId', String(query.companyId));
   if (query.categoryId) params.append('categoryId', String(query.categoryId));
   const url = `${baseUrl}?${params.toString()}`;
+  
   const response = await apiClientService.get(url);
   return response.json();
 }
@@ -36,6 +38,7 @@ export async function getProductBySlug(slug: string): Promise<ProductResponseDto
 export async function createProduct(dto: CreateProductDto) {
   return await apiClientService.post(baseUrl, JSON.stringify(dto));
 }
+
 
 export async function getProductOptionValues(productId: number): Promise<ProductOptionValueGet[]> {
   const res = await apiClientService.get(

@@ -37,7 +37,7 @@ const Favorites = () => {
             Probabil că nu ați salvat încă nimic.
           </p>
           <Image className="favorites__img" src={favoriteImage} width={300} height={300} alt="favorites empty" />
-          <Link className="favorites__link btn-primary" href={routes.catalog}>După cumpărături</Link>
+          <Link className="favorites__link btn-primary" href={routes.catalog.root}>După cumpărături</Link>
         </div>
       </div>
     </section>

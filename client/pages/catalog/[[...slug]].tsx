@@ -36,11 +36,11 @@ const Catalog = ({category}: Props) => {
     },
     {
       pageName: 'Catalog de produse',
-      url: routes.catalog,
+      url: routes.catalog.root,
     },
     ...(category ? [{
       pageName: category.contents[0].title ?? '',
-      url: `${routes.catalog}/${category.contents[0].slug}`,
+      url:  routes.catalog.bySlug(category.contents[0].slug ?? ''),
     }] : [])
       
   ];

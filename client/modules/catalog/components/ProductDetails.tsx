@@ -84,7 +84,7 @@ export default function ProductDetails({
   const [optionSelected, setOptionSelected] = useState<CurrentSelectedOption>({});
   const [isUnchecking, setIsUnchecking] = useState<boolean>(false);
   const [currentProduct, setCurrentProduct] = useState<ProductDetail | ProductVariation>(product);
-  const { fetchNumberCartItems } = useCartContext();
+  const { fetchCart } = useCartContext();
   useEffect(() => {
     if (
       productOptions &&
@@ -178,7 +178,7 @@ export default function ProductDetails({
       return;
     }
     toastSuccess('Add to cart success');
-    fetchNumberCartItems();
+    fetchCart();
   };
 
   const handleSelectOption = (optionId: number, optionValue: string) => {

@@ -74,7 +74,7 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
             <SearchForm />
             {user ? (
               <>
-                <Link className="header__top-user" href={routes.profile}>
+                <Link className="header__top-user" href={routes.profile.root}>
                   <span className="sr-only">open my profile</span>
                 </Link>
                 <Link className="header__top-favourite" href={routes.favorites}>

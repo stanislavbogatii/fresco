@@ -50,12 +50,12 @@ const MenuBurger = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
               </Link>
             </li>
             <li className="menu-burger__item">
-              <Link className="menu-burger__link menu-burger__link--profile" href={routes.profile} onClick={onClose}>
+              <Link className="menu-burger__link menu-burger__link--profile" href={routes.profile.root} onClick={onClose}>
                 Contul meu
               </Link>
             </li>
             <li className="menu-burger__item">
-              <Link className="menu-burger__link menu-burger__link--catalog" href={routes.catalog} onClick={onClose}>
+              <Link className="menu-burger__link menu-burger__link--catalog" href={routes.catalog.root} onClick={onClose}>
                 Catalog de produse
               </Link>
             </li>
